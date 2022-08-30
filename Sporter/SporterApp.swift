@@ -28,7 +28,7 @@ struct SporterApp: App {
         WindowGroup {
 //            ContentView()
 //                .environment(\.managedObjectContext, persistenceController.container.viewContext)
-            SignIn()
+            AuthenticationView()
         }
     }
 }

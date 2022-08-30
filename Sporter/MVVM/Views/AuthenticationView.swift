@@ -1,5 +1,5 @@
 //
-//  SignIn.swift
+//  AuthenticationView.swift
 //  Sporter
 //
 //  Created by Minh Pham on 30/08/2022.
@@ -8,7 +8,7 @@
 import SwiftUI
 import Firebase
 
-struct SignIn: View {
+struct AuthenticationView: View {
     @State var email = ""
     @State var password = ""
 
@@ -36,6 +36,6 @@ struct SignIn: View {
 
 struct SignIn_Previews: PreviewProvider {
     static var previews: some View {
-        SignIn()
+        AuthenticationView()
     }
 }
