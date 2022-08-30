@@ -3,21 +3,21 @@
 <plist version="1.0">
 <dict>
 	<key>CLIENT_ID</key>
-	<string>1056540505082-ve79hhmi6soiv26vc9bkuncd41km50iv.apps.googleusercontent.com</string>
+	<string>643478479706-c5ibt5ruvrj0ikhomihfe5ujhkgcl1ed.apps.googleusercontent.com</string>
 	<key>REVERSED_CLIENT_ID</key>
-	<string>com.googleusercontent.apps.1056540505082-ve79hhmi6soiv26vc9bkuncd41km50iv</string>
+	<string>com.googleusercontent.apps.643478479706-c5ibt5ruvrj0ikhomihfe5ujhkgcl1ed</string>
 	<key>API_KEY</key>
-	<string>AIzaSyCmZQPPe8CB8Y3NLQWGf0ZJu-JFT9LmWaM</string>
+	<string>AIzaSyDALYd_u1AMjPqTHfTqF_vK_viDHGCYRF4</string>
 	<key>GCM_SENDER_ID</key>
-	<string>1056540505082</string>
+	<string>643478479706</string>
 	<key>PLIST_VERSION</key>
 	<string>1</string>
 	<key>BUNDLE_ID</key>
 	<string>com.pcminh0505.Sporter</string>
 	<key>PROJECT_ID</key>
-	<string>sporter-8f95d</string>
+	<string>sporter-3a24f</string>
 	<key>STORAGE_BUCKET</key>
-	<string>sporter-8f95d.appspot.com</string>
+	<string>sporter-3a24f.appspot.com</string>
 	<key>IS_ADS_ENABLED</key>
 	<false></false>
 	<key>IS_ANALYTICS_ENABLED</key>
@@ -29,6 +29,6 @@
 	<key>IS_SIGNIN_ENABLED</key>
 	<true></true>
 	<key>GOOGLE_APP_ID</key>
-	<string>1:1056540505082:ios:3a6c08c77cfb52eade6a43</string>
+	<string>1:643478479706:ios:470296ddc7ba768e0f8963</string>
 </dict>
 </plist>

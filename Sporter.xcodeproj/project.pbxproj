@@ -15,7 +15,6 @@
 		241A6EBD28BDCD1600C830BE /* Sporter.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 241A6EBB28BDCD1600C830BE /* Sporter.xcdatamodeld */; };
 		241A6ECD28BDD12A00C830BE /* Lottie.swift in Sources */ = {isa = PBXBuildFile; fileRef = 241A6ECC28BDD12A00C830BE /* Lottie.swift */; };
 		241A6ED028BDD31E00C830BE /* Lottie in Frameworks */ = {isa = PBXBuildFile; productRef = 241A6ECF28BDD31E00C830BE /* Lottie */; };
-		241A6ED228BDF9FC00C830BE /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 241A6ED128BDF9FC00C830BE /* GoogleService-Info.plist */; };
 		241A6ED528BDFBD600C830BE /* FirebaseAnalytics in Frameworks */ = {isa = PBXBuildFile; productRef = 241A6ED428BDFBD600C830BE /* FirebaseAnalytics */; };
 		241A6ED728BDFBD600C830BE /* FirebaseAnalyticsOnDeviceConversion in Frameworks */ = {isa = PBXBuildFile; productRef = 241A6ED628BDFBD600C830BE /* FirebaseAnalyticsOnDeviceConversion */; };
 		241A6ED928BDFBD600C830BE /* FirebaseAnalyticsSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 241A6ED828BDFBD600C830BE /* FirebaseAnalyticsSwift */; };
@@ -44,6 +43,7 @@
 		241A6F0728BDFBD600C830BE /* FirebaseStorage in Frameworks */ = {isa = PBXBuildFile; productRef = 241A6F0628BDFBD600C830BE /* FirebaseStorage */; };
 		241A6F0928BDFBD600C830BE /* FirebaseStorageCombine-Community in Frameworks */ = {isa = PBXBuildFile; productRef = 241A6F0828BDFBD600C830BE /* FirebaseStorageCombine-Community */; };
 		241A6F0B28BDFDA400C830BE /* SignIn.swift in Sources */ = {isa = PBXBuildFile; fileRef = 241A6F0A28BDFDA400C830BE /* SignIn.swift */; };
+		24282C1A28BE032C00CDFE61 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 24282C1928BE032C00CDFE61 /* GoogleService-Info.plist */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -55,8 +55,8 @@
 		241A6EB928BDCD1600C830BE /* Persistence.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Persistence.swift; sourceTree = "<group>"; };
 		241A6EBC28BDCD1600C830BE /* Sporter.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Sporter.xcdatamodel; sourceTree = "<group>"; };
 		241A6ECC28BDD12A00C830BE /* Lottie.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Lottie.swift; sourceTree = "<group>"; };
-		241A6ED128BDF9FC00C830BE /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		241A6F0A28BDFDA400C830BE /* SignIn.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignIn.swift; sourceTree = "<group>"; };
+		24282C1928BE032C00CDFE61 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -101,7 +101,7 @@
 		241A6EA428BDCD1300C830BE = {
 			isa = PBXGroup;
 			children = (
-				241A6ED128BDF9FC00C830BE /* GoogleService-Info.plist */,
+				24282C1928BE032C00CDFE61 /* GoogleService-Info.plist */,
 				241A6EAF28BDCD1300C830BE /* Sporter */,
 				241A6EAE28BDCD1300C830BE /* Products */,
 			);
@@ -296,7 +296,7 @@
 			files = (
 				241A6EB828BDCD1600C830BE /* Preview Assets.xcassets in Resources */,
 				241A6EB528BDCD1600C830BE /* Assets.xcassets in Resources */,
-				241A6ED228BDF9FC00C830BE /* GoogleService-Info.plist in Resources */,
+				24282C1A28BE032C00CDFE61 /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
