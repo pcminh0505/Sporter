@@ -22,13 +22,11 @@ struct SporterApp: App {
     // Register app delegate for Firebase setup
     @UIApplicationDelegateAdaptor(AppDelegate.self) var delegate
 
-    let persistenceController = PersistenceController.shared
-
     var body: some Scene {
         WindowGroup {
 //            ContentView()
 //                .environment(\.managedObjectContext, persistenceController.container.viewContext)
-            AuthenticationView()
+            AuthView()
         }
     }
 }
