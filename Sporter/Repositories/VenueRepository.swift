@@ -6,3 +6,14 @@
 //
 
 import Foundation
+import Firebase
+
+class VenueRepository {
+    func getAllVenues() {
+        print("GetAllVenues")
+    }
+    
+    func getVenue() {
+        print("GetVenue")
+    }
+}
