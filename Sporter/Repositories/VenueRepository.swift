@@ -6,11 +6,35 @@
 //
 
 import Foundation
-import Firebase
+import FirebaseFirestore
+import FirebaseFirestoreSwift
+import Combine
 
 class VenueRepository {
+    private let db = Firestore.firestore()
+    private let collection: String = "venues"
+    @Published var venues: [Venue] = []
+    
+    init() {
+        getAllVenues()
+    }
+    
     func getAllVenues() {
         print("GetAllVenues")
+        db.collection(collection)
+          .addSnapshotListener { querySnapshot, error in
+            // 4
+            if let error = error {
+              print("Error getting cards: \(error.localizedDescription)")
+              return
+            }
+
+            // 5
+            self.venues = querySnapshot?.documents.compactMap { document in
+              // 6
+              try? document.data(as: Venue.self)
+            } ?? []
+          }
     }
     
     func getVenue() {
