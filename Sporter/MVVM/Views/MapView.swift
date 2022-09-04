@@ -8,8 +8,14 @@
 import SwiftUI
 
 struct MapView: View {
+    @ObservedObject var mapViewModel = MapViewModel()
+    
     var body: some View {
-        Text("Hello, MapView!")
+        VStack {
+            List(mapViewModel.venues) { venue in
+                Text(venue.name)
+            }
+        }
     }
 }
 

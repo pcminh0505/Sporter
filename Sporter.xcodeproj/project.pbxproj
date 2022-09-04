@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0C8FF7F828C4E0D70094465D /* MapViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C8FF7F728C4E0D70094465D /* MapViewModel.swift */; };
+		0C8FF7FA28C4E10D0094465D /* VenueModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C8FF7F928C4E10D0094465D /* VenueModel.swift */; };
 		241A6EB128BDCD1300C830BE /* SporterApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 241A6EB028BDCD1300C830BE /* SporterApp.swift */; };
 		241A6EB528BDCD1600C830BE /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 241A6EB428BDCD1600C830BE /* Assets.xcassets */; };
 		241A6EB828BDCD1600C830BE /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 241A6EB728BDCD1600C830BE /* Preview Assets.xcassets */; };
@@ -51,6 +53,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		0C8FF7F728C4E0D70094465D /* MapViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = MapViewModel.swift; path = Sporter/Repositories/MapViewModel.swift; sourceTree = SOURCE_ROOT; };
+		0C8FF7F928C4E10D0094465D /* VenueModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VenueModel.swift; sourceTree = "<group>"; };
 		241A6EAD28BDCD1300C830BE /* Sporter.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Sporter.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		241A6EB028BDCD1300C830BE /* SporterApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SporterApp.swift; sourceTree = "<group>"; };
 		241A6EB428BDCD1600C830BE /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -170,6 +174,7 @@
 			isa = PBXGroup;
 			children = (
 				246B09F228BE1847007B7070 /* UserModel.swift */,
+				0C8FF7F928C4E10D0094465D /* VenueModel.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -177,6 +182,7 @@
 		241A6EC728BDCFD700C830BE /* ViewModels */ = {
 			isa = PBXGroup;
 			children = (
+				0C8FF7F728C4E0D70094465D /* MapViewModel.swift */,
 			);
 			path = ViewModels;
 			sourceTree = "<group>";
@@ -338,9 +344,11 @@
 				241A6F0B28BDFDA400C830BE /* AuthView.swift in Sources */,
 				246B09F728BFB9EA007B7070 /* LaunchView.swift in Sources */,
 				246B09FB28BFBACA007B7070 /* MapView.swift in Sources */,
+				0C8FF7FA28C4E10D0094465D /* VenueModel.swift in Sources */,
 				246B09FF28BFBC1E007B7070 /* Color.swift in Sources */,
 				246B09F928BFBA7B007B7070 /* HomeView.swift in Sources */,
 				246B09EF28BE17DC007B7070 /* VenueRepository.swift in Sources */,
+				0C8FF7F828C4E0D70094465D /* MapViewModel.swift in Sources */,
 				246B09ED28BE17C6007B7070 /* UserRepository.swift in Sources */,
 				241A6EB128BDCD1300C830BE /* SporterApp.swift in Sources */,
 				246B09F328BE1847007B7070 /* UserModel.swift in Sources */,
