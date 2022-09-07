@@ -26,30 +26,21 @@ struct Home: View {
     @State var status = UserDefaults.standard.value(forKey: "status") as? Bool ?? false
 
     var body: some View {
-
         NavigationView {
-
             VStack {
-
                 if self.status {
-
                     HomeView()
                 }
                 else {
-
                     ZStack {
-
+                        Login(show: self.$show)
                         NavigationLink(destination: SignUp(show: self.$show), isActive: self.$show) {
-
-                            Text("")
+                            EmptyView()
                         }
                             .hidden()
-
-                        Login(show: self.$show)
                     }
                 }
             }
-                .navigationBarTitle("")
                 .navigationBarHidden(true)
                 .navigationBarBackButtonHidden(true)
                 .onAppear {
@@ -74,114 +65,95 @@ struct Login: View {
     @State var error = ""
 
     var body: some View {
-
         ZStack {
+            GeometryReader { _ in
+                VStack {
+                    Image("Logo")
+                        .padding(.top, 25)
+                    Text("Log in to your account")
+                        .font(.title)
+                        .fontWeight(.bold)
+                        .foregroundColor(self.color)
+                        .padding(.top, 35)
 
-            ZStack(alignment: .topTrailing) {
+                    TextField("Email", text: self.$email)
+                        .autocapitalization(.none)
+                        .padding()
+                        .background(RoundedRectangle(cornerRadius: 4).stroke(self.email != "" ? Color.accentColor : self.color, lineWidth: 2))
+                        .padding(.top, 25)
 
-                GeometryReader { _ in
-
-                    VStack {
-
-//                        Image("logo")
-
-                        Text("Log in to your account")
-                            .font(.title)
-                            .fontWeight(.bold)
-                            .foregroundColor(self.color)
-                            .padding(.top, 35)
-
-                        TextField("Email", text: self.$email)
-                            .autocapitalization(.none)
-                            .padding()
-                            .background(RoundedRectangle(cornerRadius: 4).stroke(self.email != "" ? Color.blue : self.color, lineWidth: 2))
-                            .padding(.top, 25)
-
-                        HStack(spacing: 15) {
-
-                            VStack {
-
-                                if self.visible {
-
-                                    TextField("Password", text: self.$pass)
-                                        .autocapitalization(.none)
-                                }
-                                else {
-
-                                    SecureField("Password", text: self.$pass)
-                                        .autocapitalization(.none)
-                                }
+                    HStack(spacing: 15) {
+                        VStack {
+                            if self.visible {
+                                TextField("Password", text: self.$pass)
+                                    .autocapitalization(.none)
                             }
-
-                            Button(action: {
-
-                                self.visible.toggle()
-
-                            }) {
-
-                                Image(systemName: self.visible ? "eye.slash.fill" : "eye.fill")
-                                    .foregroundColor(self.color)
-                            }
-
-                        }
-                            .padding()
-                            .background(RoundedRectangle(cornerRadius: 4).stroke(self.pass != "" ? Color.blue : self.color, lineWidth: 2))
-                            .padding(.top, 25)
-
-                        HStack {
-
-                            Spacer()
-
-                            Button(action: {
-
-                                self.reset()
-
-                            }) {
-
-                                Text("Forget password")
-                                    .fontWeight(.bold)
-                                    .foregroundColor(Color.blue)
+                            else {
+                                SecureField("Password", text: self.$pass)
+                                    .autocapitalization(.none)
                             }
                         }
-                            .padding(.top, 20)
 
                         Button(action: {
-
-                            self.verify()
-
+                            self.visible.toggle()
                         }) {
-
-                            Text("Log in")
-                                .foregroundColor(.white)
-                                .padding(.vertical)
-                                .frame(width: UIScreen.main.bounds.width - 50)
+                            Image(systemName: self.visible ? "eye.slash.fill" : "eye.fill")
+                                .foregroundColor(self.color)
                         }
-                            .background(Color.blue)
-                            .cornerRadius(10)
-                            .padding(.top, 25)
 
                     }
-                        .padding(.horizontal, 25)
+                        .padding()
+                        .background(RoundedRectangle(cornerRadius: 4).stroke(self.pass != "" ? Color.accentColor : self.color, lineWidth: 2))
+                        .padding(.top, 25)
+
+                    HStack {
+                        Spacer()
+                        Button(action: {
+                            self.reset()
+                        }) {
+                            Text("Forget password?")
+                                .fontWeight(.bold)
+                                .foregroundColor(Color.accentColor)
+                        }
+                    }
+                        .padding(.top, 20)
+
+                    Button(action: {
+                        self.verify()
+                    }) {
+                        Text("Log in")
+                            .foregroundColor(.white)
+                            .padding(.vertical)
+                            .frame(width: UIScreen.main.bounds.width - 50)
+                    }
+                        .background(Color.accentColor)
+                        .cornerRadius(10)
+                        .padding(.top, 25)
+
+
+                    HStack {
+                        Text("Not having account?")
+                            .foregroundColor(Color.theme.darkGray)
+                            .fontWeight(.bold)
+                        Button(action: {
+                            self.show.toggle()
+                        }) {
+                            Text("Register")
+                                .fontWeight(.bold)
+                                .foregroundColor(Color.accentColor)
+                        }
+                    }
+                        .padding()
                 }
+                    .padding(.horizontal, 25)
 
-                Button(action: {
 
-                    self.show.toggle()
-
-                }) {
-
-                    Text("Register")
-                        .fontWeight(.bold)
-                        .foregroundColor(Color.blue)
-                }
-                    .padding()
             }
-
             if self.alert {
-
                 ErrorView(alert: self.$alert, error: self.$error)
             }
         }
+            .navigationBarHidden(true)
     }
 
     func verify() {
@@ -236,7 +208,7 @@ struct Login: View {
 
 struct SignUp: View {
 
-    @State var color = Color.black.opacity(0.7)
+    @State var color = Color.theme.textColor.opacity(0.7)
 
     @State var fname = ""
     @State var lname = ""
@@ -252,16 +224,12 @@ struct SignUp: View {
     @State var error = ""
 
     var body: some View {
-
         ZStack {
-
-            ZStack(alignment: .topLeading) {
-
-                GeometryReader { _ in
-
+            GeometryReader { _ in
+                ScrollView {
                     VStack {
-
-//                        Image("logo")
+                        Image("Logo")
+                            .padding(.top, 25)
 
                         Text("Register a new account")
                             .font(.title)
@@ -273,25 +241,25 @@ struct SignUp: View {
                             TextField("First Name", text: self.$fname)
                                 .autocapitalization(.none)
                                 .padding()
-                                .background(RoundedRectangle(cornerRadius: 4).stroke(self.fname != "" ? Color.blue : self.color, lineWidth: 2))
+                                .background(RoundedRectangle(cornerRadius: 4).stroke(self.fname != "" ? Color.accentColor : self.color, lineWidth: 2))
                                 .padding(.top, 25)
                             TextField("Last Name", text: self.$lname)
                                 .autocapitalization(.none)
                                 .padding()
-                                .background(RoundedRectangle(cornerRadius: 4).stroke(self.lname != "" ? Color.blue : self.color, lineWidth: 2))
+                                .background(RoundedRectangle(cornerRadius: 4).stroke(self.lname != "" ? Color.accentColor : self.color, lineWidth: 2))
                                 .padding(.top, 25)
                         }
 
                         TextField("Phone Number", text: self.$phone)
                             .autocapitalization(.none)
                             .padding()
-                            .background(RoundedRectangle(cornerRadius: 4).stroke(self.phone != "" ? Color.blue : self.color, lineWidth: 2))
+                            .background(RoundedRectangle(cornerRadius: 4).stroke(self.phone != "" ? Color.accentColor : self.color, lineWidth: 2))
                             .padding(.top, 25)
 
                         TextField("Email", text: self.$email)
                             .autocapitalization(.none)
                             .padding()
-                            .background(RoundedRectangle(cornerRadius: 4).stroke(self.email != "" ? Color.blue : self.color, lineWidth: 2))
+                            .background(RoundedRectangle(cornerRadius: 4).stroke(self.email != "" ? Color.accentColor : self.color, lineWidth: 2))
                             .padding(.top, 25)
 
                         HStack(spacing: 15) {
@@ -311,9 +279,7 @@ struct SignUp: View {
                             }
 
                             Button(action: {
-
                                 self.visible.toggle()
-
                             }) {
 
                                 Image(systemName: self.visible ? "eye.slash.fill" : "eye.fill")
@@ -322,73 +288,66 @@ struct SignUp: View {
 
                         }
                             .padding()
-                            .background(RoundedRectangle(cornerRadius: 4).stroke(self.pass != "" ? Color.blue : self.color, lineWidth: 2))
+                            .background(RoundedRectangle(cornerRadius: 4).stroke(self.pass != "" ? Color.accentColor : self.color, lineWidth: 2))
                             .padding(.top, 25)
 
                         HStack(spacing: 15) {
-
                             VStack {
-
                                 if self.revisible {
-
                                     TextField("Re-enter", text: self.$repass)
                                         .autocapitalization(.none)
                                 }
                                 else {
-
-                                    SecureField("Re-enter", text: self.$repass)
+                                    SecureField("Confirm Password", text: self.$repass)
                                         .autocapitalization(.none)
                                 }
                             }
 
                             Button(action: {
-
                                 self.revisible.toggle()
-
                             }) {
-
                                 Image(systemName: self.revisible ? "eye.slash.fill" : "eye.fill")
                                     .foregroundColor(self.color)
                             }
 
                         }
                             .padding()
-                            .background(RoundedRectangle(cornerRadius: 4).stroke(self.repass != "" ? Color.blue : self.color, lineWidth: 2))
+                            .background(RoundedRectangle(cornerRadius: 4).stroke(self.repass != "" ? Color.accentColor : self.color, lineWidth: 2))
                             .padding(.top, 25)
 
                         Button(action: {
-
                             self.register()
                         }) {
-
                             Text("Register")
                                 .foregroundColor(.white)
                                 .padding(.vertical)
                                 .frame(width: UIScreen.main.bounds.width - 50)
                         }
-                            .background(Color.blue)
+                            .background(Color.accentColor)
                             .cornerRadius(10)
                             .padding(.top, 25)
+
+                        HStack {
+                            Text("Already have an account?")
+                                .foregroundColor(Color.theme.darkGray)
+                                .fontWeight(.bold)
+                            Button(action: {
+                                self.show.toggle()
+                            }) {
+                                Text("Login")
+                                    .fontWeight(.bold)
+                                    .foregroundColor(Color.accentColor)
+                            }
+
+                        }
+                            .padding()
 
                     }
                         .padding(.horizontal, 25)
                 }
-
-                Button(action: {
-
-                    self.show.toggle()
-
-                }) {
-
-                    Image(systemName: "chevron.left")
-                        .font(.title)
-                        .foregroundColor(Color.blue)
-                }
-                    .padding()
             }
 
             if self.alert {
-
                 ErrorView(alert: self.$alert, error: self.$error)
             }
         }
@@ -449,11 +408,8 @@ struct ErrorView: View {
     var body: some View {
 
         GeometryReader { _ in
-
             VStack {
-
                 HStack {
-
                     Text(self.error == "RESET" ? "Message" : "Error")
                         .font(.title)
                         .fontWeight(.bold)
@@ -473,16 +429,14 @@ struct ErrorView: View {
                     self.alert.toggle()
 
                 }) {
-
                     Text(self.error == "RESET" ? "Ok" : "Cancel")
                         .foregroundColor(.white)
                         .padding(.vertical)
                         .frame(width: UIScreen.main.bounds.width - 120)
                 }
-                    .background(Color.blue)
+                    .background(Color.accentColor)
                     .cornerRadius(10)
                     .padding(.top, 25)
-
             }
                 .padding(.vertical, 25)
                 .frame(width: UIScreen.main.bounds.width - 70)

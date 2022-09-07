@@ -25,11 +25,10 @@ struct SporterApp: App {
 
     var body: some Scene {
         WindowGroup {
-//            ContentView()
-//                .environment(\.managedObjectContext, persistenceController.container.viewContext)
-//            AuthView()
-            MapView()
+             LaunchView()
                 .environmentObject(venueViewModel)
+//            AuthView()
+//            MapView()
         }
     }
 }

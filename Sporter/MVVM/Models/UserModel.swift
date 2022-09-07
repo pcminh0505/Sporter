@@ -11,6 +11,7 @@ struct User: Codable {
     let id: String
     let fname: String
     let lname: String
+//    let gender: String
     let email: String
     let phone: String
     let friends: [String]
@@ -19,6 +20,7 @@ struct User: Codable {
         case id
         case fname
         case lname
+//        case gender
         case email
         case phone
         case friends

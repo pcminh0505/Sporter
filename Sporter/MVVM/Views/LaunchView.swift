@@ -16,18 +16,23 @@ struct LaunchView: View {
         VStack {
             if self.isActive {
                 // Load main view
-                NavigationView {
-                    HomeView()
-                        .navigationBarHidden(true)
-                }
+                AuthView()
             } else {
                 // Load launch/splash view
-//                Lottie(name: "rocket", loopMode: .playOnce)
-//                    .frame(width: 350, height: 300)
+                Lottie(name: "sporter", loopMode: .playOnce)
+                    .frame(width: 350, height: 300)
+                    .padding(.top, -UIScreen.main.bounds.height * 0.15)
 
-                Text("Splash Screen")
-                    .foregroundColor(Color.accentColor).opacity(opacity)
-                    .font(.headline)
+                VStack (alignment: .center, spacing: 15) {
+                    Text("Sporter!")
+                        .font(.title2)
+                        .foregroundColor(Color.accentColor)
+                        .bold()
+                    Text("Connecting Sports Players and Gymmers")
+                        .font(.headline)
+                        .foregroundColor(Color.theme.darkGray)
+                }
+                    .opacity(opacity)
                     .onAppear {
                     // Adjust in and out opacity animation
                     DispatchQueue.main.asyncAfter(deadline: .now() + 0.75) {
@@ -35,18 +40,14 @@ struct LaunchView: View {
                             self.opacity = 1.0
                         }
                     }
-                    DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
-                        withAnimation {
-                            self.opacity = 0.0
-                        }
-                    }
                 }
-                    .padding(.bottom, 100)
+                    .padding(.top, 20)
 
             }
         }
+        
             .onAppear {
-                DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
+            DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
                 withAnimation {
                     self.opacity = 0.0
                     self.isActive = true
