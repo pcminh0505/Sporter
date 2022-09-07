@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		0C8FF7F828C4E0D70094465D /* VenueViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C8FF7F728C4E0D70094465D /* VenueViewModel.swift */; };
 		0C8FF7FA28C4E10D0094465D /* VenueModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C8FF7F928C4E10D0094465D /* VenueModel.swift */; };
 		0CAF6B4628C84A59003EFF26 /* CustomMapAnnotationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0CAF6B4528C84A59003EFF26 /* CustomMapAnnotationView.swift */; };
 		241A6EB128BDCD1300C830BE /* SporterApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 241A6EB028BDCD1300C830BE /* SporterApp.swift */; };
@@ -53,14 +52,14 @@
 		246B09FB28BFBACA007B7070 /* MapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 246B09FA28BFBACA007B7070 /* MapView.swift */; };
 		246B09FF28BFBC1E007B7070 /* Color.swift in Sources */ = {isa = PBXBuildFile; fileRef = 246B09FE28BFBC1E007B7070 /* Color.swift */; };
 		2489E39028C85BDE00642E54 /* CardUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2489E38F28C85BDE00642E54 /* CardUser.swift */; };
-		2489E39228C85BF600642E54 /* CardViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2489E39128C85BF600642E54 /* CardViewModel.swift */; };
 		2489E39428C85C0100642E54 /* DiscoveryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2489E39328C85C0100642E54 /* DiscoveryView.swift */; };
 		2489E39628C85C0700642E54 /* StackCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2489E39528C85C0600642E54 /* StackCardView.swift */; };
-		2489E39828C85CDD00642E54 /* MapViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2489E39728C85CDD00642E54 /* MapViewModel.swift */; };
+		2493A5CB28C8658C0055F8D2 /* MapViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2493A5C828C8658C0055F8D2 /* MapViewModel.swift */; };
+		2493A5CC28C8658C0055F8D2 /* CardViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2493A5C928C8658C0055F8D2 /* CardViewModel.swift */; };
+		2493A5CD28C8658C0055F8D2 /* VenueViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2493A5CA28C8658C0055F8D2 /* VenueViewModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		0C8FF7F728C4E0D70094465D /* VenueViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = VenueViewModel.swift; path = Sporter/Repositories/VenueViewModel.swift; sourceTree = SOURCE_ROOT; };
 		0C8FF7F928C4E10D0094465D /* VenueModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VenueModel.swift; sourceTree = "<group>"; };
 		0CAF6B4528C84A59003EFF26 /* CustomMapAnnotationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomMapAnnotationView.swift; sourceTree = "<group>"; };
 		241A6EAD28BDCD1300C830BE /* Sporter.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Sporter.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -79,10 +78,11 @@
 		246B09FA28BFBACA007B7070 /* MapView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapView.swift; sourceTree = "<group>"; };
 		246B09FE28BFBC1E007B7070 /* Color.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Color.swift; sourceTree = "<group>"; };
 		2489E38F28C85BDE00642E54 /* CardUser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CardUser.swift; sourceTree = "<group>"; };
-		2489E39128C85BF600642E54 /* CardViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CardViewModel.swift; sourceTree = "<group>"; };
 		2489E39328C85C0100642E54 /* DiscoveryView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DiscoveryView.swift; sourceTree = "<group>"; };
 		2489E39528C85C0600642E54 /* StackCardView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StackCardView.swift; sourceTree = "<group>"; };
-		2489E39728C85CDD00642E54 /* MapViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapViewModel.swift; sourceTree = "<group>"; };
+		2493A5C828C8658C0055F8D2 /* MapViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapViewModel.swift; sourceTree = "<group>"; };
+		2493A5C928C8658C0055F8D2 /* CardViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CardViewModel.swift; sourceTree = "<group>"; };
+		2493A5CA28C8658C0055F8D2 /* VenueViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VenueViewModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -205,16 +205,6 @@
 			path = Models;
 			sourceTree = "<group>";
 		};
-		241A6EC728BDCFD700C830BE /* ViewModels */ = {
-			isa = PBXGroup;
-			children = (
-				2489E39128C85BF600642E54 /* CardViewModel.swift */,
-				0C8FF7F728C4E0D70094465D /* VenueViewModel.swift */,
-				2489E39728C85CDD00642E54 /* MapViewModel.swift */,
-			);
-			path = ViewModels;
-			sourceTree = "<group>";
-		};
 		241A6EC828BDCFDE00C830BE /* Utils */ = {
 			isa = PBXGroup;
 			children = (
@@ -251,7 +241,7 @@
 			isa = PBXGroup;
 			children = (
 				241A6EC628BDCFD200C830BE /* Models */,
-				241A6EC728BDCFD700C830BE /* ViewModels */,
+				2493A5C728C865720055F8D2 /* ViewModels */,
 				241A6EC528BDCFC500C830BE /* Views */,
 			);
 			path = MVVM;
@@ -263,6 +253,16 @@
 				246B09FE28BFBC1E007B7070 /* Color.swift */,
 			);
 			path = Extensions;
+			sourceTree = "<group>";
+		};
+		2493A5C728C865720055F8D2 /* ViewModels */ = {
+			isa = PBXGroup;
+			children = (
+				2493A5C928C8658C0055F8D2 /* CardViewModel.swift */,
+				2493A5C828C8658C0055F8D2 /* MapViewModel.swift */,
+				2493A5CA28C8658C0055F8D2 /* VenueViewModel.swift */,
+			);
+			path = ViewModels;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -375,19 +375,19 @@
 				0CAF6B4628C84A59003EFF26 /* CustomMapAnnotationView.swift in Sources */,
 				2489E39028C85BDE00642E54 /* CardUser.swift in Sources */,
 				246B09F728BFB9EA007B7070 /* LaunchView.swift in Sources */,
-				2489E39228C85BF600642E54 /* CardViewModel.swift in Sources */,
+				2493A5CC28C8658C0055F8D2 /* CardViewModel.swift in Sources */,
 				246B09FB28BFBACA007B7070 /* MapView.swift in Sources */,
 				0C8FF7FA28C4E10D0094465D /* VenueModel.swift in Sources */,
 				2489E39428C85C0100642E54 /* DiscoveryView.swift in Sources */,
+				2493A5CB28C8658C0055F8D2 /* MapViewModel.swift in Sources */,
 				246B09FF28BFBC1E007B7070 /* Color.swift in Sources */,
 				246B09F928BFBA7B007B7070 /* HomeView.swift in Sources */,
-				2489E39828C85CDD00642E54 /* MapViewModel.swift in Sources */,
 				2489E39628C85C0700642E54 /* StackCardView.swift in Sources */,
 				246B09EF28BE17DC007B7070 /* VenueRepository.swift in Sources */,
-				0C8FF7F828C4E0D70094465D /* VenueViewModel.swift in Sources */,
 				246B09ED28BE17C6007B7070 /* UserRepository.swift in Sources */,
 				241A6EB128BDCD1300C830BE /* SporterApp.swift in Sources */,
 				246B09F328BE1847007B7070 /* UserModel.swift in Sources */,
+				2493A5CD28C8658C0055F8D2 /* VenueViewModel.swift in Sources */,
 				241A6ECD28BDD12A00C830BE /* Lottie.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
