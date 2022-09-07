@@ -50,6 +50,10 @@
 		246B09F928BFBA7B007B7070 /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 246B09F828BFBA7B007B7070 /* HomeView.swift */; };
 		246B09FB28BFBACA007B7070 /* MapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 246B09FA28BFBACA007B7070 /* MapView.swift */; };
 		246B09FF28BFBC1E007B7070 /* Color.swift in Sources */ = {isa = PBXBuildFile; fileRef = 246B09FE28BFBC1E007B7070 /* Color.swift */; };
+		CC30C97C28C84431006AC6A3 /* StackCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC30C97B28C84431006AC6A3 /* StackCardView.swift */; };
+		CC30C97E28C8446D006AC6A3 /* CardUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC30C97D28C8446D006AC6A3 /* CardUser.swift */; };
+		CC30C98028C84491006AC6A3 /* CardViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC30C97F28C84491006AC6A3 /* CardViewModel.swift */; };
+		CC30C98228C844A8006AC6A3 /* DiscoveryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC30C98128C844A8006AC6A3 /* DiscoveryView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -69,6 +73,10 @@
 		246B09F828BFBA7B007B7070 /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
 		246B09FA28BFBACA007B7070 /* MapView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapView.swift; sourceTree = "<group>"; };
 		246B09FE28BFBC1E007B7070 /* Color.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Color.swift; sourceTree = "<group>"; };
+		CC30C97B28C84431006AC6A3 /* StackCardView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StackCardView.swift; sourceTree = "<group>"; };
+		CC30C97D28C8446D006AC6A3 /* CardUser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CardUser.swift; sourceTree = "<group>"; };
+		CC30C97F28C84491006AC6A3 /* CardViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CardViewModel.swift; sourceTree = "<group>"; };
+		CC30C98128C844A8006AC6A3 /* DiscoveryView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DiscoveryView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -162,8 +170,10 @@
 		241A6EC528BDCFC500C830BE /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				CC30C97B28C84431006AC6A3 /* StackCardView.swift */,
 				241A6F0A28BDFDA400C830BE /* AuthView.swift */,
 				246B09F628BFB9E9007B7070 /* LaunchView.swift */,
+				CC30C98128C844A8006AC6A3 /* DiscoveryView.swift */,
 				246B09F828BFBA7B007B7070 /* HomeView.swift */,
 				246B09FA28BFBACA007B7070 /* MapView.swift */,
 			);
@@ -173,6 +183,7 @@
 		241A6EC628BDCFD200C830BE /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				CC30C97D28C8446D006AC6A3 /* CardUser.swift */,
 				246B09F228BE1847007B7070 /* UserModel.swift */,
 				0C8FF7F928C4E10D0094465D /* VenueModel.swift */,
 			);
@@ -183,6 +194,7 @@
 			isa = PBXGroup;
 			children = (
 				0C8FF7F728C4E0D70094465D /* MapViewModel.swift */,
+				CC30C97F28C84491006AC6A3 /* CardViewModel.swift */,
 			);
 			path = ViewModels;
 			sourceTree = "<group>";
@@ -342,17 +354,21 @@
 			buildActionMask = 2147483647;
 			files = (
 				241A6F0B28BDFDA400C830BE /* AuthView.swift in Sources */,
+				CC30C98228C844A8006AC6A3 /* DiscoveryView.swift in Sources */,
 				246B09F728BFB9EA007B7070 /* LaunchView.swift in Sources */,
 				246B09FB28BFBACA007B7070 /* MapView.swift in Sources */,
 				0C8FF7FA28C4E10D0094465D /* VenueModel.swift in Sources */,
 				246B09FF28BFBC1E007B7070 /* Color.swift in Sources */,
 				246B09F928BFBA7B007B7070 /* HomeView.swift in Sources */,
 				246B09EF28BE17DC007B7070 /* VenueRepository.swift in Sources */,
+				CC30C97C28C84431006AC6A3 /* StackCardView.swift in Sources */,
 				0C8FF7F828C4E0D70094465D /* MapViewModel.swift in Sources */,
 				246B09ED28BE17C6007B7070 /* UserRepository.swift in Sources */,
+				CC30C97E28C8446D006AC6A3 /* CardUser.swift in Sources */,
 				241A6EB128BDCD1300C830BE /* SporterApp.swift in Sources */,
 				246B09F328BE1847007B7070 /* UserModel.swift in Sources */,
 				241A6ECD28BDD12A00C830BE /* Lottie.swift in Sources */,
+				CC30C98028C84491006AC6A3 /* CardViewModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -481,7 +497,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"Sporter/Preview Content\"";
-				DEVELOPMENT_TEAM = Q4ZK4P569Q;
+				DEVELOPMENT_TEAM = 36WUZPKHB2;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
@@ -489,12 +505,13 @@
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 15.2;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.pcminh0505.Sporter;
+				PRODUCT_BUNDLE_IDENTIFIER = com.longtran.Sporter;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
@@ -510,7 +527,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"Sporter/Preview Content\"";
-				DEVELOPMENT_TEAM = Q4ZK4P569Q;
+				DEVELOPMENT_TEAM = 36WUZPKHB2;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
@@ -518,12 +535,13 @@
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 15.2;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.pcminh0505.Sporter;
+				PRODUCT_BUNDLE_IDENTIFIER = com.longtran.Sporter;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;

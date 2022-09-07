@@ -27,7 +27,8 @@ struct SporterApp: App {
 //            ContentView()
 //                .environment(\.managedObjectContext, persistenceController.container.viewContext)
 //            AuthView()
-            MapView()
+            DiscoveryView()
+//            MapView()
         }
     }
 }
