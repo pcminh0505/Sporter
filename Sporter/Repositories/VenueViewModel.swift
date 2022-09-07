@@ -8,7 +8,7 @@
 import Foundation
 import Combine
 
-class MapViewModel : ObservableObject, Identifiable {
+class VenueViewModel : ObservableObject, Identifiable {
     @Published var venueRepository =  VenueRepository()
     @Published var venues: [Venue] = []
     private var cancellables: Set<AnyCancellable> = []
