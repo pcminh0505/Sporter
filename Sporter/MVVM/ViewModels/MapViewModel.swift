@@ -13,7 +13,9 @@ import SwiftUI
 final class MapViewModel: NSObject, ObservableObject, CLLocationManagerDelegate {
     @Published var mapRegion: MKCoordinateRegion = MKCoordinateRegion(
         center: CLLocationCoordinate2D(latitude: 10.7770833, longitude: 106.6932374),
-        span: MKCoordinateSpan(latitudeDelta: 0.05, longitudeDelta: 0.05))
+        span: MKCoordinateSpan(latitudeDelta: 0.03, longitudeDelta: 0.03))
+    @Published var isPreviewShow = false
+    @Published var selectedVenue : Venue?
     
     var locationManager = CLLocationManager()
     override init() {
@@ -37,34 +39,22 @@ final class MapViewModel: NSObject, ObservableObject, CLLocationManagerDelegate 
         print(error.localizedDescription )
     }
     
-//    func checkLocationServiceEnabled() {
-//        if CLLocationManager.locationServicesEnabled() {
-//            locationManager = CLLocationManager()
-//            locationManager!.delegate = self
-//        } else {
-//            print("Show alert: location service not enabled")
-//        }
-//    }
-//
-//    private func checkLocationPermissionEnabled() {
-//        guard let locationManager = locationManager else { return }
-//
-//        switch locationManager.authorizationStatus {
-//            case .notDetermined:
-//                locationManager.requestWhenInUseAuthorization()
-//            case .restricted:
-//                print("Your location is restricted, likely due to parental controls.")
-//            case .denied:
-//                print("Denied location permission, check in setting.")
-//            case .authorizedAlways, .authorizedWhenInUse:
-//                mapRegion = MKCoordinateRegion(center: locationManager.location!.coordinate,
-//                                            span: MKCoordinateSpan(latitudeDelta: 0.05, longitudeDelta: 0.05))
-//            @unknown default:
-//                break
-//        }
-//    }
-//
-//    func locationManagerDidChangeAuthorization(_ manager: CLLocationManager) {
-//        checkLocationPermissionEnabled()
-//    }
+    // hide venue preview
+    func mapTap() {
+        withAnimation {
+            isPreviewShow = false
+        }
+    }
+    
+    // show venue preview
+    func showVenuePreview(venue: Venue) {
+        withAnimation {
+            selectedVenue = venue
+            let focusCoordinate = CLLocationCoordinate2D(latitude: Double(venue.latitude)!,
+                                                    longitude: Double(venue.longitude)!)
+            self.mapRegion = MKCoordinateRegion(center: focusCoordinate,
+                                                span: MKCoordinateSpan(latitudeDelta: 0.02, longitudeDelta: 0.02))
+            isPreviewShow = true
+        }
+    }
 }
