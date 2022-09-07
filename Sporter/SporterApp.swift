@@ -21,14 +21,15 @@ class AppDelegate: NSObject, UIApplicationDelegate {
 struct SporterApp: App {
     // Register app delegate for Firebase setup
     @UIApplicationDelegateAdaptor(AppDelegate.self) var delegate
+    @StateObject private var venueViewModel = VenueViewModel()
 
     var body: some Scene {
         WindowGroup {
 //            ContentView()
 //                .environment(\.managedObjectContext, persistenceController.container.viewContext)
 //            AuthView()
-            DiscoveryView()
-//            MapView()
+            MapView()
+                .environmentObject(venueViewModel)
         }
     }
 }

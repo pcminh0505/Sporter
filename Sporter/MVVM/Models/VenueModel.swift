@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import CoreLocation
 
 struct Venue: Codable, Identifiable {
     let id: Int
@@ -19,7 +20,6 @@ struct Venue: Codable, Identifiable {
     let website: String
     let open_time: String
     let close_time: String
-    let tag: String
     
     enum CodingKeys: String, CodingKey {
         case id
@@ -33,7 +33,6 @@ struct Venue: Codable, Identifiable {
         case website
         case open_time
         case close_time
-        case tag
     }
     
     // For Firestore
