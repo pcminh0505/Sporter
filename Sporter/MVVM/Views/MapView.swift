@@ -21,22 +21,35 @@ struct MapView: View {
                 annotationContent: {venue in
                     MapAnnotation (coordinate: CLLocationCoordinate2D(latitude: Double(venue.latitude)!,
                                                                      longitude: Double(venue.longitude)!)) {
-                        CustomMapAnnotationView()
+                        CustomMapAnnotationView(name: venue.name)
+                            .shadow(radius: 5)
+                            .onTapGesture {
+                                mapViewModel.showVenuePreview(venue: venue)
+                            }
                     }
             })
                 .ignoresSafeArea()
                 .accentColor(Color(.systemPink))
-//                .onAppear {
-//                    mapViewModel.checkLocationServiceEnabled()
-//                }
             
-            LocationButton(.currentLocation) {
-                mapViewModel.requestLocationPermission()
+            VStack (alignment: .trailing, spacing: 0) {
+                // focus on current location
+                LocationButton(.currentLocation) { mapViewModel.requestLocationPermission() }
+                    .symbolVariant(.fill)
+                    .labelStyle(.iconOnly)
+                    .foregroundColor(.white)
+                    .cornerRadius(6)
+                    .tint(.red) // color
+                    .padding()
+                // show/hide venue preview
+                if mapViewModel.isPreviewShow {
+                    VenuePreviewView(venue: mapViewModel.selectedVenue!)
+                        .shadow(radius: 5)
+                        .padding(10)
+                        .transition(.asymmetric(
+                            insertion: .move(edge: .trailing),
+                            removal: .move(edge: .leading)))
+                }
             }
-            .foregroundColor(.white)
-            .cornerRadius(6)
-            .tint(.red) // color
-            .padding(.bottom)
         }
     }
 }

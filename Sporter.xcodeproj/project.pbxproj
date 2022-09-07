@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		0C8FF7FA28C4E10D0094465D /* VenueModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C8FF7F928C4E10D0094465D /* VenueModel.swift */; };
 		0CAF6B4628C84A59003EFF26 /* CustomMapAnnotationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0CAF6B4528C84A59003EFF26 /* CustomMapAnnotationView.swift */; };
+		0CAF6B4828C87716003EFF26 /* VenuePreviewView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0CAF6B4728C87715003EFF26 /* VenuePreviewView.swift */; };
 		241A6EB128BDCD1300C830BE /* SporterApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 241A6EB028BDCD1300C830BE /* SporterApp.swift */; };
 		241A6EB528BDCD1600C830BE /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 241A6EB428BDCD1600C830BE /* Assets.xcassets */; };
 		241A6EB828BDCD1600C830BE /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 241A6EB728BDCD1600C830BE /* Preview Assets.xcassets */; };
@@ -62,6 +63,7 @@
 /* Begin PBXFileReference section */
 		0C8FF7F928C4E10D0094465D /* VenueModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VenueModel.swift; sourceTree = "<group>"; };
 		0CAF6B4528C84A59003EFF26 /* CustomMapAnnotationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomMapAnnotationView.swift; sourceTree = "<group>"; };
+		0CAF6B4728C87715003EFF26 /* VenuePreviewView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VenuePreviewView.swift; sourceTree = "<group>"; };
 		241A6EAD28BDCD1300C830BE /* Sporter.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Sporter.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		241A6EB028BDCD1300C830BE /* SporterApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SporterApp.swift; sourceTree = "<group>"; };
 		241A6EB428BDCD1600C830BE /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -128,6 +130,7 @@
 			isa = PBXGroup;
 			children = (
 				0CAF6B4528C84A59003EFF26 /* CustomMapAnnotationView.swift */,
+				0CAF6B4728C87715003EFF26 /* VenuePreviewView.swift */,
 			);
 			path = MapView;
 			sourceTree = "<group>";
@@ -380,6 +383,7 @@
 				0C8FF7FA28C4E10D0094465D /* VenueModel.swift in Sources */,
 				2489E39428C85C0100642E54 /* DiscoveryView.swift in Sources */,
 				2493A5CB28C8658C0055F8D2 /* MapViewModel.swift in Sources */,
+				0CAF6B4828C87716003EFF26 /* VenuePreviewView.swift in Sources */,
 				246B09FF28BFBC1E007B7070 /* Color.swift in Sources */,
 				246B09F928BFBA7B007B7070 /* HomeView.swift in Sources */,
 				2489E39628C85C0700642E54 /* StackCardView.swift in Sources */,

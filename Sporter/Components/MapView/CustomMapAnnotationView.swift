@@ -10,6 +10,7 @@ import SwiftUI
 
 struct CustomMapAnnotationView : View {
 //    let accentColor =
+    let name: String
     
     var body: some View {
         VStack(spacing: 0) {
@@ -26,15 +27,6 @@ struct CustomMapAnnotationView : View {
                     .frame(width: 30, height: 30)
                     .font(.headline)
             }
-            
-            Image(systemName: "triangle.fill")
-                .resizable()
-                .scaledToFit()
-                .foregroundColor(.pink)
-                .frame(width: 10, height: 10)
-                .rotationEffect(Angle(degrees: 180))
-                .offset(y: -3)
-                .padding(.bottom, 40)
         }
     }
 }
@@ -43,7 +35,7 @@ struct CustomeMapAnnotationView_Previews : PreviewProvider {
     static var previews: some View {
         ZStack {
             Color.black.ignoresSafeArea()
-            CustomMapAnnotationView()
+            CustomMapAnnotationView(name: "Phong Gym Nguyen Bao Khang")
         }
     }
 }
