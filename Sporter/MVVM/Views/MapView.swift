@@ -28,7 +28,7 @@ struct MapView: View {
                             }
                     }
             })
-                .ignoresSafeArea()
+//                .ignoresSafeArea()
                 .accentColor(Color(.systemPink))
             
             VStack (alignment: .trailing, spacing: 0) {

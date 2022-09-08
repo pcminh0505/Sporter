@@ -12,50 +12,57 @@ struct HomeView: View {
     @State var selectedTab: Int = 0
 
     var body: some View {
-        TabView {
-            VStack {
-                Text("Logged successfully")
-                    .font(.title)
-                    .fontWeight(.bold)
-                    .foregroundColor(Color.black.opacity(0.7))
+        ScrollView {
+            TabView {
+                VStack {
+                    Text("Logged successfully")
+                        .font(.title)
+                        .fontWeight(.bold)
+                        .foregroundColor(Color.black.opacity(0.7))
 
-                Button(action: {
+                    Button(action: {
 
-                    try! Auth.auth().signOut()
-                    UserDefaults.standard.set(false, forKey: "status")
-                    NotificationCenter.default.post(name: NSNotification.Name("status"), object: nil)
+                        try! Auth.auth().signOut()
+                        UserDefaults.standard.set(false, forKey: "status")
+                        NotificationCenter.default.post(name: NSNotification.Name("status"), object: nil)
 
-                }) {
+                    }) {
 
-                    Text("Log out")
-                        .foregroundColor(.white)
-                        .padding(.vertical)
-                        .frame(width: UIScreen.main.bounds.width - 50)
+                        Text("Log out")
+                            .foregroundColor(.white)
+                            .padding(.vertical)
+                            .frame(width: UIScreen.main.bounds.width - 50)
+                    }
+                        .background(Color.blue)
+                        .cornerRadius(10)
+                        .padding(.top, 25)
                 }
-                    .background(Color.blue)
-                    .cornerRadius(10)
-                    .padding(.top, 25)
-            }
-                .tabItem {
-                Image(systemName: "house.fill")
-                Text("Home")
-            }
-                .tag(0)
+                    .tabItem {
+                    Image(systemName: "house.fill")
+                    Text("Home")
+                }
+                    .tag(0)
 
-            MapView()
-                .tabItem {
-                Image(systemName: "map.fill")
-                Text("Map")
-            }
-                .tag(1)
+                MapView()
+                    .tabItem {
+                    Image(systemName: "map.fill")
+                    Text("Map")
+                }
+                    .tag(1)
 
-            DiscoveryView()
-                .tabItem {
-                Image(systemName: "person.2.fill")
-                Text("Connecting")
+                DiscoveryView()
+                    .tabItem {
+                    Image(systemName: "person.2.fill")
+                    Text("Connecting")
+                }
+                    .tag(2)
             }
-                .tag(2)
+            .frame(
+                width: UIScreen.main.bounds.width,
+                height: UIScreen.main.bounds.height
+            )
         }
+        .edgesIgnoringSafeArea(.all)
     }
 }
 
