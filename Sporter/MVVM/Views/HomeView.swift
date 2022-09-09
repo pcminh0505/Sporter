@@ -1,74 +1,38 @@
 //
-//  HomeView.swift
+//  DashboardView.swift
 //  Sporter
 //
-//  Created by Minh Pham on 31/08/2022.
+//  Created by Minh Pham on 09/09/2022.
 //
 
 import SwiftUI
 import Firebase
 
 struct HomeView: View {
-    @State var selectedTab: Int = 0
+    @State private var selection: String = "home"
+    @State private var tabSelection: TabBarItem = .home
 
     var body: some View {
-        ScrollView {
-            TabView {
-                VStack {
-                    Text("Logged successfully")
-                        .font(.title)
-                        .fontWeight(.bold)
-                        .foregroundColor(Color.black.opacity(0.7))
+        CustomTabBarContainerView(selection: $tabSelection) {
+            DashboardView()
+                .tabBarItem(tab: .home, selection: $tabSelection)
+                
+            DiscoveryView()
+                .tabBarItem(tab: .explore, selection: $tabSelection)
 
-                    Button(action: {
+            ChatView()
+                .tabBarItem(tab: .messages, selection: $tabSelection)
 
-                        try! Auth.auth().signOut()
-                        UserDefaults.standard.set(false, forKey: "status")
-                        NotificationCenter.default.post(name: NSNotification.Name("status"), object: nil)
-
-                    }) {
-
-                        Text("Log out")
-                            .foregroundColor(.white)
-                            .padding(.vertical)
-                            .frame(width: UIScreen.main.bounds.width - 50)
-                    }
-                        .background(Color.blue)
-                        .cornerRadius(10)
-                        .padding(.top, 25)
-                }
-                    .tabItem {
-                    Image(systemName: "house.fill")
-                    Text("Home")
-                }
-                    .tag(0)
-
-                MapView()
-                    .tabItem {
-                    Image(systemName: "map.fill")
-                    Text("Map")
-                }
-                    .tag(1)
-
-                DiscoveryView()
-                    .tabItem {
-                    Image(systemName: "person.2.fill")
-                    Text("Connecting")
-                }
-                    .tag(2)
-            }
-            .frame(
-                width: UIScreen.main.bounds.width,
-                height: UIScreen.main.bounds.height
-            )
+            ProfileView()
+                .tabBarItem(tab: .profile, selection: $tabSelection)
         }
-        .edgesIgnoringSafeArea(.all)
+            .ignoresSafeArea(.keyboard, edges: .bottom)
     }
 }
 
 struct HomeView_Previews: PreviewProvider {
     static var previews: some View {
         HomeView()
-            .environmentObject(VenueViewModel())
+            .environmentObject(NavigationHelper())
     }
 }

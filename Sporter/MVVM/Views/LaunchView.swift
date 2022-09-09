@@ -16,7 +16,7 @@ struct LaunchView: View {
         VStack {
             if self.isActive {
                 // Load main view
-                AuthView()
+                CheckView()
             } else {
                 // Load launch/splash view
                 Lottie(name: "sporter", loopMode: .playOnce)

@@ -15,6 +15,7 @@ extension Color {
 
 struct ColorTheme {
     let textColor = Color("TextColor")
+    let popupColor = Color("PopupColor")
 
     let lightGray = Color("Gray")
     let darkGray = Color("DarkGray")

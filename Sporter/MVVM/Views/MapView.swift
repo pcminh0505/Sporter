@@ -51,6 +51,7 @@ struct MapView: View {
                 }
             }
         }
+        .ignoresSafeArea()
     }
 }
 
