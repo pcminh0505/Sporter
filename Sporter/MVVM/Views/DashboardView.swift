@@ -20,7 +20,6 @@ struct DashboardView: View {
                 EmptyView()
             }.isDetailLink(false)
 
-
             Text("Logged successfully")
                 .font(.title)
                 .fontWeight(.bold)

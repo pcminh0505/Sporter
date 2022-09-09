@@ -19,7 +19,9 @@
 		0C5154F228C9EAAC00478A89 /* FirebaseFirestoreSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 0C5154F128C9EAAC00478A89 /* FirebaseFirestoreSwift */; };
 		0C8FF7FA28C4E10D0094465D /* VenueModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C8FF7F928C4E10D0094465D /* VenueModel.swift */; };
 		0CAF6B4628C84A59003EFF26 /* CustomMapAnnotationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0CAF6B4528C84A59003EFF26 /* CustomMapAnnotationView.swift */; };
-		0CAF6B4828C87716003EFF26 /* VenuePreviewView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0CAF6B4728C87715003EFF26 /* VenuePreviewView.swift */; };
+		0CAF6B4828C87716003EFF26 /* VenueDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0CAF6B4728C87715003EFF26 /* VenueDetailView.swift */; };
+		0CE4BDFB28CB97FC00CBFF37 /* GlowBorder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0CE4BDFA28CB97FC00CBFF37 /* GlowBorder.swift */; };
+		0CE4BDFD28CBBACB00CBFF37 /* BackNavigateButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0CE4BDFC28CBBACB00CBFF37 /* BackNavigateButton.swift */; };
 		241A6EB128BDCD1300C830BE /* SporterApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 241A6EB028BDCD1300C830BE /* SporterApp.swift */; };
 		241A6EB528BDCD1600C830BE /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 241A6EB428BDCD1600C830BE /* Assets.xcassets */; };
 		241A6EB828BDCD1600C830BE /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 241A6EB728BDCD1600C830BE /* Preview Assets.xcassets */; };
@@ -58,7 +60,9 @@
 /* Begin PBXFileReference section */
 		0C8FF7F928C4E10D0094465D /* VenueModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VenueModel.swift; sourceTree = "<group>"; };
 		0CAF6B4528C84A59003EFF26 /* CustomMapAnnotationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomMapAnnotationView.swift; sourceTree = "<group>"; };
-		0CAF6B4728C87715003EFF26 /* VenuePreviewView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VenuePreviewView.swift; sourceTree = "<group>"; };
+		0CAF6B4728C87715003EFF26 /* VenueDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VenueDetailView.swift; sourceTree = "<group>"; };
+		0CE4BDFA28CB97FC00CBFF37 /* GlowBorder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GlowBorder.swift; sourceTree = "<group>"; };
+		0CE4BDFC28CBBACB00CBFF37 /* BackNavigateButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackNavigateButton.swift; sourceTree = "<group>"; };
 		241A6EAD28BDCD1300C830BE /* Sporter.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Sporter.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		241A6EB028BDCD1300C830BE /* SporterApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SporterApp.swift; sourceTree = "<group>"; };
 		241A6EB428BDCD1600C830BE /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -127,7 +131,8 @@
 			isa = PBXGroup;
 			children = (
 				0CAF6B4528C84A59003EFF26 /* CustomMapAnnotationView.swift */,
-				0CAF6B4728C87715003EFF26 /* VenuePreviewView.swift */,
+				0CAF6B4728C87715003EFF26 /* VenueDetailView.swift */,
+				0CE4BDFC28CBBACB00CBFF37 /* BackNavigateButton.swift */,
 			);
 			path = MapView;
 			sourceTree = "<group>";
@@ -241,6 +246,7 @@
 		246B09F528BE1B52007B7070 /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
+				0CE4BDFA28CB97FC00CBFF37 /* GlowBorder.swift */,
 				246B09FE28BFBC1E007B7070 /* Color.swift */,
 				24A676F928CB237F00A7BA9D /* String.swift */,
 			);
@@ -385,6 +391,7 @@
 			files = (
 				241A6F0B28BDFDA400C830BE /* CheckView.swift in Sources */,
 				0CAF6B4628C84A59003EFF26 /* CustomMapAnnotationView.swift in Sources */,
+				0CE4BDFB28CB97FC00CBFF37 /* GlowBorder.swift in Sources */,
 				24A676FA28CB237F00A7BA9D /* String.swift in Sources */,
 				24A6770828CB54A500A7BA9D /* Navigation.swift in Sources */,
 				2489E39028C85BDE00642E54 /* CardUser.swift in Sources */,
@@ -399,10 +406,11 @@
 				0C8FF7FA28C4E10D0094465D /* VenueModel.swift in Sources */,
 				24A6770D28CB6A5F00A7BA9D /* CustomTabBarContainerView.swift in Sources */,
 				24A676FF28CB2BDA00A7BA9D /* LoginView.swift in Sources */,
+				0CE4BDFD28CBBACB00CBFF37 /* BackNavigateButton.swift in Sources */,
 				2489E39428C85C0100642E54 /* DiscoveryView.swift in Sources */,
 				24A6771128CB6BC100A7BA9D /* TabBarItemsPreferenceKey.swift in Sources */,
 				2493A5CB28C8658C0055F8D2 /* MapViewModel.swift in Sources */,
-				0CAF6B4828C87716003EFF26 /* VenuePreviewView.swift in Sources */,
+				0CAF6B4828C87716003EFF26 /* VenueDetailView.swift in Sources */,
 				24A6771928CB715F00A7BA9D /* ChatView.swift in Sources */,
 				246B09FF28BFBC1E007B7070 /* Color.swift in Sources */,
 				2489E39628C85C0700642E54 /* StackCardView.swift in Sources */,
