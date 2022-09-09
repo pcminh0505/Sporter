@@ -25,7 +25,7 @@ class VenueRepository {
           .addSnapshotListener { querySnapshot, error in
             // 4
             if let error = error {
-              print("Error getting cards: \(error.localizedDescription)")
+              print("Error getting venues: \(error.localizedDescription)")
               return
             }
 

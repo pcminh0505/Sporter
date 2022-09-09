@@ -8,30 +8,10 @@
 import Foundation
 import SwiftUI
 
-struct DiscoveryView:View {
+struct DiscoveryView: View {
     @StateObject var homeData: CardViewModel = CardViewModel()
     var body: some View {
-        
-        VStack{
-            
-            // Top Nav Bar
-            Button {
-            } label: {
-                
-                Image(systemName: "list.dash")
-                    .resizable()
-                    .renderingMode(.template)
-                    .aspectRatio(contentMode: .fit)
-                    .frame(width: 22, height: 22)
-            }
-            .frame(maxWidth: .infinity, alignment: .leading )
-            .overlay(
-                Text("Discovery")
-                    .font(.title.bold())
-            )
-            .foregroundColor(.black)
-            .padding()
-            
+        VStack {
             // Users Stack
             ZStack {
                 if let users = homeData.displaying_users {
@@ -42,7 +22,7 @@ struct DiscoveryView:View {
                     }
                     else {
                         // Display users
-                        ForEach(users.reversed()){ user in
+                        ForEach(users.reversed()) { user in
                             // Card View
                             StackCardView(user: user)
                                 .environmentObject(homeData)
@@ -53,15 +33,14 @@ struct DiscoveryView:View {
                     ProgressView()
                 }
             }
-            .padding(.top, 30)
-            .padding()
-            .padding(.vertical)
-            .frame(maxWidth: .infinity, maxHeight: .infinity)
-            
+                .padding(.top, 30)
+                .padding()
+                .padding(.vertical)
+                .frame(maxWidth: .infinity, maxHeight: .infinity)
             // Action Buttons
             HStack(spacing: 15) {
                 Button {
-                    
+
                 } label: {
                     Image(systemName: "arrow.uturn.backward")
                         .font(.system(size: 15, weight: .bold))
@@ -71,7 +50,7 @@ struct DiscoveryView:View {
                         .background(Color.gray)
                         .clipShape(Circle())
                 }
-                
+
                 Button {
                     doSwipe(rightSwipe: true)
                 } label: {
@@ -83,9 +62,9 @@ struct DiscoveryView:View {
                         .background(Color.blue)
                         .clipShape(Circle())
                 }
-                
+
                 Button {
-                    
+
                 } label: {
                     Image(systemName: "star.fill")
                         .font(.system(size: 15, weight: .bold))
@@ -95,7 +74,7 @@ struct DiscoveryView:View {
                         .background(Color.yellow)
                         .clipShape(Circle())
                 }
-                
+
                 Button {
                     doSwipe()
                 } label: {
@@ -104,26 +83,26 @@ struct DiscoveryView:View {
                         .foregroundColor(.white)
                         .shadow(radius: 5)
                         .padding(18)
-                        .background(Color.pink  )
+                        .background(Color.pink)
                         .clipShape(Circle())
                 }
             }
-            .padding(.bottom)
-            .disabled(homeData.displaying_users?.isEmpty ?? false)
-            .opacity((homeData.displaying_users?.isEmpty ?? false) ? 0.6: 1)
+                .padding(.bottom)
+                .disabled(homeData.displaying_users?.isEmpty ?? false)
+                .opacity((homeData.displaying_users?.isEmpty ?? false) ? 0.6 : 1)
         }
-        .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .top)
+            .frame(maxWidth: .infinity, maxHeight: UIScreen.main.bounds.height * 0.75, alignment: .top)
     }
-    
-    func doSwipe(rightSwipe: Bool = false){
+
+    func doSwipe(rightSwipe: Bool = false) {
         guard let first = homeData.displaying_users?.first else {
             return
         }
-        
+
         // Use Notifications to post and recieving in Stack
         NotificationCenter.default.post(name: NSNotification.Name("ACTIONFROMBUTTON"), object: nil, userInfo: [
             "id": first.id,
-            "rightSwipe" : rightSwipe
+            "rightSwipe": rightSwipe
         ])
     }
 }
