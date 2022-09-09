@@ -13,7 +13,7 @@ import SwiftUI
 final class MapViewModel: NSObject, ObservableObject, CLLocationManagerDelegate {
     @Published var mapRegion: MKCoordinateRegion = MKCoordinateRegion(
         center: CLLocationCoordinate2D(latitude: 10.7770833, longitude: 106.6932374),
-        span: MKCoordinateSpan(latitudeDelta: 0.03, longitudeDelta: 0.03))
+        span: MKCoordinateSpan(latitudeDelta: 0.012, longitudeDelta: 0.012))
     @Published var isPreviewShow = false
     @Published var selectedVenue : Venue?
     
@@ -31,19 +31,12 @@ final class MapViewModel: NSObject, ObservableObject, CLLocationManagerDelegate 
         guard let lastestLocation = locations.first else { return }
         DispatchQueue.main.async {
             self.mapRegion = MKCoordinateRegion(center: lastestLocation.coordinate,
-                                                span: MKCoordinateSpan(latitudeDelta: 0.01, longitudeDelta: 0.01))
+                                                span: MKCoordinateSpan(latitudeDelta: 0.012, longitudeDelta: 0.012))
         }
     }
 
     func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
         print(error.localizedDescription )
-    }
-    
-    // hide venue preview
-    func mapTap() {
-        withAnimation {
-            isPreviewShow = false
-        }
     }
     
     // show venue preview
@@ -53,7 +46,7 @@ final class MapViewModel: NSObject, ObservableObject, CLLocationManagerDelegate 
             let focusCoordinate = CLLocationCoordinate2D(latitude: Double(venue.latitude)!,
                                                     longitude: Double(venue.longitude)!)
             self.mapRegion = MKCoordinateRegion(center: focusCoordinate,
-                                                span: MKCoordinateSpan(latitudeDelta: 0.02, longitudeDelta: 0.02))
+                                                span: MKCoordinateSpan(latitudeDelta: 0.012, longitudeDelta: 0.012))
             isPreviewShow = true
         }
     }

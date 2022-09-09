@@ -9,6 +9,7 @@ import Foundation
 import SwiftUI
 
 struct CustomMapAnnotationView : View {
+    @Environment(\.colorScheme) var colorScheme
 //    let accentColor =
     let name: String
     
@@ -19,14 +20,18 @@ struct CustomMapAnnotationView : View {
                     .resizable()
                     .scaledToFit()
                     .foregroundColor(.pink)
-                    .frame(width: 35, height: 35)
+                    .frame(width: 25, height: 25)
                 
                 Image("dumbbell_white")
                     .resizable()
                     .scaledToFit()
-                    .frame(width: 30, height: 30)
+                    .frame(width: 20, height: 30)
                     .font(.headline)
             }
+            Text(name)
+                .font(.system(size: 12))
+                .foregroundColor(colorScheme == .dark ? .white : .black)
+                .glowBorder(color: colorScheme == .dark ? .black : .white, lineWidth: 4)
         }
     }
 }

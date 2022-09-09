@@ -22,6 +22,7 @@ struct MapView: View {
                     MapAnnotation (coordinate: CLLocationCoordinate2D(latitude: Double(venue.latitude)!,
                                                                      longitude: Double(venue.longitude)!)) {
                         CustomMapAnnotationView(name: venue.name)
+                            .scaleEffect(venue == mapViewModel.selectedVenue && mapViewModel.isPreviewShow ? 1.2 : 1)
                             .shadow(radius: 5)
                             .onTapGesture {
                                 mapViewModel.showVenuePreview(venue: venue)
@@ -42,16 +43,15 @@ struct MapView: View {
                     .padding()
                 // show/hide venue preview
                 if mapViewModel.isPreviewShow {
-                    VenuePreviewView(venue: mapViewModel.selectedVenue!)
+                    VenuePreviewView(venue: mapViewModel.selectedVenue!, isPreviewShow: $mapViewModel.isPreviewShow)
                         .shadow(radius: 5)
-                        .padding(10)
+//                        .padding(10)
                         .transition(.asymmetric(
                             insertion: .move(edge: .trailing),
                             removal: .move(edge: .leading)))
                 }
             }
-        }
-        .ignoresSafeArea()
+        }.ignoresSafeArea(.all, edges: .bottom)
     }
 }
 

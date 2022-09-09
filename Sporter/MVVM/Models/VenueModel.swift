@@ -8,7 +8,7 @@
 import Foundation
 import CoreLocation
 
-struct Venue: Codable, Identifiable {
+struct Venue: Codable, Identifiable, Equatable {
     let id: Int
     let name: String
     let address: String
@@ -33,6 +33,10 @@ struct Venue: Codable, Identifiable {
         case website
         case open_time
         case close_time
+    }
+    
+    static func == (lhs: Venue, rhs: Venue) -> Bool {
+        return lhs.id == rhs.id
     }
     
     // For Firestore
