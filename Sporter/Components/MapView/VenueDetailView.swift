@@ -23,11 +23,15 @@ struct VenueDetailView : View {
             VStack {
                 header
                 venuePreviewText
-                venuePreviewImage
-                
-                Text("Events")
-                    .padding(.top, 10)
-                Text("current events")
+
+                ScrollView {
+                    venueDetailText
+                    venuePreviewImage
+                    
+                    Text("Events")
+                        .padding(.top, 10)
+                    Text("current events")
+                }
             }
             .padding()
             Spacer()
@@ -88,20 +92,22 @@ extension VenueDetailView {
                 Text(venue.address)
                     .font(.system(size: 15))
                     .padding(.bottom, 27)
-                
-                VStack (alignment: .leading, spacing: 5) {
-                    Text("Open time: " + venue.open_time + " - " + venue.close_time)
-                    Text("Phone Number: " + venue.phone)
-                    HStack {
-                        Text("Website:")
-                        Link("Click here", destination: URL(string: venue.website)!)
-                    }
-                    Text("Ratings: " + venue.rating)
-                }.font(.system(size: 15))
                     
             }
             .fixedSize(horizontal: false, vertical: true)
         }
+    }
+    
+    private var venueDetailText : some View {
+        VStack (alignment: .leading, spacing: 5) {
+            Text("Open time: " + venue.open_time + " - " + venue.close_time)
+            Text("Phone Number: " + venue.phone)
+            HStack {
+                Text("Website:")
+                Link("Click here", destination: URL(string: venue.website)!)
+            }
+            Text("Ratings: " + venue.rating)
+        }.font(.system(size: 15))
     }
     
     private var header : some View {
