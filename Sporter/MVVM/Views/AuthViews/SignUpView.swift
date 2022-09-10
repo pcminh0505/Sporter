@@ -189,6 +189,7 @@ struct SignUpView: View {
 
     func register() {
         self.isLoading = true
+
         let userRepo: UserRepository = UserRepository()
         if (!self.email.isBlank &&
                 !self.fname.isBlank &&
@@ -218,19 +219,25 @@ struct SignUpView: View {
                         self.isLoading = false
                         return
                     }
-                    // Get generated ID and push to Firestore
-                    let id = Auth.auth().currentUser?.uid
-                    userRepo.createUser(User(id: id!,
-                                             fname: self.fname.trimmingCharacters(in: .whitespacesAndNewlines),
+                    
+                    guard let id = Auth.auth().currentUser?.uid else {
+                        print("Error retreiving ID after Sign Up")
+                        return
+                    }
+                    
+                    userRepo.createUser(userID: id,
+                                        User(fname: self.fname.trimmingCharacters(in: .whitespacesAndNewlines),
                                              lname: self.lname.trimmingCharacters(in: .whitespacesAndNewlines),
                                              gender: self.gender.rawValue,
                                              bod: self.birthDate.timeIntervalSince1970,
                                              email: self.email.trimmingCharacters(in: .whitespacesAndNewlines),
                                              phone: self.phone.trimmingCharacters(in: .whitespacesAndNewlines),
+                                             profileImage: "User1",
                                              friends: []))
 
-                    UserDefaults.standard.set(true, forKey: "status")
-                    NotificationCenter.default.post(name: NSNotification.Name("status"), object: nil)
+                    UserDefaults.standard.set(true, forKey: "authStatus")
+                    UserDefaults.standard.set(id, forKey: "currentUser")
+                    NotificationCenter.default.post(name: NSNotification.Name("authStatus"), object: nil)
                     self.isLoading = false
                 }
             }

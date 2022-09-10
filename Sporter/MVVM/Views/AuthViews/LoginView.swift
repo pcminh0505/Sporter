@@ -134,9 +134,14 @@ struct LoginView: View {
                     self.isLoading = false
                     return
                 }
+                
+                // Get generated ID and push to Firestore
+                let id = res!.user.uid
 
-                UserDefaults.standard.set(true, forKey: "status")
-                NotificationCenter.default.post(name: NSNotification.Name("status"), object: nil)
+                // Add to userDefaults
+                UserDefaults.standard.set(id, forKey: "currentUser")
+                UserDefaults.standard.set(true, forKey: "authStatus")
+                NotificationCenter.default.post(name: NSNotification.Name("authStatus"), object: nil)
                 self.isLoading = false
             }
         }
