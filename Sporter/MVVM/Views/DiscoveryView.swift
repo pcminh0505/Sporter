@@ -9,12 +9,14 @@ import Foundation
 import SwiftUI
 
 struct DiscoveryView: View {
-    @StateObject var homeData: CardViewModel = CardViewModel()
+    @EnvironmentObject var discoveryVM: HomeViewModel
+    
     var body: some View {
         VStack {
             // Users Stack
             ZStack {
-                if let users = homeData.displaying_users {
+                if let users = discoveryVM.displayingUsers {
+                    let _ = print(users)
                     if users.isEmpty {
                         Text("Come back later we can find more matches for you")
                             .font(.caption)
@@ -25,7 +27,7 @@ struct DiscoveryView: View {
                         ForEach(users.reversed()) { user in
                             // Card View
                             StackCardView(user: user)
-                                .environmentObject(homeData)
+                                .environmentObject(discoveryVM)
                         }
                     }
                 }
@@ -88,20 +90,20 @@ struct DiscoveryView: View {
                 }
             }
                 .padding(.bottom)
-                .disabled(homeData.displaying_users?.isEmpty ?? false)
-                .opacity((homeData.displaying_users?.isEmpty ?? false) ? 0.6 : 1)
+                .disabled(discoveryVM.displayingUsers.isEmpty)
+                .opacity((discoveryVM.displayingUsers.isEmpty) ? 0.6 : 1)
         }
             .frame(maxWidth: .infinity, maxHeight: UIScreen.main.bounds.height * 0.75, alignment: .top)
     }
 
     func doSwipe(rightSwipe: Bool = false) {
-        guard let first = homeData.displaying_users?.first else {
+        guard let first = discoveryVM.displayingUsers.first else {
             return
         }
 
         // Use Notifications to post and recieving in Stack
         NotificationCenter.default.post(name: NSNotification.Name("ACTIONFROMBUTTON"), object: nil, userInfo: [
-            "id": first.id,
+            "id": first.id ?? "",
             "rightSwipe": rightSwipe
         ])
     }

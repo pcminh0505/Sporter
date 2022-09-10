@@ -9,8 +9,9 @@ import Foundation
 import SwiftUI
 
 struct StackCardView: View {
-    @EnvironmentObject var homeData: CardViewModel
-    var user: CardUser
+    @EnvironmentObject var discoveryVM: HomeViewModel
+    
+    var user: User
     
     // Gesture Properties
     @State var offset: CGFloat = 0
@@ -21,11 +22,11 @@ struct StackCardView: View {
         GeometryReader {proxy in
             let size = proxy.size
             
-            let index = CGFloat(homeData.getIndex(user: user))
+            let index = CGFloat(discoveryVM.getIndex(user: user))
             let topOffset = (index <= 2 ? index: 2) * 15
             
             ZStack {
-                Image(user.profilePic)
+                Image(user.profileImage)
                     .resizable()
                     .aspectRatio(contentMode: .fill)
                     .frame(width: size.width - topOffset, height: size.height)
@@ -110,9 +111,9 @@ struct StackCardView: View {
         }
         
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
-            if let _ = homeData.displaying_users?.first{
+            if let _ = discoveryVM.displayingUsers.first{
                 let _ = withAnimation{
-                    homeData.displaying_users?.removeFirst()
+                    discoveryVM.displayingUsers.removeFirst()
                 }
             }
         }
@@ -124,12 +125,6 @@ struct StackCardView: View {
     
     func rightSwipe() {
         
-    }
-}
-
-struct StackCardView_Previews: PreviewProvider {
-    static var previews: some View {
-        DiscoveryView()
     }
 }
 

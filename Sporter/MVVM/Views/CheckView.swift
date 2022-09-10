@@ -10,7 +10,7 @@ import Firebase
 
 struct CheckView: View {
     @State var show = false
-    @State var status = UserDefaults.standard.value(forKey: "status") as? Bool ?? false
+    @State var status = UserDefaults.standard.value(forKey: "authStatus") as? Bool ?? false
 
     var body: some View {
         NavigationView {
@@ -33,8 +33,8 @@ struct CheckView: View {
             }
                 .onAppear {
 
-                NotificationCenter.default.addObserver(forName: NSNotification.Name("status"), object: nil, queue: .main) { (_) in
-                    self.status = UserDefaults.standard.value(forKey: "status") as? Bool ?? false
+                NotificationCenter.default.addObserver(forName: NSNotification.Name("authStatus"), object: nil, queue: .main) { (_) in
+                    self.status = UserDefaults.standard.value(forKey: "authStatus") as? Bool ?? false
                 }
             }
         }

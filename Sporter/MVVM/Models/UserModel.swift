@@ -6,18 +6,18 @@
 //
 
 import Foundation
+import FirebaseFirestoreSwift
 
-struct User: Codable {
-    let id: String
-    let fname: String
-    let lname: String
-    let gender: String
-    let bod: TimeInterval
-    let email: String
-    let phone: String
-    let friends: [String]
-    
-
+struct User: Codable, Identifiable {
+    @DocumentID var id: String?
+    var fname: String
+    var lname: String
+    var gender: String
+    var bod: TimeInterval
+    var email: String
+    var phone: String
+    var profileImage: String
+    var friends: [String]
 
     enum CodingKeys: String, CodingKey {
         case id
@@ -27,6 +27,7 @@ struct User: Codable {
         case bod
         case email
         case phone
+        case profileImage
         case friends
     }
 
@@ -35,6 +36,5 @@ struct User: Codable {
         let data = (try? JSONEncoder().encode(self)) ?? Data()
         return (try? JSONSerialization.jsonObject(with: data, options: .mutableContainers) as? [String: Any]) ?? [:]
     }
-    
-    static var unset = User(id: "-1", fname: "FName", lname: "LName", gender: "Male", bod: 123123, email: "test@gmail.com", phone: "+84123456789", friends: [])
 }
+

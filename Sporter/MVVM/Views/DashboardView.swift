@@ -9,8 +9,8 @@ import SwiftUI
 import Firebase
 
 struct DashboardView: View {
+    @EnvironmentObject var dashboardVM: HomeViewModel
     @EnvironmentObject var navigationHelper: NavigationHelper
-//    @StateObject var userRepo = UserRepository()
 
     var body: some View {
         VStack {
@@ -20,7 +20,7 @@ struct DashboardView: View {
                 EmptyView()
             }.isDetailLink(false)
 
-            Text("Logged successfully")
+            Text("Hello \(dashboardVM.currentUser?.fname ?? "fname") \(dashboardVM.currentUser?.lname ?? "lname")")
                 .font(.title)
                 .fontWeight(.bold)
                 .foregroundColor(Color.theme.textColor)
@@ -57,11 +57,11 @@ struct DashboardView: View {
 
 
             Button(action: {
-                
                 try! Auth.auth().signOut()
-                UserDefaults.standard.set(false, forKey: "status")
-                NotificationCenter.default.post(name: NSNotification.Name("status"), object: nil)
-                
+                UserDefaults.standard.set("", forKey: "currentUser")
+                UserDefaults.standard.set(false, forKey: "authStatus")
+                NotificationCenter.default.post(name: NSNotification.Name("authStatus"), object: nil)
+
             }) {
                 Text("Log out")
                     .foregroundColor(.white)

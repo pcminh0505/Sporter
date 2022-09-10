@@ -20,7 +20,6 @@ class VenueRepository {
     }
     
     func getAllVenues() {
-        print("GetAllVenues")
         db.collection(collection)
           .addSnapshotListener { querySnapshot, error in
             // 4

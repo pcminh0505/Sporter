@@ -36,11 +36,10 @@
 		246B09F728BFB9EA007B7070 /* LaunchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 246B09F628BFB9E9007B7070 /* LaunchView.swift */; };
 		246B09FB28BFBACA007B7070 /* MapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 246B09FA28BFBACA007B7070 /* MapView.swift */; };
 		246B09FF28BFBC1E007B7070 /* Color.swift in Sources */ = {isa = PBXBuildFile; fileRef = 246B09FE28BFBC1E007B7070 /* Color.swift */; };
-		2489E39028C85BDE00642E54 /* CardUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2489E38F28C85BDE00642E54 /* CardUser.swift */; };
 		2489E39428C85C0100642E54 /* DiscoveryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2489E39328C85C0100642E54 /* DiscoveryView.swift */; };
 		2489E39628C85C0700642E54 /* StackCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2489E39528C85C0600642E54 /* StackCardView.swift */; };
 		2493A5CB28C8658C0055F8D2 /* MapViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2493A5C828C8658C0055F8D2 /* MapViewModel.swift */; };
-		2493A5CC28C8658C0055F8D2 /* CardViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2493A5C928C8658C0055F8D2 /* CardViewModel.swift */; };
+		2493A5CC28C8658C0055F8D2 /* HomeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2493A5C928C8658C0055F8D2 /* HomeViewModel.swift */; };
 		2493A5CD28C8658C0055F8D2 /* VenueViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2493A5CA28C8658C0055F8D2 /* VenueViewModel.swift */; };
 		24A676FA28CB237F00A7BA9D /* String.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24A676F928CB237F00A7BA9D /* String.swift */; };
 		24A676FD28CB29BB00A7BA9D /* ErrorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24A676FC28CB29BB00A7BA9D /* ErrorView.swift */; };
@@ -77,11 +76,10 @@
 		246B09F628BFB9E9007B7070 /* LaunchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LaunchView.swift; sourceTree = "<group>"; };
 		246B09FA28BFBACA007B7070 /* MapView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapView.swift; sourceTree = "<group>"; };
 		246B09FE28BFBC1E007B7070 /* Color.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Color.swift; sourceTree = "<group>"; };
-		2489E38F28C85BDE00642E54 /* CardUser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CardUser.swift; sourceTree = "<group>"; };
 		2489E39328C85C0100642E54 /* DiscoveryView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DiscoveryView.swift; sourceTree = "<group>"; };
 		2489E39528C85C0600642E54 /* StackCardView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StackCardView.swift; sourceTree = "<group>"; };
 		2493A5C828C8658C0055F8D2 /* MapViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapViewModel.swift; sourceTree = "<group>"; };
-		2493A5C928C8658C0055F8D2 /* CardViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CardViewModel.swift; sourceTree = "<group>"; };
+		2493A5C928C8658C0055F8D2 /* HomeViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeViewModel.swift; sourceTree = "<group>"; };
 		2493A5CA28C8658C0055F8D2 /* VenueViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VenueViewModel.swift; sourceTree = "<group>"; };
 		24A676F928CB237F00A7BA9D /* String.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = String.swift; sourceTree = "<group>"; };
 		24A676FC28CB29BB00A7BA9D /* ErrorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorView.swift; sourceTree = "<group>"; };
@@ -208,7 +206,6 @@
 		241A6EC628BDCFD200C830BE /* Models */ = {
 			isa = PBXGroup;
 			children = (
-				2489E38F28C85BDE00642E54 /* CardUser.swift */,
 				246B09F228BE1847007B7070 /* UserModel.swift */,
 				0C8FF7F928C4E10D0094465D /* VenueModel.swift */,
 			);
@@ -256,7 +253,7 @@
 		2493A5C728C865720055F8D2 /* ViewModels */ = {
 			isa = PBXGroup;
 			children = (
-				2493A5C928C8658C0055F8D2 /* CardViewModel.swift */,
+				2493A5C928C8658C0055F8D2 /* HomeViewModel.swift */,
 				2493A5C828C8658C0055F8D2 /* MapViewModel.swift */,
 				2493A5CA28C8658C0055F8D2 /* VenueViewModel.swift */,
 			);
@@ -394,14 +391,13 @@
 				0CE4BDFB28CB97FC00CBFF37 /* GlowBorder.swift in Sources */,
 				24A676FA28CB237F00A7BA9D /* String.swift in Sources */,
 				24A6770828CB54A500A7BA9D /* Navigation.swift in Sources */,
-				2489E39028C85BDE00642E54 /* CardUser.swift in Sources */,
 				24A676FD28CB29BB00A7BA9D /* ErrorView.swift in Sources */,
 				24A6770128CB2C4F00A7BA9D /* SignUpView.swift in Sources */,
 				24A6771728CB6FF100A7BA9D /* DashboardView.swift in Sources */,
 				24A6771328CB6C1300A7BA9D /* CustomTabBarView.swift in Sources */,
 				24A6770A28CB579500A7BA9D /* HomeView.swift in Sources */,
 				246B09F728BFB9EA007B7070 /* LaunchView.swift in Sources */,
-				2493A5CC28C8658C0055F8D2 /* CardViewModel.swift in Sources */,
+				2493A5CC28C8658C0055F8D2 /* HomeViewModel.swift in Sources */,
 				246B09FB28BFBACA007B7070 /* MapView.swift in Sources */,
 				0C8FF7FA28C4E10D0094465D /* VenueModel.swift in Sources */,
 				24A6770D28CB6A5F00A7BA9D /* CustomTabBarContainerView.swift in Sources */,

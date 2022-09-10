@@ -6,56 +6,77 @@
 //
 
 import Foundation
-import Firebase
+import FirebaseFirestore
 import FirebaseFirestoreSwift
 
 class UserRepository: ObservableObject {
     private let db = Firestore.firestore()
     private let collection: String = "users"
 
-    @Published var currentUser: User = User.unset
+    @Published var currentUser: User? = nil
+    @Published var users: [User] = []
 
     init() {
         getCurrentUser()
+        getAllUsers()
     }
 
     func getCurrentUser() {
-//        let user = Auth.auth().currentUser
-        // Mock
-        let docRef = db.collection(collection).document("10dCqdT3pCeBRuVt07STOrPghEx2")
+        let id = UserDefaults.standard.value(forKey: "currentUser") as? String ?? ""
 
-        docRef.getDocument { (document, error) in
-            if let document = document, document.exists {
-                let dataDescription = document.data().map(String.init(describing:)) ?? "nil"
-                print("Document data: \(dataDescription)")
-                
-            } else {
-                print("Document does not exist")
+        // Prevent crash
+        if !id.isBlank {
+            let docRef = db.collection(collection).document(id)
+
+            docRef.getDocument(as: User.self) { result in
+                switch result {
+                case .success(let user):
+                    self.currentUser = user
+                case .failure(let error):
+                    // A User value could not be initialized from the DocumentSnapshot.
+                    print("Error decoding document: \(error.localizedDescription)")
+                }
             }
         }
     }
 
     func getAllUsers() {
-        print("GetAllUser")
+        // Except the current logged user
+        let id = UserDefaults.standard.value(forKey: "currentUser") as? String ?? ""
+        
+        db.collection(collection)
+            .addSnapshotListener { (querySnapshot, error) in
+            guard let documents = querySnapshot?.documents else {
+                print("No documents")
+                return
+            }
+
+            self.users = documents.compactMap { doc -> User? in
+                // Except the current logged user
+                if doc.documentID == id {
+                    return nil
+                }
+                
+                return try? doc.data(as: User.self)
+            }
+        }
     }
 
-    func createUser(_ user: User) {
+    func createUser(userID: String, _ user: User) {
         do {
-            try db.collection(collection).document(user.id).setData(user.dictionary)
+            try db.collection(collection).document(userID).setData(from: user)
         } catch let error {
             print("Error adding User to Firestore: \(error.localizedDescription).")
         }
     }
 
-    func updateUser() {
-        print("UpdateUser")
-    }
+    func updateUser(_ user: User) {
+        guard let userID = user.id else { return }
 
-    func swipeUser() {
-        print("SwipeUser")
-    }
-
-    func unmatchUser() {
-        print("UnmatchUser")
+        do {
+            try db.collection(collection).document(userID).setData(from: user)
+        } catch let error {
+            print("Error adding User to Firestore: \(error.localizedDescription).")
+        }
     }
 }

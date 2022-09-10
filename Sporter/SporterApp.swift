@@ -22,6 +22,7 @@ struct SporterApp: App {
     // Register app delegate for Firebase setup
     @UIApplicationDelegateAdaptor(AppDelegate.self) var delegate
     @StateObject private var venueViewModel = VenueViewModel()
+    
 
     var body: some Scene {
         WindowGroup {
