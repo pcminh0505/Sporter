@@ -18,18 +18,28 @@ extension String {
 
     //Validate Email
     var isValidEmail: Bool {
-        let name = "[A-Z0-9a-z]([A-Z0-9a-z._%+-]{0,30}[A-Z0-9a-z])?"
-        let domain = "([A-Z0-9a-z]([A-Z0-9a-z-]{0,30}[A-Z0-9a-z])?\\.){1,5}"
-        let emailRegEx = name + "@" + domain + "[A-Za-z]{2,8}"
-        let emailPredicate = NSPredicate(format: "SELF MATCHES %@", emailRegEx)
-        return emailPredicate.evaluate(with: self)
+        let emailRegEx = "[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,64}"
+        let emailTest = NSPredicate(format: "SELF MATCHES %@", emailRegEx)
+        return emailTest.evaluate(with: self)
     }
 
     //Validate Phone
     var isValidPhoneNumber: Bool {
-        let regEx = "^\\+(?:[0-9]?){6,14}[0-9]$"
+        let phoneRegex = "^[0-9+]{0,1}+[0-9]{5,16}$"
+        let phoneTest = NSPredicate(format: "SELF MATCHES %@", phoneRegex)
+        return phoneTest.evaluate(with: self)
+    }
 
-        let phoneCheck = NSPredicate(format: "SELF MATCHES[c] %@", regEx)
-        return phoneCheck.evaluate(with: self)
+    //validate Password
+    var isValidPassword: Bool {
+        // least one uppercase,
+        // least one digit
+        // least one lowercase
+        // least one symbol
+        // min 8 characters total
+        let password = self.trimmingCharacters(in: CharacterSet.whitespaces)
+        let passwordRegx = "^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&<>*~:`-]).{8,}$"
+        let passwordCheck = NSPredicate(format: "SELF MATCHES %@", passwordRegx)
+        return passwordCheck.evaluate(with: password)
     }
 }
