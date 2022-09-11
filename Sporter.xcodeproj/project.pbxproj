@@ -257,6 +257,7 @@
 		246B09F428BE1939007B7070 /* MVVM */ = {
 			isa = PBXGroup;
 			children = (
+				246B09FE28BFBC1E007B7070 /* Color.swift */,
 				241A6EC628BDCFD200C830BE /* Models */,
 				2493A5C728C865720055F8D2 /* ViewModels */,
 				241A6EC528BDCFC500C830BE /* Views */,
@@ -268,7 +269,6 @@
 			isa = PBXGroup;
 			children = (
 				0CE4BDFA28CB97FC00CBFF37 /* GlowBorder.swift */,
-				246B09FE28BFBC1E007B7070 /* Color.swift */,
 				24A676F928CB237F00A7BA9D /* String.swift */,
 			);
 			path = Extensions;
@@ -597,7 +597,7 @@
 				DEVELOPMENT_TEAM = 977QYQQ6PC;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "This app need your location show nearby venues.";
+				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "This app need your location to show it on the map.";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -631,7 +631,7 @@
 				DEVELOPMENT_TEAM = 977QYQQ6PC;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "This app need your location show nearby venues.";
+				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "This app need your location to show it on the map.";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;

@@ -11,7 +11,6 @@ import CoreLocationUI
 
 struct MapView: View {
     @EnvironmentObject var navigationHelper: NavigationHelper
-    @EnvironmentObject private var venueViewModel : VenueViewModel
     @StateObject private var mapViewModel = MapViewModel()
     
     var body: some View {
@@ -19,7 +18,7 @@ struct MapView: View {
             ZStack (alignment: .bottom) {
                 Map(coordinateRegion: $mapViewModel.mapRegion,
                     showsUserLocation: true,
-                    annotationItems: venueViewModel.venues,
+                    annotationItems: mapViewModel.venues,
                     annotationContent: {venue in
                         MapAnnotation (coordinate: CLLocationCoordinate2D(latitude: Double(venue.latitude)!,
                                                                          longitude: Double(venue.longitude)!)) {
@@ -32,18 +31,21 @@ struct MapView: View {
                         }
                 })
                     .accentColor(Color(.systemPink))
+                    .onAppear {
+                        mapViewModel.checkLocationServiceEnabled()
+                    }
                 
                 VStack (alignment: .trailing, spacing: 0) {
                     // focus on current location
-                    LocationButton(.currentLocation) { mapViewModel.requestLocationPermission() }
-                        .symbolVariant(.fill)
-                        .labelStyle(.iconOnly)
-                        .foregroundColor(.white)
-                        .cornerRadius(6)
-                        .tint(.red) // color
-                        .padding(.trailing)
-                        .padding(.top, 40)
-                        .padding(.bottom, 10)
+//                    LocationButton(.currentLocation) { mapViewModel.requestLocationPermission() }
+//                        .symbolVariant(.fill)
+//                        .labelStyle(.iconOnly)
+//                        .foregroundColor(.white)
+//                        .cornerRadius(6)
+//                        .tint(.red) // color
+//                        .padding(.trailing)
+//                        .padding(.top, 40)
+//                        .padding(.bottom, 10)
                     
                     // show/hide venue preview
                     if mapViewModel.isPreviewShow {
@@ -56,14 +58,40 @@ struct MapView: View {
                 }
             }
             
-            Button {
-                navigationHelper.selection = nil
-            } label: {
-                BackNavigateButton()
-                    .padding(.top, 40)
-                    .padding(.leading, 20)
-                    .padding(.bottom, 10)
-//                    .background(Color.theme.red)
+            VStack {
+                HStack {
+                    Button {
+                        navigationHelper.selection = nil
+                    } label: {
+                        BackNavigateButton()
+                    }
+                    
+                    TextField("Find Venue...", text: $mapViewModel.searchText)
+                        .textFieldStyle(RoundedBorderTextFieldStyle())
+                        .border(Color.theme.red)
+                        .font(.system(size: 18))
+                }
+                .padding(.trailing, 65)
+                .padding(.top, 40)
+                .padding(.leading, 20)
+                
+                if let filterVenue = mapViewModel.filteredVenue, !filterVenue.isEmpty {
+                    List {
+                        ForEach(filterVenue) {venue in
+                            HStack {
+                                Text(venue.name)
+                                    .foregroundColor(Color.theme.red)
+                                    .onTapGesture {
+                                        mapViewModel.filteredVenue = []
+                                        mapViewModel.searchText = ""
+                                        mapViewModel.showVenuePreview(venue: venue)
+                                    }
+                                
+                                
+                            }
+                        }
+                    }
+                }
             }
         }
         .ignoresSafeArea()
@@ -73,6 +101,5 @@ struct MapView: View {
 struct MapView_Previews: PreviewProvider {
     static var previews: some View {
         MapView()
-            .environmentObject(VenueViewModel())
     }
 }
