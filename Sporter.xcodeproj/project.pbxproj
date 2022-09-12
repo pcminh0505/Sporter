@@ -64,6 +64,11 @@
 		24A6771528CB6F5D00A7BA9D /* ProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24A6771428CB6F5D00A7BA9D /* ProfileView.swift */; };
 		24A6771728CB6FF100A7BA9D /* DashboardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24A6771628CB6FF100A7BA9D /* DashboardView.swift */; };
 		24A6771928CB715F00A7BA9D /* ChatView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24A6771828CB715F00A7BA9D /* ChatView.swift */; };
+		CC53616D28CFA8A100C9F7B7 /* NotifyCellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC53616C28CFA8A100C9F7B7 /* NotifyCellView.swift */; };
+		CC53616F28CFA8D000C9F7B7 /* MatchModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC53616E28CFA8D000C9F7B7 /* MatchModel.swift */; };
+		CC53617128CFA8E300C9F7B7 /* NotificationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC53617028CFA8E300C9F7B7 /* NotificationView.swift */; };
+		CC53617328CFA90300C9F7B7 /* NotificationViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC53617228CFA90300C9F7B7 /* NotificationViewModel.swift */; };
+		CC53617528CFA91000C9F7B7 /* MatchRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC53617428CFA91000C9F7B7 /* MatchRepository.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -114,6 +119,11 @@
 		24A6771428CB6F5D00A7BA9D /* ProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileView.swift; sourceTree = "<group>"; };
 		24A6771628CB6FF100A7BA9D /* DashboardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashboardView.swift; sourceTree = "<group>"; };
 		24A6771828CB715F00A7BA9D /* ChatView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatView.swift; sourceTree = "<group>"; };
+		CC53616C28CFA8A100C9F7B7 /* NotifyCellView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = NotifyCellView.swift; path = Sporter/Components/NotifyCellView.swift; sourceTree = SOURCE_ROOT; };
+		CC53616E28CFA8D000C9F7B7 /* MatchModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MatchModel.swift; sourceTree = "<group>"; };
+		CC53617028CFA8E300C9F7B7 /* NotificationView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NotificationView.swift; sourceTree = "<group>"; };
+		CC53617228CFA90300C9F7B7 /* NotificationViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NotificationViewModel.swift; sourceTree = "<group>"; };
+		CC53617428CFA91000C9F7B7 /* MatchRepository.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MatchRepository.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -234,6 +244,7 @@
 				24A676FB28CB298900A7BA9D /* AuthViews */,
 				24A6771828CB715F00A7BA9D /* ChatView.swift */,
 				241A6F0A28BDFDA400C830BE /* CheckView.swift */,
+				CC53617028CFA8E300C9F7B7 /* NotificationView.swift */,
 				24A6771628CB6FF100A7BA9D /* DashboardView.swift */,
 				2489E39328C85C0100642E54 /* DiscoveryView.swift */,
 				24A6770928CB579500A7BA9D /* HomeView.swift */,
@@ -248,6 +259,7 @@
 			isa = PBXGroup;
 			children = (
 				246B09F228BE1847007B7070 /* UserModel.swift */,
+				CC53616E28CFA8D000C9F7B7 /* MatchModel.swift */,
 				0C8FF7F928C4E10D0094465D /* VenueModel.swift */,
 				0CD0DF5128CF3E8500351711 /* EventModel.swift */,
 			);
@@ -266,6 +278,7 @@
 		246B09EB28BE1726007B7070 /* Repositories */ = {
 			isa = PBXGroup;
 			children = (
+				CC53617428CFA91000C9F7B7 /* MatchRepository.swift */,
 				246B09EC28BE17C6007B7070 /* UserRepository.swift */,
 				246B09EE28BE17DC007B7070 /* VenueRepository.swift */,
 				24996E6E28CCC97B000E8623 /* StorageManager.swift */,
@@ -298,6 +311,7 @@
 			isa = PBXGroup;
 			children = (
 				2493A5C928C8658C0055F8D2 /* DiscoveryViewModel.swift */,
+				CC53617228CFA90300C9F7B7 /* NotificationViewModel.swift */,
 				2493A5C828C8658C0055F8D2 /* MapViewModel.swift */,
 				2493A5CA28C8658C0055F8D2 /* VenueViewModel.swift */,
 				24996E7028CDD336000E8623 /* HomeViewModel.swift */,
@@ -335,6 +349,7 @@
 		24A6770428CB530C00A7BA9D /* StackCards */ = {
 			isa = PBXGroup;
 			children = (
+				CC53616C28CFA8A100C9F7B7 /* NotifyCellView.swift */,
 				2489E39528C85C0600642E54 /* StackCardView.swift */,
 			);
 			path = StackCards;
@@ -448,7 +463,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CC53617528CFA91000C9F7B7 /* MatchRepository.swift in Sources */,
 				241A38C828CF0D5800B19E59 /* SquareButton.swift in Sources */,
+				CC53617328CFA90300C9F7B7 /* NotificationViewModel.swift in Sources */,
+				CC53616F28CFA8D000C9F7B7 /* MatchModel.swift in Sources */,
 				241A6F0B28BDFDA400C830BE /* CheckView.swift in Sources */,
 				0CAF6B4628C84A59003EFF26 /* CustomMapAnnotationView.swift in Sources */,
 				0CE4BDFB28CB97FC00CBFF37 /* GlowBorder.swift in Sources */,
@@ -490,6 +508,8 @@
 				2493A5CD28C8658C0055F8D2 /* VenueViewModel.swift in Sources */,
 				0CD0DF5228CF3E8500351711 /* EventModel.swift in Sources */,
 				241A6ECD28BDD12A00C830BE /* Lottie.swift in Sources */,
+				CC53617128CFA8E300C9F7B7 /* NotificationView.swift in Sources */,
+				CC53616D28CFA8A100C9F7B7 /* NotifyCellView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -618,7 +638,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"Sporter/Preview Content\"";
-				DEVELOPMENT_TEAM = 977QYQQ6PC;
+				DEVELOPMENT_TEAM = "";
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "This app need your location to show it on the map.";
@@ -628,7 +648,7 @@
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = "";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				IPHONEOS_DEPLOYMENT_TARGET = 15.5;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.2;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -652,7 +672,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"Sporter/Preview Content\"";
-				DEVELOPMENT_TEAM = 977QYQQ6PC;
+				DEVELOPMENT_TEAM = "";
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "This app need your location to show it on the map.";
@@ -662,7 +682,7 @@
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = "";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				IPHONEOS_DEPLOYMENT_TARGET = 15.5;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.2;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",

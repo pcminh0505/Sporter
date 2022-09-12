@@ -11,6 +11,7 @@ import Combine
 
 class HomeViewModel: ObservableObject, Identifiable {
     private let userRepository = UserRepository()
+    private let matchRepository = MatchRepository()
 
     @Published var currentUser: User? = nil
     

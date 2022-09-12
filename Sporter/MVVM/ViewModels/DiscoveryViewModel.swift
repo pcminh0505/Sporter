@@ -9,13 +9,14 @@ import Foundation
 import Combine
 
 class DiscoveryViewModel: ObservableObject, Identifiable {
-    private let userRepository = UserRepository()
+    private let userRepo = UserRepository()
+    private let matchRepo = MatchRepository()
     
     @Published var displayingUsers: [User] = []
     private var cancellables: Set<AnyCancellable> = []
 
     init () {
-        userRepository.$users
+        userRepo.$users
             .assign(to: \.displayingUsers, on: self)
             .store(in: &cancellables)
     }
@@ -26,5 +27,11 @@ class DiscoveryViewModel: ObservableObject, Identifiable {
         }) ?? 0
 
         return index
+    }
+    
+    func createMatch(receiver: String) {
+        let id = UUID().uuidString
+        let user_id = UserDefaults.standard.value(forKey: "currentUser") as? String ?? ""
+        matchRepo.createMatch(matchID: id, Match(id: id, sender: receiver, receiver: user_id, accept: false))
     }
 }

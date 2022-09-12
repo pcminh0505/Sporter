@@ -15,6 +15,7 @@ class UserRepository: ObservableObject {
 
     @Published var currentUser: User? = nil
     @Published var users: [User] = []
+    @Published var matchingUsers: [User] = []
 
     init() {
         getCurrentUser()
@@ -80,5 +81,24 @@ class UserRepository: ObservableObject {
         } catch let error {
             print("Error adding User to Firestore: \(error.localizedDescription).")
         }
+    }
+    
+    func getListOfUserBaseOnMatch(matchList: [Match]) -> [User] {
+        // Prevent crash
+        if !matchList.isEmpty {            
+            matchList.forEach{ match in
+                let docRef = db.collection(collection).document(match.sender)
+                docRef.getDocument(as: User.self) { result in
+                    switch result {
+                    case .success(let user):
+                        self.matchingUsers.append(user)
+                    case .failure(let error):
+                        // A User value could not be initialized from the DocumentSnapshot.
+                        print("Error decoding document: \(error.localizedDescription)")
+                    }
+                }
+            }
+        }
+        return matchingUsers
     }
 }
