@@ -23,6 +23,7 @@
 		0CD0DF5028CF2FE600351711 /* StarRating.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0CD0DF4F28CF2FE600351711 /* StarRating.swift */; };
 		0CE4BDFB28CB97FC00CBFF37 /* GlowBorder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0CE4BDFA28CB97FC00CBFF37 /* GlowBorder.swift */; };
 		0CE4BDFD28CBBACB00CBFF37 /* BackNavigateButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0CE4BDFC28CBBACB00CBFF37 /* BackNavigateButton.swift */; };
+		0EF3B15E28CF5B5300627E11 /* NewEventForm.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EF3B15D28CF5B5300627E11 /* NewEventForm.swift */; };
 		241A38C528CEF2D500B19E59 /* ProfileViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 241A38C428CEF2D500B19E59 /* ProfileViewModel.swift */; };
 		241A38C828CF0D5800B19E59 /* SquareButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 241A38C728CF0D5800B19E59 /* SquareButton.swift */; };
 		241A6EB128BDCD1300C830BE /* SporterApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 241A6EB028BDCD1300C830BE /* SporterApp.swift */; };
@@ -70,6 +71,7 @@
 		0CD0DF4F28CF2FE600351711 /* StarRating.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StarRating.swift; sourceTree = "<group>"; };
 		0CE4BDFA28CB97FC00CBFF37 /* GlowBorder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GlowBorder.swift; sourceTree = "<group>"; };
 		0CE4BDFC28CBBACB00CBFF37 /* BackNavigateButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackNavigateButton.swift; sourceTree = "<group>"; };
+		0EF3B15D28CF5B5300627E11 /* NewEventForm.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewEventForm.swift; sourceTree = "<group>"; };
 		241A38C428CEF2D500B19E59 /* ProfileViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewModel.swift; sourceTree = "<group>"; };
 		241A38C728CF0D5800B19E59 /* SquareButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SquareButton.swift; sourceTree = "<group>"; };
 		241A6EAD28BDCD1300C830BE /* Sporter.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Sporter.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -150,6 +152,14 @@
 			path = MapView;
 			sourceTree = "<group>";
 		};
+		0EF3B15F28CF759B00627E11 /* NewEventForm */ = {
+			isa = PBXGroup;
+			children = (
+				0EF3B15D28CF5B5300627E11 /* NewEventForm.swift */,
+			);
+			path = NewEventForm;
+			sourceTree = "<group>";
+		};
 		241A38C628CF0D4400B19E59 /* SquareButton */ = {
 			isa = PBXGroup;
 			children = (
@@ -208,6 +218,7 @@
 				24A6770B28CB6A4D00A7BA9D /* CustomeTabBar */,
 				241A6ECA28BDD0FD00C830BE /* Lottie */,
 				0CAF6B4428C84A3D003EFF26 /* MapView */,
+				0EF3B15F28CF759B00627E11 /* NewEventForm */,
 				24A6770428CB530C00A7BA9D /* StackCards */,
 			);
 			path = Components;
@@ -436,6 +447,7 @@
 				0CAF6B4628C84A59003EFF26 /* CustomMapAnnotationView.swift in Sources */,
 				0CE4BDFB28CB97FC00CBFF37 /* GlowBorder.swift in Sources */,
 				24A676FA28CB237F00A7BA9D /* String.swift in Sources */,
+				0EF3B15E28CF5B5300627E11 /* NewEventForm.swift in Sources */,
 				24A6770828CB54A500A7BA9D /* Navigation.swift in Sources */,
 				24A676FD28CB29BB00A7BA9D /* ErrorView.swift in Sources */,
 				24996E7128CDD336000E8623 /* HomeViewModel.swift in Sources */,

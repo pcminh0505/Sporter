@@ -10,6 +10,8 @@ import SwiftUI
 import MapKit
 
 struct VenueDetailView : View {
+    @EnvironmentObject var navigationHelper: NavigationHelper
+
     let venue: Venue
     @Binding var isPreviewShow: Bool
     @State var startingOffsetY: CGFloat = UIScreen.main.bounds.height * 0.735
@@ -18,7 +20,18 @@ struct VenueDetailView : View {
     @State private var isRotated = false
     
     var body: some View {
+        
         VStack (alignment: .leading, spacing: 10) {
+            // Navigation to New Event Form
+            NavigationLink(tag: "new-event", selection: $navigationHelper.selection) {
+                NewEventForm(venue: venue)
+                    .navigationTitle("")
+                    .navigationBarTitleDisplayMode(.inline)
+            } label: {
+                EmptyView()
+            }
+            .isDetailLink(false)
+
             header
                 .padding(.top, 10)
                 .padding(.horizontal)
@@ -32,6 +45,22 @@ struct VenueDetailView : View {
                     
                     VStack (alignment: .center, spacing: 10) {
                         venuePreviewImage
+                        
+                        Button {
+                            navigationHelper.selection = "new-event"
+                        } label: {
+                            HStack {
+                                Text("New Event")
+                                Image(systemName: "plus.app.fill")
+                            }
+                                .padding(.vertical)
+                                .foregroundColor(.white)
+                        }
+                        .frame(maxWidth: .infinity)
+                        .background(Color.accentColor)
+                        .cornerRadius(10)
+                        .padding(.top, 25)
+                        
                         Text("Events")
                             .padding(.top, 10)
                         Text("current events")
