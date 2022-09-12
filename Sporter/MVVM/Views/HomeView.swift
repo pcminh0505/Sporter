@@ -11,16 +11,21 @@ import Firebase
 struct HomeView: View {
     @State private var selection: String = "home"
     @State private var tabSelection: TabBarItem = .home
-    
+    @StateObject var notiVM = NotificationViewModel()
     @StateObject var profileVM = ProfileViewModel()
-    
+    @StateObject var discoveryVM = DiscoveryViewModel()
     var body: some View {
         CustomTabBarContainerView(selection: $tabSelection) {
             DashboardView(user: profileVM.currentUser ?? User.unset)
                 .tabBarItem(tab: .home, selection: $tabSelection)
-                
+            
             DiscoveryView()
+                .environmentObject(discoveryVM)
                 .tabBarItem(tab: .explore, selection: $tabSelection)
+            
+            NotificationView()
+                .environmentObject(notiVM)
+                .tabBarItem(tab: .notify, selection: $tabSelection)
 
             ProfileView()
                 .environmentObject(profileVM)
