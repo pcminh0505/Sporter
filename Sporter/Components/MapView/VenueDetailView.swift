@@ -19,18 +19,18 @@ struct VenueDetailView : View {
     @State var endingOffsetY: CGFloat = 0
     @State private var isRotated = false
     
+    @State var isCreatingEvent: Bool = false
+    
     var body: some View {
         
         VStack (alignment: .leading, spacing: 10) {
             // Navigation to New Event Form
-            NavigationLink(tag: "new-event", selection: $navigationHelper.selection) {
-                NewEventForm(venue: venue)
-                    .navigationTitle("")
-                    .navigationBarTitleDisplayMode(.inline)
+            NavigationLink(isActive: $isCreatingEvent) {
+                NewEventForm(isCreatingEvent: $isCreatingEvent, venue: venue).navigationBarHidden(true)
             } label: {
                 EmptyView()
             }
-            .isDetailLink(false)
+            
 
             header
                 .padding(.top, 10)
@@ -47,7 +47,7 @@ struct VenueDetailView : View {
                         venuePreviewImage
                         
                         Button {
-                            navigationHelper.selection = "new-event"
+                            isCreatingEvent = true
                         } label: {
                             HStack {
                                 Text("New Event")
