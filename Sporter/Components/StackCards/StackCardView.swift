@@ -14,6 +14,8 @@ struct StackCardView: View {
     var user: User
     
     // Gesture Properties
+    let defaultImageURL: String = "https://t4.ftcdn.net/jpg/00/64/67/63/360_F_64676383_LdbmhiNM6Ypzb3FM4PPuFP9rHe7ri8Ju.jpg"
+    @State private var image: UIImage?
     @State var offset: CGFloat = 0
     @GestureState var isDragging: Bool = false
     @State var endSwipe: Bool = false
@@ -26,12 +28,41 @@ struct StackCardView: View {
             let topOffset = (index <= 2 ? index: 2) * 15
             
             ZStack {
-                Image(user.profileImage)
-                    .resizable()
-                    .aspectRatio(contentMode: .fill)
-                    .frame(width: size.width - topOffset, height: size.height)
-                    .cornerRadius(15)
-                    .offset(y: -topOffset)
+                
+                if let image = self.image {
+                    Image(uiImage: image)
+                        .resizable()
+                        .aspectRatio(contentMode: .fill)
+                        .frame(width: size.width - topOffset, height: size.height)
+                        .cornerRadius(15)
+                        .offset(y: -topOffset)
+                } else {
+                    AsyncImage (
+                        url: URL(string: user.profileImage),
+                        content: { image in
+                            image.resizable()
+                                .resizable()
+                                .aspectRatio(contentMode: .fill)
+                                .frame(width: size.width - topOffset, height: size.height)
+                                .cornerRadius(15)
+                                .offset(y: -topOffset)
+                        },
+                        placeholder: {
+                            ProgressView()
+                                .frame(width: size.width - topOffset, height: size.height)
+                                .cornerRadius(15)
+                                .offset(y: -topOffset)
+                                .background(Color(uiColor: .systemGray6))
+                        }
+                    )
+                }
+                
+//                Image(user.profileImage)
+//                    .resizable()
+//                    .aspectRatio(contentMode: .fill)
+//                    .frame(width: size.width - topOffset, height: size.height)
+//                    .cornerRadius(15)
+//                    .offset(y: -topOffset)
             }
             .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .center)
         }
@@ -63,7 +94,7 @@ struct StackCardView: View {
                                 rightSwipe()
                             }
                             else {
-                                leftSwipe()
+                                leftSwipe(receiver: user.id ?? "")
                             }
                         }
                         else {
@@ -92,7 +123,7 @@ struct StackCardView: View {
                         self.rightSwipe()
                     }
                     else {
-                        leftSwipe()
+                        leftSwipe(receiver: user.id ?? "")
                     }
                 }
             }
@@ -119,8 +150,8 @@ struct StackCardView: View {
         }
     }
     
-    func leftSwipe() {
-        
+    func leftSwipe(receiver: String) {
+        discoveryVM.createMatch(receiver: receiver)
     }
     
     func rightSwipe() {
