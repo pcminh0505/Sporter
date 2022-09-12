@@ -10,13 +10,15 @@ import Firebase
 
 struct DashboardView: View {
     @EnvironmentObject var navigationHelper: NavigationHelper
-
+    @StateObject var eventRepository = EventRespository()
     let user: User
 
     var body: some View {
         VStack {
             NavigationLink(tag: "map", selection: $navigationHelper.selection) {
-                MapView().navigationBarHidden(true)
+                MapView()
+                    .environmentObject(eventRepository)
+                    .navigationBarHidden(true)
             } label: {
                 EmptyView()
             }.isDetailLink(false)

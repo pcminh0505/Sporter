@@ -11,14 +11,14 @@ import MapKit
 
 struct VenueDetailView : View {
     @EnvironmentObject var navigationHelper: NavigationHelper
-
+    @EnvironmentObject var eventRepository: EventRespository
+    
     let venue: Venue
     @Binding var isPreviewShow: Bool
     @State var startingOffsetY: CGFloat = UIScreen.main.bounds.height * 0.735
     @State var currentDragOffsetY: CGFloat = 0
     @State var endingOffsetY: CGFloat = 0
     @State private var isRotated = false
-    
     @State var isCreatingEvent: Bool = false
     
     var body: some View {
@@ -26,7 +26,9 @@ struct VenueDetailView : View {
         VStack (alignment: .leading, spacing: 10) {
             // Navigation to New Event Form
             NavigationLink(isActive: $isCreatingEvent) {
-                NewEventForm(isCreatingEvent: $isCreatingEvent, venue: venue).navigationBarHidden(true)
+                NewEventForm(isCreatingEvent: $isCreatingEvent, venue: venue)
+                    .environmentObject(eventRepository)
+                    .navigationBarHidden(true)
             } label: {
                 EmptyView()
             }

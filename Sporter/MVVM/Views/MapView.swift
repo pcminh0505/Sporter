@@ -11,6 +11,7 @@ import CoreLocationUI
 
 struct MapView: View {
     @EnvironmentObject var navigationHelper: NavigationHelper
+    
     @StateObject private var mapViewModel = MapViewModel()
     @FocusState private var searchFocused: Bool
     
