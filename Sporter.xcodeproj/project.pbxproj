@@ -21,6 +21,8 @@
 		0CAF6B4628C84A59003EFF26 /* CustomMapAnnotationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0CAF6B4528C84A59003EFF26 /* CustomMapAnnotationView.swift */; };
 		0CAF6B4828C87716003EFF26 /* VenueDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0CAF6B4728C87715003EFF26 /* VenueDetailView.swift */; };
 		0CD0DF5028CF2FE600351711 /* StarRating.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0CD0DF4F28CF2FE600351711 /* StarRating.swift */; };
+		0CD0DF5228CF3E8500351711 /* EventModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0CD0DF5128CF3E8500351711 /* EventModel.swift */; };
+		0CD0DF5428CF420E00351711 /* EventRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0CD0DF5328CF420E00351711 /* EventRepository.swift */; };
 		0CE4BDFB28CB97FC00CBFF37 /* GlowBorder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0CE4BDFA28CB97FC00CBFF37 /* GlowBorder.swift */; };
 		0CE4BDFD28CBBACB00CBFF37 /* BackNavigateButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0CE4BDFC28CBBACB00CBFF37 /* BackNavigateButton.swift */; };
 		0EF3B15E28CF5B5300627E11 /* NewEventForm.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EF3B15D28CF5B5300627E11 /* NewEventForm.swift */; };
@@ -74,6 +76,8 @@
 		0CAF6B4528C84A59003EFF26 /* CustomMapAnnotationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomMapAnnotationView.swift; sourceTree = "<group>"; };
 		0CAF6B4728C87715003EFF26 /* VenueDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VenueDetailView.swift; sourceTree = "<group>"; };
 		0CD0DF4F28CF2FE600351711 /* StarRating.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StarRating.swift; sourceTree = "<group>"; };
+		0CD0DF5128CF3E8500351711 /* EventModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventModel.swift; sourceTree = "<group>"; };
+		0CD0DF5328CF420E00351711 /* EventRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventRepository.swift; sourceTree = "<group>"; };
 		0CE4BDFA28CB97FC00CBFF37 /* GlowBorder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GlowBorder.swift; sourceTree = "<group>"; };
 		0CE4BDFC28CBBACB00CBFF37 /* BackNavigateButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackNavigateButton.swift; sourceTree = "<group>"; };
 		0EF3B15D28CF5B5300627E11 /* NewEventForm.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewEventForm.swift; sourceTree = "<group>"; };
@@ -257,6 +261,7 @@
 				246B09F228BE1847007B7070 /* UserModel.swift */,
 				CC53616E28CFA8D000C9F7B7 /* MatchModel.swift */,
 				0C8FF7F928C4E10D0094465D /* VenueModel.swift */,
+				0CD0DF5128CF3E8500351711 /* EventModel.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -277,6 +282,7 @@
 				246B09EC28BE17C6007B7070 /* UserRepository.swift */,
 				246B09EE28BE17DC007B7070 /* VenueRepository.swift */,
 				24996E6E28CCC97B000E8623 /* StorageManager.swift */,
+				0CD0DF5328CF420E00351711 /* EventRepository.swift */,
 			);
 			path = Repositories;
 			sourceTree = "<group>";
@@ -494,11 +500,13 @@
 				2489E39628C85C0700642E54 /* StackCardView.swift in Sources */,
 				246B09EF28BE17DC007B7070 /* VenueRepository.swift in Sources */,
 				246B09ED28BE17C6007B7070 /* UserRepository.swift in Sources */,
+				0CD0DF5428CF420E00351711 /* EventRepository.swift in Sources */,
 				241A6EB128BDCD1300C830BE /* SporterApp.swift in Sources */,
 				24A6770F28CB6B3700A7BA9D /* TabBarItem.swift in Sources */,
 				246B09F328BE1847007B7070 /* UserModel.swift in Sources */,
 				24A6771528CB6F5D00A7BA9D /* ProfileView.swift in Sources */,
 				2493A5CD28C8658C0055F8D2 /* VenueViewModel.swift in Sources */,
+				0CD0DF5228CF3E8500351711 /* EventModel.swift in Sources */,
 				241A6ECD28BDD12A00C830BE /* Lottie.swift in Sources */,
 				CC53617128CFA8E300C9F7B7 /* NotificationView.swift in Sources */,
 				CC53616D28CFA8A100C9F7B7 /* NotifyCellView.swift in Sources */,
