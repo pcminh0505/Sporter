@@ -19,7 +19,7 @@ struct LoginView: View {
 
     @State var isLoading: Bool = false
     @State var isResetting: Bool = false
-    
+
     var body: some View {
         ZStack {
             GeometryReader { _ in
@@ -32,35 +32,38 @@ struct LoginView: View {
                         .foregroundColor(self.color)
                         .padding(.top, 35)
 
-                    TextField("Email", text: self.$email)
-                        .autocapitalization(.none)
-                        .padding()
-                        .background(RoundedRectangle(cornerRadius: 4).stroke(self.email != "" ? Color.accentColor : self.color, lineWidth: 2))
-                        .padding(.top, 25)
 
-                    HStack(spacing: 15) {
-                        VStack {
-                            if self.visible {
-                                TextField("Password", text: self.$pass)
-                                    .autocapitalization(.none)
+                    InputTextBox(title: "Email",
+                                 text: self.$email,
+                                 placeholder: "Email")
+
+                    VStack(alignment: .leading, spacing: 5) {
+                        Text("Password")
+                            .font(.headline)
+                        HStack(spacing: 15) {
+                            VStack {
+                                if self.visible {
+                                    TextField("Password", text: self.$pass)
+                                        .autocapitalization(.none)
+                                }
+                                else {
+                                    SecureField("Password", text: self.$pass)
+                                        .autocapitalization(.none)
+                                }
                             }
-                            else {
-                                SecureField("Password", text: self.$pass)
-                                    .autocapitalization(.none)
+
+                            Button(action: {
+                                self.visible.toggle()
+                            }) {
+                                Image(systemName: self.visible ? "eye.slash.fill" : "eye.fill")
+                                    .foregroundColor(self.color)
                             }
-                        }
 
-                        Button(action: {
-                            self.visible.toggle()
-                        }) {
-                            Image(systemName: self.visible ? "eye.slash.fill" : "eye.fill")
-                                .foregroundColor(self.color)
                         }
-
+                            .padding()
+                            .background(RoundedRectangle(cornerRadius: 4).stroke(self.pass != "" ? Color.accentColor : self.color, lineWidth: 2))
                     }
-                        .padding()
-                        .background(RoundedRectangle(cornerRadius: 4).stroke(self.pass != "" ? Color.accentColor : self.color, lineWidth: 2))
-                        .padding(.top, 25)
+                    .padding(.top, 25)
 
                     HStack {
                         Spacer()
@@ -134,7 +137,7 @@ struct LoginView: View {
                     self.isLoading = false
                     return
                 }
-                
+
                 // Get generated ID and push to Firestore
                 let id = res!.user.uid
 

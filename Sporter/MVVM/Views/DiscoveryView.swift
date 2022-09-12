@@ -9,14 +9,13 @@ import Foundation
 import SwiftUI
 
 struct DiscoveryView: View {
-    @EnvironmentObject var discoveryVM: HomeViewModel
+    @StateObject var discoveryVM = DiscoveryViewModel()
     
     var body: some View {
         VStack {
             // Users Stack
             ZStack {
                 if let users = discoveryVM.displayingUsers {
-                    let _ = print(users)
                     if users.isEmpty {
                         Text("Come back later we can find more matches for you")
                             .font(.caption)

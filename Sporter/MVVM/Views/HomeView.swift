@@ -12,22 +12,18 @@ struct HomeView: View {
     @State private var selection: String = "home"
     @State private var tabSelection: TabBarItem = .home
     
-    @StateObject var homeVM = HomeViewModel()
-
+    @StateObject var profileVM = ProfileViewModel()
+    
     var body: some View {
         CustomTabBarContainerView(selection: $tabSelection) {
-            DashboardView()
-                .environmentObject(homeVM)
+            DashboardView(user: profileVM.currentUser ?? User.unset)
                 .tabBarItem(tab: .home, selection: $tabSelection)
                 
             DiscoveryView()
-                .environmentObject(homeVM)
                 .tabBarItem(tab: .explore, selection: $tabSelection)
 
-            ChatView()
-                .tabBarItem(tab: .messages, selection: $tabSelection)
-
             ProfileView()
+                .environmentObject(profileVM)
                 .tabBarItem(tab: .profile, selection: $tabSelection)
         }
             .ignoresSafeArea(.keyboard, edges: .bottom)

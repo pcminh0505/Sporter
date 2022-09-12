@@ -19,14 +19,17 @@ struct CustomTabBarContainerView<Content:View>: View {
     }
 
     var body: some View {
-        ZStack(alignment: .bottom) {
+        VStack {
             content
-                .frame(maxWidth: .infinity, maxHeight: .infinity)
-                .ignoresSafeArea()
 
+            Spacer()
+            
             CustomTabBarView(tabs: tabs, selection: $selection, localSelection: selection)
-
+                .padding(.bottom, 25)
         }
+            .frame(maxWidth: .infinity, maxHeight: .infinity)
+            .edgesIgnoringSafeArea(.bottom)
+            .navigationBarHidden(true)
             .onPreferenceChange(TabBarItemsPreferenceKey.self, perform: { value in
             self.tabs = value
         })
