@@ -12,31 +12,38 @@ import MapKit
 struct VenueDetailView : View {
     let venue: Venue
     @Binding var isPreviewShow: Bool
-    @State var startingOffsetY: CGFloat = UIScreen.main.bounds.height * 0.725
+    @State var startingOffsetY: CGFloat = UIScreen.main.bounds.height * 0.735
     @State var currentDragOffsetY: CGFloat = 0
     @State var endingOffsetY: CGFloat = 0
     @State private var isRotated = false
-    @Environment(\.colorScheme) var colorScheme
     
     var body: some View {
-        VStack (spacing: 10) {
-            VStack {
-                header
-                venuePreviewText
+        VStack (alignment: .leading, spacing: 10) {
+            header
+                .padding(.top, 10)
+                .padding(.horizontal)
+            venuePreviewText
+                .padding(.horizontal)
+                .padding(.bottom, 30)
 
-                ScrollView {
+            ScrollView(.vertical) {
+                VStack (alignment: .leading) {
                     venueDetailText
-                    venuePreviewImage
                     
-                    Text("Events")
-                        .padding(.top, 10)
-                    Text("current events")
+                    VStack (alignment: .center, spacing: 10) {
+                        venuePreviewImage
+                        Text("Events")
+                            .padding(.top, 10)
+                        Text("current events")
+                    }
+                    .frame(maxWidth: .infinity)
                 }
+                .padding(.horizontal)
             }
-            .padding()
+            
             Spacer()
         }
-        .background(Color(colorScheme == .dark ? .black : .white))
+        .background(Color.theme.popupColor)
         .frame(maxWidth: .infinity)
         .cornerRadius(30)
         .offset(y: startingOffsetY)
@@ -72,8 +79,8 @@ extension VenueDetailView {
             content: { image in
                 image.resizable()
                      .aspectRatio(contentMode: .fit)
-                     .frame(maxHeight: 150)
-//                     .scaledToFit()
+                     .frame(maxHeight: 250)
+                     .scaledToFit()
             },
             placeholder: {
                 ProgressView()
@@ -82,32 +89,50 @@ extension VenueDetailView {
     }
     
     private var venuePreviewText : some View {
-        ZStack(alignment: .topTrailing) {
-            VStack (alignment: .leading, spacing: 10) {
-                Text(venue.name)
-                    .font(.system(size: 20))
-                    .fontWeight(.bold)
-//                    .padding(.top, 5)
+        VStack (alignment: .leading, spacing: 5) {
+            Text(venue.name)
+                .font(.system(size: 20))
+                .fontWeight(.bold)
+                .foregroundColor(Color.theme.red)
 
-                Text(venue.address)
-                    .font(.system(size: 15))
-                    .padding(.bottom, 27)
-                    
-            }
-            .fixedSize(horizontal: false, vertical: true)
+            Text(venue.address)
+                .font(.system(size: 15))
         }
     }
     
     private var venueDetailText : some View {
         VStack (alignment: .leading, spacing: 5) {
-            Text("Open time: " + venue.open_time + " - " + venue.close_time)
-            Text("Phone Number: " + venue.phone)
             HStack {
-                Text("Website:")
-                Link("Click here", destination: URL(string: venue.website)!)
+                Text("Open time:")
+                    .font(.headline)
+                    .fontWeight(.bold)
+                Text(venue.open_time + " - " + venue.close_time)
             }
-            Text("Ratings: " + venue.rating)
-        }.font(.system(size: 15))
+            HStack {
+                Text("Phone Number:")
+                    .font(.headline)
+                    .fontWeight(.bold)
+                Text(venue.phone)
+            }
+            
+            HStack {
+                Text("Ratings:")
+                    .font(.headline)
+                    .fontWeight(.bold)
+                StarRating(rating: Float(venue.rating)!)
+                Spacer()
+                
+                Link(destination: URL(string: venue.website)!) {
+                    HStack {
+                        Image(systemName: "link")
+                        Text("Website")
+                            .font(.headline)
+                            .fontWeight(.bold)
+                    }.foregroundColor(Color.theme.red)
+                }
+            }
+            
+        }
     }
     
     private var header : some View {
@@ -144,5 +169,6 @@ extension VenueDetailView {
                 Image(systemName: "xmark")
             }
         }
+
     }
 }

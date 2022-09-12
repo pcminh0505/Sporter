@@ -20,6 +20,7 @@
 		0C8FF7FA28C4E10D0094465D /* VenueModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C8FF7F928C4E10D0094465D /* VenueModel.swift */; };
 		0CAF6B4628C84A59003EFF26 /* CustomMapAnnotationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0CAF6B4528C84A59003EFF26 /* CustomMapAnnotationView.swift */; };
 		0CAF6B4828C87716003EFF26 /* VenueDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0CAF6B4728C87715003EFF26 /* VenueDetailView.swift */; };
+		0CD0DF5028CF2FE600351711 /* StarRating.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0CD0DF4F28CF2FE600351711 /* StarRating.swift */; };
 		0CE4BDFB28CB97FC00CBFF37 /* GlowBorder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0CE4BDFA28CB97FC00CBFF37 /* GlowBorder.swift */; };
 		0CE4BDFD28CBBACB00CBFF37 /* BackNavigateButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0CE4BDFC28CBBACB00CBFF37 /* BackNavigateButton.swift */; };
 		241A38C528CEF2D500B19E59 /* ProfileViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 241A38C428CEF2D500B19E59 /* ProfileViewModel.swift */; };
@@ -66,6 +67,7 @@
 		0C8FF7F928C4E10D0094465D /* VenueModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VenueModel.swift; sourceTree = "<group>"; };
 		0CAF6B4528C84A59003EFF26 /* CustomMapAnnotationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomMapAnnotationView.swift; sourceTree = "<group>"; };
 		0CAF6B4728C87715003EFF26 /* VenueDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VenueDetailView.swift; sourceTree = "<group>"; };
+		0CD0DF4F28CF2FE600351711 /* StarRating.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StarRating.swift; sourceTree = "<group>"; };
 		0CE4BDFA28CB97FC00CBFF37 /* GlowBorder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GlowBorder.swift; sourceTree = "<group>"; };
 		0CE4BDFC28CBBACB00CBFF37 /* BackNavigateButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackNavigateButton.swift; sourceTree = "<group>"; };
 		241A38C428CEF2D500B19E59 /* ProfileViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewModel.swift; sourceTree = "<group>"; };
@@ -143,6 +145,7 @@
 				0CAF6B4528C84A59003EFF26 /* CustomMapAnnotationView.swift */,
 				0CAF6B4728C87715003EFF26 /* VenueDetailView.swift */,
 				0CE4BDFC28CBBACB00CBFF37 /* BackNavigateButton.swift */,
+				0CD0DF4F28CF2FE600351711 /* StarRating.swift */,
 			);
 			path = MapView;
 			sourceTree = "<group>";
@@ -257,6 +260,7 @@
 		246B09F428BE1939007B7070 /* MVVM */ = {
 			isa = PBXGroup;
 			children = (
+				246B09FE28BFBC1E007B7070 /* Color.swift */,
 				241A6EC628BDCFD200C830BE /* Models */,
 				2493A5C728C865720055F8D2 /* ViewModels */,
 				241A6EC528BDCFC500C830BE /* Views */,
@@ -268,7 +272,6 @@
 			isa = PBXGroup;
 			children = (
 				0CE4BDFA28CB97FC00CBFF37 /* GlowBorder.swift */,
-				246B09FE28BFBC1E007B7070 /* Color.swift */,
 				24A676F928CB237F00A7BA9D /* String.swift */,
 			);
 			path = Extensions;
@@ -454,6 +457,7 @@
 				24A6771128CB6BC100A7BA9D /* TabBarItemsPreferenceKey.swift in Sources */,
 				2493A5CB28C8658C0055F8D2 /* MapViewModel.swift in Sources */,
 				0CAF6B4828C87716003EFF26 /* VenueDetailView.swift in Sources */,
+				0CD0DF5028CF2FE600351711 /* StarRating.swift in Sources */,
 				24A6771928CB715F00A7BA9D /* ChatView.swift in Sources */,
 				241A38C528CEF2D500B19E59 /* ProfileViewModel.swift in Sources */,
 				246B09FF28BFBC1E007B7070 /* Color.swift in Sources */,
@@ -597,7 +601,7 @@
 				DEVELOPMENT_TEAM = 977QYQQ6PC;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "This app need your location show nearby venues.";
+				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "This app need your location to show it on the map.";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -631,7 +635,7 @@
 				DEVELOPMENT_TEAM = 977QYQQ6PC;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "This app need your location show nearby venues.";
+				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "This app need your location to show it on the map.";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
