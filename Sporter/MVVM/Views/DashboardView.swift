@@ -9,8 +9,9 @@ import SwiftUI
 import Firebase
 
 struct DashboardView: View {
-    @EnvironmentObject var dashboardVM: HomeViewModel
     @EnvironmentObject var navigationHelper: NavigationHelper
+
+    let user: User
 
     var body: some View {
         VStack {
@@ -20,10 +21,41 @@ struct DashboardView: View {
                 EmptyView()
             }.isDetailLink(false)
 
-            Text("Hello \(dashboardVM.currentUser?.fname ?? "fname") \(dashboardVM.currentUser?.lname ?? "lname")")
-                .font(.title)
-                .fontWeight(.bold)
-                .foregroundColor(Color.theme.textColor)
+            HStack(spacing: 5) {
+                AsyncImage (
+                    url: URL(string: user.profileImage),
+                    content: { image in
+                        image.resizable()
+                            .resizable()
+                            .scaledToFill()
+                            .cornerRadius(25)
+                            .frame(width: 50, height: 50)
+                            .clipShape(Circle())
+                    },
+                    placeholder: {
+                        Image(systemName: "person.fill")
+                            .cornerRadius(25)
+                            .frame(width: 50, height: 50)
+                            .background(Color(uiColor: .systemGray6))
+                            .clipShape(Circle())
+                    }
+                )
+                    .overlay(RoundedRectangle(cornerRadius: 25).stroke(Color.theme.textColor))
+
+                VStack (alignment: .leading) {
+                    Text("Welcome")
+                        .font(.body)
+                    Text("\(user.fname) \(user.lname)")
+                        .font(.title2)
+                        .fontWeight(.bold)
+                }
+
+                    .foregroundColor(Color.theme.textColor)
+
+                Spacer()
+
+                SquareButton(imgName: "bell.fill")
+            }
 
             Button {
                 navigationHelper.selection = "map"
@@ -33,50 +65,21 @@ struct DashboardView: View {
                     Image(systemName: "map.fill")
                 }
                     .padding(.vertical)
-                    .frame(width: UIScreen.main.bounds.width - 50)
                     .foregroundColor(.white)
             }
+                .frame(maxWidth: .infinity)
                 .background(Color.accentColor)
                 .cornerRadius(10)
                 .padding(.top, 25)
-
-            Button {
-                navigationHelper.selection = "discover"
-            } label: {
-                HStack {
-                    Text("Go to Discover")
-                    Image(systemName: "person.2.fill")
-                }
-                    .padding(.vertical)
-                    .frame(width: UIScreen.main.bounds.width - 50)
-                    .foregroundColor(.white)
-            }
-                .background(Color.accentColor)
-                .cornerRadius(10)
-                .padding(.top, 25)
-
-
-            Button(action: {
-                try! Auth.auth().signOut()
-                UserDefaults.standard.set("", forKey: "currentUser")
-                UserDefaults.standard.set(false, forKey: "authStatus")
-                NotificationCenter.default.post(name: NSNotification.Name("authStatus"), object: nil)
-
-            }) {
-                Text("Log out")
-                    .foregroundColor(.white)
-                    .padding(.vertical)
-                    .frame(width: UIScreen.main.bounds.width - 50)
-            }
-                .background(Color.accentColor)
-                .cornerRadius(10)
-                .padding(.top, 25)
+            Spacer()
         }
+            .padding()
     }
 }
 
 struct DashboardView_Previews: PreviewProvider {
     static var previews: some View {
-        DashboardView()
+        DashboardView(user: User.unset)
+            .environmentObject(NavigationHelper())
     }
 }

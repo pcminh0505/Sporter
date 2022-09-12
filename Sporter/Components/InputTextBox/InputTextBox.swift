@@ -14,17 +14,25 @@ struct InputTextBox: View {
     @Binding var text: String
     let placeholder: String
     var validation: String = ""
-    var isDisabled: Bool = false
+    var numberOnly: Bool = false
 
     var body: some View {
         VStack(alignment: .leading, spacing: 5) {
             Text(title)
                 .font(.headline)
-            TextField("\(placeholder)", text: $text)
-                .autocapitalization(.none)
-                .padding()
-                .background(RoundedRectangle(cornerRadius: 4).stroke(text != "" ? Color.accentColor : color, lineWidth: 2))
-                .disabled(isDisabled)
+
+            if (numberOnly) {
+                TextField("\(placeholder)", text: $text)
+                    .keyboardType(.decimalPad)
+                    .autocapitalization(.none)
+                    .padding()
+                    .background(RoundedRectangle(cornerRadius: 4).stroke(text != "" ? Color.accentColor : color, lineWidth: 2))
+            } else {
+                TextField("\(placeholder)", text: $text)
+                    .autocapitalization(.none)
+                    .padding()
+                    .background(RoundedRectangle(cornerRadius: 4).stroke(text != "" ? Color.accentColor : color, lineWidth: 2))
+            }
             if (validation != "") {
                 Text(validation)
                     .font(.caption)

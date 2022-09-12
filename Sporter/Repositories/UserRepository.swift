@@ -26,15 +26,17 @@ class UserRepository: ObservableObject {
 
         // Prevent crash
         if !id.isBlank {
-            let docRef = db.collection(collection).document(id)
+            db.collection(collection).document(id)
+                .addSnapshotListener { doc, err in
 
-            docRef.getDocument(as: User.self) { result in
-                switch result {
-                case .success(let user):
-                    self.currentUser = user
-                case .failure(let error):
-                    // A User value could not be initialized from the DocumentSnapshot.
-                    print("Error decoding document: \(error.localizedDescription)")
+                if let doc = doc {
+                    do {
+                        let data = try doc.data(as: User.self)
+                        self.currentUser = data
+                    } catch let err {
+                        print("Error fetching data: \(err)")
+                    }
+
                 }
             }
         }
@@ -43,7 +45,7 @@ class UserRepository: ObservableObject {
     func getAllUsers() {
         // Except the current logged user
         let id = UserDefaults.standard.value(forKey: "currentUser") as? String ?? ""
-        
+
         db.collection(collection)
             .addSnapshotListener { (querySnapshot, error) in
             guard let documents = querySnapshot?.documents else {
@@ -56,7 +58,7 @@ class UserRepository: ObservableObject {
                 if doc.documentID == id {
                     return nil
                 }
-                
+
                 return try? doc.data(as: User.self)
             }
         }
@@ -72,9 +74,9 @@ class UserRepository: ObservableObject {
 
     func updateUser(_ user: User) {
         guard let userID = user.id else { return }
-
         do {
             try db.collection(collection).document(userID).setData(from: user)
+            print("Update user successfully")
         } catch let error {
             print("Error adding User to Firestore: \(error.localizedDescription).")
         }

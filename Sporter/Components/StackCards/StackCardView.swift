@@ -9,7 +9,7 @@ import Foundation
 import SwiftUI
 
 struct StackCardView: View {
-    @EnvironmentObject var discoveryVM: HomeViewModel
+    @EnvironmentObject var discoveryVM: DiscoveryViewModel
     
     var user: User
     

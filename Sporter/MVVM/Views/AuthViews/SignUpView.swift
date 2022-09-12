@@ -8,13 +8,6 @@
 import SwiftUI
 import Firebase
 
-enum Gender: String, CaseIterable, Identifiable {
-    case male
-    case female
-    case other
-    var id: String { self.rawValue }
-}
-
 struct SignUpView: View {
     let color = Color.theme.textColor.opacity(0.7)
     @State var gender: Gender = .male
@@ -249,16 +242,13 @@ struct SignUpView: View {
                         return
                     }
 
-                    let defaultImgURL = "https://t4.ftcdn.net/jpg/00/64/67/63/360_F_64676383_LdbmhiNM6Ypzb3FM4PPuFP9rHe7ri8Ju.jpg"
                     userRepo.createUser(userID: id,
                                         User(fname: self.fname.trimmingCharacters(in: .whitespacesAndNewlines),
                                              lname: self.lname.trimmingCharacters(in: .whitespacesAndNewlines),
                                              gender: self.gender.rawValue,
                                              bod: self.birthDate.timeIntervalSince1970,
                                              email: self.email.trimmingCharacters(in: .whitespacesAndNewlines),
-                                             phone: self.phone.trimmingCharacters(in: .whitespacesAndNewlines),
-                                             profileImage: defaultImgURL,
-                                             friends: []))
+                                             phone: self.phone.trimmingCharacters(in: .whitespacesAndNewlines)))
 
                     UserDefaults.standard.set(true, forKey: "authStatus")
                     UserDefaults.standard.set(id, forKey: "currentUser")
