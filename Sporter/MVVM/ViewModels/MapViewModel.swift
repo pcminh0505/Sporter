@@ -21,7 +21,7 @@ final class MapViewModel: NSObject, ObservableObject, CLLocationManagerDelegate 
     @Published var venueRepository =  VenueRepository()
     @Published var venues: [Venue] = []
     private var cancellables: Set<AnyCancellable> = []
-    @Published var filteredVenue: [Venue]?
+    @Published var filteredVenue: [Venue]? = []
     
     @Published var searchText: String = ""
     var searchTextCancellables: AnyCancellable?
@@ -39,7 +39,12 @@ final class MapViewModel: NSObject, ObservableObject, CLLocationManagerDelegate 
             .debounce(for: .seconds(0.5), scheduler: DispatchQueue.main)
             .removeDuplicates()
             .sink(receiveValue: { value in
-                self.filterVenue(value: value)
+                withAnimation() {
+                    self.filterVenue(value: value)
+                    if self.filteredVenue != [] {
+                        self.isPreviewShow = false
+                    }
+                }
         })
     }
     

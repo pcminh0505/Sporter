@@ -12,6 +12,7 @@ import CoreLocationUI
 struct MapView: View {
     @EnvironmentObject var navigationHelper: NavigationHelper
     @StateObject private var mapViewModel = MapViewModel()
+    @FocusState private var searchFocused: Bool
     
     var body: some View {
         ZStack (alignment: .topLeading) {
@@ -34,44 +35,43 @@ struct MapView: View {
                     .onAppear {
                         mapViewModel.checkLocationServiceEnabled()
                     }
-                
-                VStack (alignment: .trailing, spacing: 0) {
-                    // focus on current location
-//                    LocationButton(.currentLocation) { mapViewModel.requestLocationPermission() }
-//                        .symbolVariant(.fill)
-//                        .labelStyle(.iconOnly)
-//                        .foregroundColor(.white)
-//                        .cornerRadius(6)
-//                        .tint(.red) // color
-//                        .padding(.trailing)
-//                        .padding(.top, 40)
-//                        .padding(.bottom, 10)
-                    
-                    // show/hide venue preview
-                    if mapViewModel.isPreviewShow {
-                        VenueDetailView(venue: mapViewModel.selectedVenue!, isPreviewShow: $mapViewModel.isPreviewShow)
-                            .shadow(radius: 5)
-                            .transition(.asymmetric(
-                                insertion: .move(edge: .trailing),
-                                removal: .move(edge: .leading)))
-                    }
-                }
             }
             
-            VStack {
-                HStack {
+            VStack (spacing: 0) {
+                HStack (spacing: 20) {
                     Button {
                         navigationHelper.selection = nil
                     } label: {
                         BackNavigateButton()
                     }
+                    HStack {
+                        TextField("Find Venue...", text: $mapViewModel.searchText)
+                            .foregroundColor(Color.theme.textColor)
+                            .font(.system(size: 18))
+                            .focused($searchFocused)
+                        if mapViewModel.searchText != "" {
+                            Button {
+                                withAnimation() {
+                                    mapViewModel.filteredVenue = []
+                                    mapViewModel.searchText = ""
+                                    searchFocused = false
+                                }
+                            } label: {
+                                Text("Cancel")
+                                    .foregroundColor(Color.theme.textColor)
+                            }
+                        }
+                    }
+                    .background(
+                        RoundedRectangle(cornerRadius: 15)
+                            .fill(Color.theme.popupColor)
+                            .frame(width: 310, height: 40)
+                            .shadow(radius: 5)
+                    )
                     
-                    TextField("Find Venue...", text: $mapViewModel.searchText)
-                        .textFieldStyle(RoundedBorderTextFieldStyle())
-                        .border(Color.theme.red)
-                        .font(.system(size: 18))
+                    
                 }
-                .padding(.trailing, 65)
+                .padding(.trailing, 20)
                 .padding(.top, 40)
                 .padding(.leading, 20)
                 
@@ -79,18 +79,34 @@ struct MapView: View {
                     List {
                         ForEach(filterVenue) {venue in
                             HStack {
-                                Text(venue.name)
-                                    .foregroundColor(Color.theme.red)
-                                    .onTapGesture {
+                                Button {
+                                    withAnimation {
                                         mapViewModel.filteredVenue = []
                                         mapViewModel.searchText = ""
+                                        searchFocused = false
                                         mapViewModel.showVenuePreview(venue: venue)
                                     }
-                                
-                                
+                                } label: {
+                                    Text(venue.name)
+                                        .foregroundColor(Color.theme.textColor)
+                                }
                             }
-                        }
+                        }.listRowBackground(Color.theme.popupColor)
                     }
+                    .frame(width: UIScreen.main.bounds.width * 0.8, height: UIScreen.main.bounds.height * 0.6)
+                    .listStyle(.plain)
+                    .overlay(
+                        RoundedRectangle(cornerRadius: 10, style: .circular).stroke(Color(uiColor: .tertiaryLabel), lineWidth: 1)
+                    )
+                }
+                
+                if mapViewModel.isPreviewShow {
+                    VenueDetailView(venue: mapViewModel.selectedVenue!, isPreviewShow: $mapViewModel.isPreviewShow)
+                        .shadow(radius: 5)
+                        .padding(.top, 10)
+                        .transition(.asymmetric(
+                            insertion: .move(edge: .trailing),
+                            removal: .move(edge: .leading)))
                 }
             }
         }

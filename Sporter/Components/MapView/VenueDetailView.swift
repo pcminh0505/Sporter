@@ -12,7 +12,7 @@ import MapKit
 struct VenueDetailView : View {
     let venue: Venue
     @Binding var isPreviewShow: Bool
-    @State var startingOffsetY: CGFloat = UIScreen.main.bounds.height * 0.725
+    @State var startingOffsetY: CGFloat = UIScreen.main.bounds.height * 0.735
     @State var currentDragOffsetY: CGFloat = 0
     @State var endingOffsetY: CGFloat = 0
     @State private var isRotated = false
@@ -20,20 +20,21 @@ struct VenueDetailView : View {
     
     var body: some View {
         VStack (spacing: 10) {
-            VStack {
-                header
-                venuePreviewText
+            header
+                .padding(.top, 7)
+                .padding(.horizontal)
+            venuePreviewText
+                .padding(.horizontal)
 
-                ScrollView {
-                    venueDetailText
-                    venuePreviewImage
-                    
-                    Text("Events")
-                        .padding(.top, 10)
-                    Text("current events")
-                }
+            ScrollView(.vertical) {
+                venueDetailText
+                venuePreviewImage
+                
+                Text("Events")
+                    .padding(.top, 10)
+                Text("current events")
             }
-            .padding()
+            
             Spacer()
         }
         .background(Color(colorScheme == .dark ? .black : .white))
@@ -82,19 +83,16 @@ extension VenueDetailView {
     }
     
     private var venuePreviewText : some View {
-        ZStack(alignment: .topTrailing) {
-            VStack (alignment: .leading, spacing: 10) {
-                Text(venue.name)
-                    .font(.system(size: 20))
-                    .fontWeight(.bold)
+        VStack (alignment: .leading, spacing: 5) {
+            Text(venue.name)
+                .font(.system(size: 20))
+                .fontWeight(.bold)
 //                    .padding(.top, 5)
 
-                Text(venue.address)
-                    .font(.system(size: 15))
-                    .padding(.bottom, 27)
-                    
-            }
-            .fixedSize(horizontal: false, vertical: true)
+            Text(venue.address)
+                .font(.system(size: 15))
+                .padding(.bottom, 30)
+                
         }
     }
     
