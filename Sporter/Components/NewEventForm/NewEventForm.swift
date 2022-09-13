@@ -9,8 +9,6 @@ import SwiftUI
 import Firebase
 
 struct NewEventForm: View {
-    // TODO: Fix navigation bug
-
     @EnvironmentObject var eventRepository: EventRespository
     @Binding var isCreatingEvent: Bool
     let venue: Venue
@@ -172,6 +170,14 @@ struct NewEventForm: View {
             return
         }
         
+        // Check if descpription is blank
+        if self.description.isBlank {
+            self.error = "Please fill the event description"
+            self.alert.toggle()
+            self.isLoading = false
+            return
+        }
+        
         // Check if event time is invalid
         // If enough time, maybe parse the opening hours and check them
         if self.startTime >= self.endTime {
@@ -192,7 +198,8 @@ struct NewEventForm: View {
                       venue: self.venue.id,
                       startTime: self.startTime.timeIntervalSince1970,
                       endTime: self.endTime.timeIntervalSince1970,
-                      isPublic: self.isPublic))
+                      isPublic: self.isPublic,
+                     participants: [id]))
             self.isLoading = false
             isCreatingEvent = false
         }

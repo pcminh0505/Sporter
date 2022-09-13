@@ -11,10 +11,10 @@ import CoreLocationUI
 
 struct MapView: View {
     @EnvironmentObject var navigationHelper: NavigationHelper
-    
+    @EnvironmentObject var eventRepository: EventRespository
     @StateObject private var mapViewModel = MapViewModel()
     @FocusState private var searchFocused: Bool
-    
+        
     var body: some View {
         ZStack (alignment: .topLeading) {
             ZStack (alignment: .bottom) {
@@ -33,13 +33,13 @@ struct MapView: View {
                         }
                 })
                     .accentColor(Color(.systemPink))
-                    .onAppear {
-                        mapViewModel.checkLocationServiceEnabled()
-                    }
+//                    .onAppear {
+//                        mapViewModel.checkLocationServiceEnabled()
+//                    }
             }
             
             VStack (spacing: 0) {
-                HStack (spacing: 20) {
+                HStack (spacing: 10) {
                     Button {
                         navigationHelper.selection = nil
                     } label: {
@@ -50,6 +50,7 @@ struct MapView: View {
                             .foregroundColor(Color.theme.textColor)
                             .font(.system(size: 18))
                             .focused($searchFocused)
+                            .textFieldStyle(RoundedBorderTextFieldStyle())
                         if mapViewModel.searchText != "" {
                             Button {
                                 withAnimation() {
@@ -63,14 +64,15 @@ struct MapView: View {
                             }
                         }
                     }
-                    .background(
-                        RoundedRectangle(cornerRadius: 15)
-                            .fill(Color.theme.popupColor)
-                            .frame(width: 310, height: 40)
-                            .shadow(radius: 5)
-                    )
                     
-                    
+                    LocationButton(.currentLocation) {
+                        mapViewModel.requestAllowOnceLocationPermission()
+                    }
+                        .foregroundColor(.white)
+                        .cornerRadius(8)
+                        .labelStyle(.iconOnly)
+                        .symbolVariant(.fill)
+                        .tint(Color.theme.red)
                 }
                 .padding(.trailing, 20)
                 .padding(.top, 40)
@@ -90,24 +92,33 @@ struct MapView: View {
                                 } label: {
                                     Text(venue.name)
                                         .foregroundColor(Color.theme.textColor)
+                                        .transition(.opacity)
                                 }
                             }
                         }.listRowBackground(Color.theme.popupColor)
                     }
-                    .frame(width: UIScreen.main.bounds.width * 0.8, height: UIScreen.main.bounds.height * 0.6)
+                    .frame(maxWidth: UIScreen.main.bounds.width * 0.8,
+                           maxHeight: UIScreen.main.bounds.height * 0.5)
                     .listStyle(.plain)
-                    .overlay(
-                        RoundedRectangle(cornerRadius: 10, style: .circular).stroke(Color(uiColor: .tertiaryLabel), lineWidth: 1)
-                    )
                 }
                 
                 if mapViewModel.isPreviewShow {
-                    VenueDetailView(venue: mapViewModel.selectedVenue!, isPreviewShow: $mapViewModel.isPreviewShow)
-                        .shadow(radius: 5)
-                        .padding(.top, 10)
-                        .transition(.asymmetric(
-                            insertion: .move(edge: .trailing),
-                            removal: .move(edge: .leading)))
+                    if let selectedVenue = mapViewModel.selectedVenue {
+                        
+                        if let selectedVenueDetailVM = mapViewModel.venueDetailVMs.first(where: { $0.id == selectedVenue.id}) {
+                            
+                            VenueDetailView(venue: mapViewModel.selectedVenue!,
+                                            isPreviewShow: $mapViewModel.isPreviewShow,
+                                            venueDetailViewModel: selectedVenueDetailVM)
+                                .shadow(radius: 5)
+                                .padding(.top, 10)
+                                .transition(.asymmetric(
+                                    insertion: .move(edge: .trailing),
+                                    removal: .move(edge: .leading)))
+                            
+                        }
+                    }
+                    
                 }
             }
         }

@@ -8,10 +8,11 @@
 import Foundation
 import SwiftUI
 import MapKit
+import Combine
 
 struct VenueDetailView : View {
     @EnvironmentObject var navigationHelper: NavigationHelper
-    @EnvironmentObject var eventRepository: EventRespository
+    var venueDetailViewModel : VenueDetailViewModel
     
     let venue: Venue
     @Binding var isPreviewShow: Bool
@@ -20,6 +21,14 @@ struct VenueDetailView : View {
     @State var endingOffsetY: CGFloat = 0
     @State private var isRotated = false
     @State var isCreatingEvent: Bool = false
+    @State var didJoinEvent = [String: Bool]()
+        
+    init (venue: Venue, isPreviewShow: Binding<Bool>, venueDetailViewModel : VenueDetailViewModel) {
+        self._isPreviewShow = isPreviewShow
+        self.venue = venue
+        self.venueDetailViewModel = venueDetailViewModel
+        self.didJoinEvent = venueDetailViewModel.didJoinEvent
+    }
     
     var body: some View {
         
@@ -27,12 +36,11 @@ struct VenueDetailView : View {
             // Navigation to New Event Form
             NavigationLink(isActive: $isCreatingEvent) {
                 NewEventForm(isCreatingEvent: $isCreatingEvent, venue: venue)
-                    .environmentObject(eventRepository)
+                    .environmentObject(venueDetailViewModel.eventRepository)
                     .navigationBarHidden(true)
             } label: {
                 EmptyView()
             }
-            
 
             header
                 .padding(.top, 10)
@@ -64,14 +72,16 @@ struct VenueDetailView : View {
                         .padding(.top, 25)
                         
                         Text("Events")
+                            .font(.headline)
+                            .fontWeight(.bold)
                             .padding(.top, 10)
-                        Text("current events")
+                        
+                        eventListView
                     }
                     .frame(maxWidth: .infinity)
                 }
                 .padding(.horizontal)
             }
-            
             Spacer()
         }
         .background(Color.theme.popupColor)
@@ -200,6 +210,45 @@ extension VenueDetailView {
                 Image(systemName: "xmark")
             }
         }
-
+    }
+    
+    private var eventListView : some View {
+        VStack(alignment: .leading, spacing: 10) {
+            ForEach(venueDetailViewModel.events, id:\.id) {data in
+                HStack (alignment: .center) {
+                    VStack {
+                        Text(data.event.title)
+                        Text(data.event.description)
+                        
+                        HStack {
+                            Text("Creator:")
+                                .fontWeight(.bold)
+                            Text("\(data.creator.fname) \(data.creator.lname)")
+                        }
+                    }
+                    .padding()
+                    
+                    Spacer()
+                    
+                    if let eventID = data.event.id {
+                        if !(self.didJoinEvent[eventID] ?? false || venueDetailViewModel.didJoinEvent[eventID] ?? false) {
+                            Button {
+                                venueDetailViewModel.joinEvent(eventID)
+                                self.didJoinEvent[eventID] = true
+                            } label: {
+                                SquareButton(imgName: "plus.square")
+                                    .padding()
+                            }
+                        } else {
+                            Text("Joined")
+                                .padding()
+                        }
+                    }
+                    
+                }
+                .frame(maxWidth: .infinity)
+                .background(RoundedRectangle(cornerRadius: 4).stroke(Color.accentColor, lineWidth: 2))
+            }
+        }
     }
 }
