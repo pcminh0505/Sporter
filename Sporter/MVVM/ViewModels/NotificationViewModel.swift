@@ -33,7 +33,11 @@ class NotificationViewModel: ObservableObject, Identifiable {
             .store(in: &cancellables)
     }
     
-    func updateUser() {
+    func updateUser(_ user: User) {
+        userRepository.updateUser(user)
+    }
+    
+    func updateCurrentUser() {
         userRepository.updateUser(self.currentUser!)
     }
     

@@ -32,6 +32,6 @@ class DiscoveryViewModel: ObservableObject, Identifiable {
     func createMatch(receiver: String) {
         let id = UUID().uuidString
         let user_id = UserDefaults.standard.value(forKey: "currentUser") as? String ?? ""
-        matchRepo.createMatch(matchID: id, Match(id: id, sender: receiver, receiver: user_id, accept: false))
+        matchRepo.createMatch(matchID: id, Match(id: id, sender: user_id, receiver: receiver, accept: false))
     }
 }

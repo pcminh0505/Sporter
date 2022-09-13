@@ -82,10 +82,18 @@ struct NotifyCellView: View {
     }
     
     func accept_friend() {
+        // update current user friend list
         var friendList: [String] = notiVM.currentUser?.friends ?? []
         friendList.append(user.id ?? "")
         notiVM.currentUser?.friends = friendList
-        notiVM.updateUser()
+        notiVM.updateCurrentUser()
+        
+        // update other user friend list
+        var otherUser = user
+        var otherFriends: [String] = otherUser.friends
+        otherFriends.append(notiVM.currentUser?.id ?? "")
+        otherUser.friends = otherFriends
+        notiVM.updateUser(otherUser)
     }
     
     func delete_request() {
