@@ -36,6 +36,7 @@
 		241A6ED028BDD31E00C830BE /* Lottie in Frameworks */ = {isa = PBXBuildFile; productRef = 241A6ECF28BDD31E00C830BE /* Lottie */; };
 		241A6F0B28BDFDA400C830BE /* CheckView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 241A6F0A28BDFDA400C830BE /* CheckView.swift */; };
 		241CEB2A28C751300017CD72 /* sporter.json in Resources */ = {isa = PBXBuildFile; fileRef = 241CEB2928C751300017CD72 /* sporter.json */; };
+		2422BFBD28D03B06006C3A13 /* Keyboard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2422BFBC28D03B06006C3A13 /* Keyboard.swift */; };
 		24282C1A28BE032C00CDFE61 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 24282C1928BE032C00CDFE61 /* GoogleService-Info.plist */; };
 		246B09ED28BE17C6007B7070 /* UserRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 246B09EC28BE17C6007B7070 /* UserRepository.swift */; };
 		246B09EF28BE17DC007B7070 /* VenueRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 246B09EE28BE17DC007B7070 /* VenueRepository.swift */; };
@@ -92,6 +93,7 @@
 		241A6ECC28BDD12A00C830BE /* Lottie.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Lottie.swift; sourceTree = "<group>"; };
 		241A6F0A28BDFDA400C830BE /* CheckView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckView.swift; sourceTree = "<group>"; };
 		241CEB2928C751300017CD72 /* sporter.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = sporter.json; sourceTree = "<group>"; };
+		2422BFBC28D03B06006C3A13 /* Keyboard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Keyboard.swift; sourceTree = "<group>"; };
 		24282C1928BE032C00CDFE61 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		246B09EC28BE17C6007B7070 /* UserRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserRepository.swift; sourceTree = "<group>"; };
 		246B09EE28BE17DC007B7070 /* VenueRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VenueRepository.swift; sourceTree = "<group>"; };
@@ -361,6 +363,7 @@
 		24A6770628CB549200A7BA9D /* Utils */ = {
 			isa = PBXGroup;
 			children = (
+				2422BFBC28D03B06006C3A13 /* Keyboard.swift */,
 				24A6770728CB54A500A7BA9D /* Navigation.swift */,
 			);
 			path = Utils;
@@ -514,6 +517,7 @@
 				241A6ECD28BDD12A00C830BE /* Lottie.swift in Sources */,
 				CC53617128CFA8E300C9F7B7 /* NotificationView.swift in Sources */,
 				CC53616D28CFA8A100C9F7B7 /* NotifyCellView.swift in Sources */,
+				2422BFBD28D03B06006C3A13 /* Keyboard.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -652,7 +656,7 @@
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = "";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				IPHONEOS_DEPLOYMENT_TARGET = 15.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.5;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -686,7 +690,7 @@
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = "";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				IPHONEOS_DEPLOYMENT_TARGET = 15.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.5;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",

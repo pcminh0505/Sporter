@@ -12,12 +12,16 @@ struct NewEventForm: View {
     @EnvironmentObject var eventRepository: EventRespository
 
     // TODO: Fix navigation bug
+
+    @EnvironmentObject var eventRepository: EventRespository
     @Binding var isCreatingEvent: Bool
     let venue: Venue
 
     @State var title = ""
     @State var description = ""
-    @State var date: Date = Date()
+    @State var startTime: Date = Date()
+    @State var endTime: Date = Date().addingTimeInterval(3600)
+    @State var isPublic: Bool = false
     @State var isLoading: Bool = false
     @State var alert = false
     @State var error = ""
@@ -50,16 +54,26 @@ struct NewEventForm: View {
                                      text: self.$description,
                                      placeholder: "Let's meet up and exercise together!")
 
-                        // Date Time picker
-                        DatePicker("Date", selection: self.$date, in: closedRange ,displayedComponents: [.date, .hourAndMinute])
-                            .padding()
-                            .background(
+                        // Start Time and End Time pickers
+                        VStack {
+                            DatePicker("Start Time", selection: self.$startTime, in: closedRange ,displayedComponents: [.date, .hourAndMinute])
+                                .padding(.horizontal)
+                                .padding(.vertical, 15)
+                            DatePicker("End Time", selection: self.$endTime, in: closedRange ,displayedComponents: [.date, .hourAndMinute])
+                                .padding(.horizontal)
+                                .padding(.bottom, 15)
+                        }
+                        .background(
                             RoundedRectangle(cornerRadius: 4)
                                 .stroke(Color.theme.textColor.opacity(0.7), lineWidth: 2))
-                            .padding(.top, 25)
-
+                        .padding(.top, 25)
+                        
+                        // Is the event public?
+                        Toggle("Public Event", isOn: $isPublic)
+                            .toggleStyle(SwitchToggleStyle(tint: .accentColor))
+                            .padding(.top, 10)
                     }
-                        .padding(.bottom)
+                    .padding(.bottom)
 
                     // Venue info (pre-populated)
                     VStack(spacing: 10) {
@@ -92,7 +106,7 @@ struct NewEventForm: View {
 
                         HStack(alignment: .top) {
                             Image(systemName: "clock.fill").padding(.trailing, -4)
-                            Text("Hours: ").bold() + Text("\(venue.open_time) - \(venue.close_time)")
+                            Text("Opening Hours: ").bold() + Text("\(venue.open_time) - \(venue.close_time)")
                             Spacer()
                         }
                             .frame(maxWidth: .infinity)
@@ -149,24 +163,40 @@ struct NewEventForm: View {
     
     func createEvent() {
         self.isLoading = true
-        if !self.title.isBlank && !self.description.isBlank {
-            let id = UserDefaults.standard.value(forKey: "currentUser") as? String ?? ""
-            
-            if !id.isBlank {
-                eventRepository.createEvent(Event(title: self.title.trimmingCharacters(in: .whitespacesAndNewlines),
-                                                  description: self.description.trimmingCharacters(in: .whitespacesAndNewlines),
-                                                  creator: id,
-                                                  venue: self.venue.id,
-                                                  dateTime: self.date.timeIntervalSince1970,
-                                                  participants: [id]))
-                self.isLoading = false
-                isCreatingEvent = false
-            }
-        }
-        else {
-            self.error = "Please fill in the event data"
+        
+        // Do form validation
+        
+        // Check if title is blank
+        if self.title.isBlank {
+            self.error = "Please fill the event title"
             self.alert.toggle()
             self.isLoading = false
+            return
+        }
+        
+        // Check if event time is invalid
+        // If enough time, maybe parse the opening hours and check them
+        if self.startTime >= self.endTime {
+            self.error = "Start time cannot be later than end time"
+            self.alert.toggle()
+            self.isLoading = false
+            return
+        }
+        
+        // All checks passed, upload new event to Firestore
+        let id = UserDefaults.standard.value(forKey: "currentUser") as? String ?? ""
+        
+        if !id.isBlank {
+            eventRepository.createEvent(
+                Event(title: self.title.trimmingCharacters(in: .whitespacesAndNewlines),
+                      description: self.description.trimmingCharacters(in: .whitespacesAndNewlines),
+                      creator: id,
+                      venue: self.venue.id,
+                      startTime: self.startTime.timeIntervalSince1970,
+                      endTime: self.endTime.timeIntervalSince1970,
+                      isPublic: self.isPublic))
+            self.isLoading = false
+            isCreatingEvent = false
         }
     }
 }
