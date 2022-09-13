@@ -9,6 +9,8 @@ import SwiftUI
 import Firebase
 
 struct LoginView: View {
+    @ObservedObject var keyboardResponder = KeyboardResponder()
+
     @State var color = Color.theme.textColor.opacity(0.7)
     @State var email = ""
     @State var pass = ""
@@ -63,7 +65,7 @@ struct LoginView: View {
                             .padding()
                             .background(RoundedRectangle(cornerRadius: 4).stroke(self.pass != "" ? Color.accentColor : self.color, lineWidth: 2))
                     }
-                    .padding(.top, 25)
+                        .padding(.top, 25)
 
                     HStack {
                         Spacer()
@@ -117,8 +119,7 @@ struct LoginView: View {
                         .padding()
                 }
                     .padding(.horizontal, 25)
-
-
+                    .offset(y: -keyboardResponder.currentHeight * 0.9)
             }
             if self.alert {
                 ErrorView(alert: self.$alert, error: self.$error)
