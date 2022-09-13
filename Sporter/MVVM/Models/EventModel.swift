@@ -13,8 +13,10 @@ struct Event: Codable, Identifiable {
     var description: String
     var creator: String
     var venue: Int
-    var dateTime: TimeInterval
-    var participant: [String] = []
+    var startTime: TimeInterval
+    var endTime: TimeInterval
+    var isPublic: Bool
+    var participants: [String] = []
     
     enum CodingKeys: String, CodingKey {
         case id
@@ -22,8 +24,10 @@ struct Event: Codable, Identifiable {
         case description
         case creator
         case venue
-        case participant
-        case dateTime
+        case startTime
+        case endTime
+        case isPublic
+        case participants
     }
 
     // For Firestore
