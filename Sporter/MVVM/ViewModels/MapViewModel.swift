@@ -30,11 +30,11 @@ final class MapViewModel: NSObject, ObservableObject, CLLocationManagerDelegate 
     @Published var searchText: String = ""
     var searchTextCancellables: AnyCancellable?
     @State var currentCoordinates: CLLocationCoordinate2D? = nil
-    var locationManager: CLLocationManager?
+    let locationManager = CLLocationManager()
     
     override init() {
         super.init()
-//        locationManager.delegate = self
+        locationManager.delegate = self
         venueRepository.$venues
             .assign(to: \.venues, on: self)
             .store(in: &cancellables)
@@ -59,37 +59,37 @@ final class MapViewModel: NSObject, ObservableObject, CLLocationManagerDelegate 
         })
     }
     
-    func checkLocationServiceEnabled() {
-        if CLLocationManager.locationServicesEnabled() {
-            locationManager = CLLocationManager()
-            locationManager!.desiredAccuracy = kCLLocationAccuracyBest
-            locationManager!.delegate = self
-        } else {
-            print("Location service disabled")
-        }
-    }
+//    func checkLocationServiceEnabled() {
+//        if CLLocationManager.locationServicesEnabled() {
+//            locationManager = CLLocationManager()
+//            locationManager!.desiredAccuracy = kCLLocationAccuracyBest
+//            locationManager!.delegate = self
+//        } else {
+//            print("Location service disabled")
+//        }
+//    }
     
-    private func checkLocationAuthorization() {
-        guard let locationManager = locationManager else { return }
-        
-        switch locationManager.authorizationStatus {
-            case .notDetermined:
-                locationManager.requestWhenInUseAuthorization()
-            case .restricted:
-                print("Location restricted, due to parental control")
-            case .denied:
-                print("Location denied, set in setting")
-            case .authorizedAlways, .authorizedWhenInUse:
-                mapRegion = MKCoordinateRegion(center: locationManager.location!.coordinate,
-                                               span: MKCoordinateSpan(latitudeDelta: 0.012, longitudeDelta: 0.012))
-            @unknown default:
-                break
-        }
-    }
+//    private func checkLocationAuthorization() {
+//        guard let locationManager = locationManager else { return }
+//
+//        switch locationManager.authorizationStatus {
+//            case .notDetermined:
+//                locationManager.requestWhenInUseAuthorization()
+//            case .restricted:
+//                print("Location restricted, due to parental control")
+//            case .denied:
+//                print("Location denied, set in setting")
+//            case .authorizedAlways, .authorizedWhenInUse:
+//                mapRegion = MKCoordinateRegion(center: locationManager.location!.coordinate,
+//                                               span: MKCoordinateSpan(latitudeDelta: 0.012, longitudeDelta: 0.012))
+//            @unknown default:
+//                break
+//        }
+//    }
     
-    func locationManagerDidChangeAuthorization(_ manager: CLLocationManager) {
-         checkLocationAuthorization()
-    }
+//    func locationManagerDidChangeAuthorization(_ manager: CLLocationManager) {
+//         checkLocationAuthorization()
+//    }
     
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         guard let lastestLocation = locations.first else { return }
@@ -102,6 +102,10 @@ final class MapViewModel: NSObject, ObservableObject, CLLocationManagerDelegate 
 
     func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
         print(error.localizedDescription )
+    }
+    
+    func requestAllowOnceLocationPermission() {
+        locationManager.requestLocation()
     }
     
     // show venue preview
