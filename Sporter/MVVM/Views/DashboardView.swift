@@ -23,7 +23,7 @@ struct DashboardView: View {
                 EmptyView()
             }.isDetailLink(false)
 
-            HStack(spacing: 5) {
+            HStack(spacing: 10) {
                 AsyncImage (
                     url: URL(string: user.profileImage),
                     content: { image in
