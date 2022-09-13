@@ -12,14 +12,18 @@ import SwiftUI
 import Combine
 
 final class MapViewModel: NSObject, ObservableObject, CLLocationManagerDelegate {
+    private let venueRepository =  VenueRepository()
+    @StateObject var userRepository = UserRepository()
+    
     @Published var mapRegion: MKCoordinateRegion = MKCoordinateRegion(
         center: CLLocationCoordinate2D(latitude: 10.7770833, longitude: 106.6932374),
         span: MKCoordinateSpan(latitudeDelta: 0.012, longitudeDelta: 0.012))
     
     @Published var isPreviewShow = false
     @Published var selectedVenue : Venue?
-    @Published var venueRepository =  VenueRepository()
     @Published var venues: [Venue] = []
+    @Published var venueDetailVMs: [VenueDetailViewModel] = []
+    
     private var cancellables: Set<AnyCancellable> = []
     @Published var filteredVenue: [Venue]? = []
     
@@ -33,6 +37,13 @@ final class MapViewModel: NSObject, ObservableObject, CLLocationManagerDelegate 
 //        locationManager.delegate = self
         venueRepository.$venues
             .assign(to: \.venues, on: self)
+            .store(in: &cancellables)
+        
+        venueRepository.$venues
+            .map{ venues in
+                venues.map(VenueDetailViewModel.init)
+            }
+            .assign(to: \.venueDetailVMs, on: self)
             .store(in: &cancellables)
 
         searchTextCancellables = $searchText
@@ -79,11 +90,7 @@ final class MapViewModel: NSObject, ObservableObject, CLLocationManagerDelegate 
     func locationManagerDidChangeAuthorization(_ manager: CLLocationManager) {
          checkLocationAuthorization()
     }
-
-//    func requestLocationPermission() {
-//        locationManager.requestLocation()
-//    }
-
+    
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         guard let lastestLocation = locations.first else { return }
         DispatchQueue.main.async {

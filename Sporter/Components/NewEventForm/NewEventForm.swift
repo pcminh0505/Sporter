@@ -10,6 +10,7 @@ import Firebase
 
 struct NewEventForm: View {
     @EnvironmentObject var eventRepository: EventRespository
+
     // TODO: Fix navigation bug
     @Binding var isCreatingEvent: Bool
     let venue: Venue
@@ -148,7 +149,7 @@ struct NewEventForm: View {
     
     func createEvent() {
         self.isLoading = true
-        if !self.title.isBlank {
+        if !self.title.isBlank && !self.description.isBlank {
             let id = UserDefaults.standard.value(forKey: "currentUser") as? String ?? ""
             
             if !id.isBlank {
@@ -156,13 +157,14 @@ struct NewEventForm: View {
                                                   description: self.description.trimmingCharacters(in: .whitespacesAndNewlines),
                                                   creator: id,
                                                   venue: self.venue.id,
-                                                  dateTime: self.date.timeIntervalSince1970))
+                                                  dateTime: self.date.timeIntervalSince1970,
+                                                  participants: [id]))
                 self.isLoading = false
                 isCreatingEvent = false
             }
         }
         else {
-            self.error = "Please fill the event title"
+            self.error = "Please fill in the event data"
             self.alert.toggle()
             self.isLoading = false
         }

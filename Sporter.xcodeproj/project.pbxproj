@@ -18,6 +18,7 @@
 		0C5154F028C9EAAC00478A89 /* FirebaseDatabaseSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 0C5154EF28C9EAAC00478A89 /* FirebaseDatabaseSwift */; };
 		0C5154F228C9EAAC00478A89 /* FirebaseFirestoreSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 0C5154F128C9EAAC00478A89 /* FirebaseFirestoreSwift */; };
 		0C8FF7FA28C4E10D0094465D /* VenueModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C8FF7F928C4E10D0094465D /* VenueModel.swift */; };
+		0C954E0828D073B200A90675 /* VenueDetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C954E0728D073B200A90675 /* VenueDetailViewModel.swift */; };
 		0CAF6B4628C84A59003EFF26 /* CustomMapAnnotationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0CAF6B4528C84A59003EFF26 /* CustomMapAnnotationView.swift */; };
 		0CAF6B4828C87716003EFF26 /* VenueDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0CAF6B4728C87715003EFF26 /* VenueDetailView.swift */; };
 		0CD0DF5028CF2FE600351711 /* StarRating.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0CD0DF4F28CF2FE600351711 /* StarRating.swift */; };
@@ -73,6 +74,7 @@
 
 /* Begin PBXFileReference section */
 		0C8FF7F928C4E10D0094465D /* VenueModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VenueModel.swift; sourceTree = "<group>"; };
+		0C954E0728D073B200A90675 /* VenueDetailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VenueDetailViewModel.swift; sourceTree = "<group>"; };
 		0CAF6B4528C84A59003EFF26 /* CustomMapAnnotationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomMapAnnotationView.swift; sourceTree = "<group>"; };
 		0CAF6B4728C87715003EFF26 /* VenueDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VenueDetailView.swift; sourceTree = "<group>"; };
 		0CD0DF4F28CF2FE600351711 /* StarRating.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StarRating.swift; sourceTree = "<group>"; };
@@ -316,6 +318,7 @@
 				2493A5CA28C8658C0055F8D2 /* VenueViewModel.swift */,
 				24996E7028CDD336000E8623 /* HomeViewModel.swift */,
 				241A38C428CEF2D500B19E59 /* ProfileViewModel.swift */,
+				0C954E0728D073B200A90675 /* VenueDetailViewModel.swift */,
 			);
 			path = ViewModels;
 			sourceTree = "<group>";
@@ -470,6 +473,7 @@
 				241A6F0B28BDFDA400C830BE /* CheckView.swift in Sources */,
 				0CAF6B4628C84A59003EFF26 /* CustomMapAnnotationView.swift in Sources */,
 				0CE4BDFB28CB97FC00CBFF37 /* GlowBorder.swift in Sources */,
+				0C954E0828D073B200A90675 /* VenueDetailViewModel.swift in Sources */,
 				24A676FA28CB237F00A7BA9D /* String.swift in Sources */,
 				0EF3B15E28CF5B5300627E11 /* NewEventForm.swift in Sources */,
 				24A6770828CB54A500A7BA9D /* Navigation.swift in Sources */,
