@@ -58,7 +58,7 @@ struct ProfileView: View {
                                     .clipShape(Circle())
                             },
                             placeholder: {
-                                ProgressView()
+                                Image(systemName: "person.fill")
                                     .cornerRadius(70)
                                     .frame(width: 140, height: 140)
                                     .background(Color(uiColor: .systemGray6))
