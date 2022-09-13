@@ -9,6 +9,7 @@ import SwiftUI
 
 struct ProfileView: View {
     @EnvironmentObject var profileVM: ProfileViewModel
+    @ObservedObject var keyboardResponder = KeyboardResponder()
 
     @State private var image: UIImage?
     @State private var showSheet = false
@@ -147,6 +148,7 @@ struct ProfileView: View {
                     .padding(.horizontal)
                     .padding(.top, 10)
             }
+                .offset(y: -keyboardResponder.currentHeight * 0.9)
         }
             .onAppear {
             initValue()

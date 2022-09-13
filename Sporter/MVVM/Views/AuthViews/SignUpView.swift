@@ -9,6 +9,8 @@ import SwiftUI
 import Firebase
 
 struct SignUpView: View {
+    @ObservedObject var keyboardResponder = KeyboardResponder()
+    
     let color = Color.theme.textColor.opacity(0.7)
     @State var gender: Gender = .male
     @State var birthDate: Date = Date()
@@ -185,6 +187,7 @@ struct SignUpView: View {
 
                     }
                         .padding(.horizontal, 25)
+                        .offset(y: -keyboardResponder.currentHeight * 0.9)
                 }
             }
 
