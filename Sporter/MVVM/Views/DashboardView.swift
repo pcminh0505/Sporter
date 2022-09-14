@@ -10,14 +10,14 @@ import Firebase
 
 struct DashboardView: View {
     @EnvironmentObject var navigationHelper: NavigationHelper
-    @StateObject var eventRepository = EventRespository()
+    @StateObject var dashboardViewModel = DashboardViewModel()
+    
     let user: User
 
     var body: some View {
         VStack {
             NavigationLink(tag: "map", selection: $navigationHelper.selection) {
                 MapView()
-                    .environmentObject(eventRepository)
                     .navigationBarHidden(true)
             } label: {
                 EmptyView()
@@ -73,6 +73,48 @@ struct DashboardView: View {
                 .background(Color.accentColor)
                 .cornerRadius(10)
                 .padding(.top, 25)
+            
+            ScrollView {
+                VStack(alignment: .leading, spacing: 10) {
+                    ForEach(dashboardViewModel.events, id:\.id) {data in
+                        HStack (alignment: .center) {
+                            VStack {
+                                Text(data.event.title)
+                                Text(data.event.description)
+                                
+                                HStack {
+                                    Text("Creator:")
+                                        .fontWeight(.bold)
+                                    Text("\(data.creator.fname) \(data.creator.lname)")
+                                }
+                            }
+                            .padding()
+                            
+                            Spacer()
+                            
+                            if let eventID = data.event.id {
+                                if (dashboardViewModel.isEventCreator[eventID] ?? false ) {
+                                    Button {
+                                        dashboardViewModel.deleteEvent(eventID)
+                                    } label: {
+                                        Text("Delete Event")
+                                    }
+                                } else {
+                                    Button {
+                                        dashboardViewModel.withdrawEvent(eventID)
+                                    } label: {
+                                        Text("Withdraw Event")
+                                    }
+                                }
+                            }
+                            
+                        }
+                        .frame(maxWidth: .infinity)
+                        .background(RoundedRectangle(cornerRadius: 4).stroke(Color.accentColor, lineWidth: 2))
+                    }
+                }
+            }
+            
             Spacer()
         }
             .padding()

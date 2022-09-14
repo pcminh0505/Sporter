@@ -1,37 +1,26 @@
 //
-//  VenueDetailViewModel.swift
+//  DashboardViewModel.swift
 //  Sporter
 //
-//  Created by Khang on 13/09/2022.
+//  Created by Khang on 15/09/2022.
 //
 
 import Foundation
-import Combine
 import SwiftUI
+import Combine
 
-class VenueDetailViewModel : ObservableObject {
-    var eventRepository = EventRespository()
-    
-    @Published var venue: Venue
+class DashboardViewModel : ObservableObject {
+    private var eventRepository = EventRespository()
     @Published var events: [EventData] = []
+    @Published var isEventCreator: [String : Bool] = [:]
     @Published var cancellables: Set<AnyCancellable> = []
-    @Published var didJoinEvent: [String : Bool] = [:]
     
-    var id: Int = 0
-    
-    init(venue: Venue) {
-        self.venue = venue
-        
-        $venue
-          .compactMap { $0.id }
-          .assign(to: \.id, on: self)
-          .store(in: &cancellables)
-
-        self.eventRepository.$eventsByVenue
+    init() {
+        self.eventRepository.$eventsByUser
             .assign(to: \.events, on: self)
             .store(in: &cancellables)
         
-        self.eventRepository.$eventsByVenue
+        self.eventRepository.$eventsByUser
             .map{ events in
                 let id = UserDefaults.standard.value(forKey: "currentUser") as? String ?? ""
                 
@@ -39,29 +28,40 @@ class VenueDetailViewModel : ObservableObject {
                     var dict = dict
                     
                     if let eventID = eventData.event.id {
-                        dict[eventID] = eventData.event.participants.contains(id)
+                        dict[eventID] = eventData.event.creator == id ? true : false
                     }
                    
                     return dict
                 }
                 
             }
-            .assign(to: \.didJoinEvent, on: self)
+            .assign(to: \.isEventCreator, on: self)
             .store(in: &cancellables)
-
-        self.eventRepository.getEventsByVenue(id)
+        
+        self.eventRepository.getEventsByCurrentUser()
     }
     
-    func joinEvent(_ eventID: String) {
+    func deleteEvent(_ eventID: String) {
+        // update on cloud
+        if let eventData = events.first(where: {$0.event.id == eventID}) {
+            eventRepository.deleteEvent(eventData.event)
+        }
+        // update local
+        events.removeAll(where: {$0.event.id == eventID})
+    }
+    
+    func withdrawEvent(_ eventID: String) {
+        // update on cloud
         let id = UserDefaults.standard.value(forKey: "currentUser") as? String ?? ""
         
         // Prevent crash
         if !id.isBlank {
             if var eventData = events.first(where: {$0.event.id == eventID}) {
-                eventData.event.participants.append(id)
+                eventData.event.participants.removeAll(where: {$0 == id})
                 eventRepository.updateEvent(eventData.event)
-                self.didJoinEvent[eventID] = true
             }
         }
+        // update local
+        events.removeAll(where: {$0.event.id == eventID})
     }
 }
