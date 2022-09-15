@@ -57,12 +57,6 @@ struct StackCardView: View {
                     )
                 }
                 
-//                Image(user.profileImage)
-//                    .resizable()
-//                    .aspectRatio(contentMode: .fill)
-//                    .frame(width: size.width - topOffset, height: size.height)
-//                    .cornerRadius(15)
-//                    .offset(y: -topOffset)
             }
             .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .center)
         }
