@@ -59,7 +59,7 @@ class VenueDetailViewModel : ObservableObject {
         if !id.isBlank {
             if var eventData = events.first(where: {$0.event.id == eventID}) {
                 eventData.event.participants.append(id)
-                eventRepository.updateEvent(eventData.event)
+                eventRepository.updateEvent(eventData.event, isWithdraw: false)
                 self.didJoinEvent[eventID] = true
             }
         }

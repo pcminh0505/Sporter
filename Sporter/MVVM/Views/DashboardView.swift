@@ -11,6 +11,8 @@ import Firebase
 struct DashboardView: View {
     @EnvironmentObject var navigationHelper: NavigationHelper
     @StateObject var dashboardViewModel = DashboardViewModel()
+//    @State private var deleteAlert : Bool = false
+//    @State private var withdrawAlert : Bool = false
     
     let user: User
 
@@ -87,6 +89,15 @@ struct DashboardView: View {
                                         .fontWeight(.bold)
                                     Text("\(data.creator.fname) \(data.creator.lname)")
                                 }
+                                
+                                HStack {
+                                    Text("Venue:")
+                                        .fontWeight(.bold)
+                                    Text(data.venue.name)
+                                }
+                                HStack {
+                                    Text(data.venue.address)
+                                }
                             }
                             .padding()
                             
@@ -95,13 +106,17 @@ struct DashboardView: View {
                             if let eventID = data.event.id {
                                 if (dashboardViewModel.isEventCreator[eventID] ?? false ) {
                                     Button {
-                                        dashboardViewModel.deleteEvent(eventID)
+                                        withAnimation {
+                                            dashboardViewModel.deleteEvent(eventID)
+                                        }
                                     } label: {
                                         Text("Delete Event")
                                     }
                                 } else {
                                     Button {
-                                        dashboardViewModel.withdrawEvent(eventID)
+                                        withAnimation {
+                                            dashboardViewModel.withdrawEvent(eventID)
+                                        }
                                     } label: {
                                         Text("Withdraw Event")
                                     }
@@ -117,7 +132,7 @@ struct DashboardView: View {
             
             Spacer()
         }
-            .padding()
+        .padding()
     }
 }
 

@@ -10,7 +10,7 @@ import SwiftUI
 import Combine
 
 class DashboardViewModel : ObservableObject {
-    private var eventRepository = EventRespository()
+    @Published var eventRepository = EventRespository()
     @Published var events: [EventData] = []
     @Published var isEventCreator: [String : Bool] = [:]
     @Published var cancellables: Set<AnyCancellable> = []
@@ -37,7 +37,7 @@ class DashboardViewModel : ObservableObject {
             }
             .assign(to: \.isEventCreator, on: self)
             .store(in: &cancellables)
-        
+
         self.eventRepository.getEventsByCurrentUser()
     }
     
@@ -46,8 +46,6 @@ class DashboardViewModel : ObservableObject {
         if let eventData = events.first(where: {$0.event.id == eventID}) {
             eventRepository.deleteEvent(eventData.event)
         }
-        // update local
-        events.removeAll(where: {$0.event.id == eventID})
     }
     
     func withdrawEvent(_ eventID: String) {
@@ -58,10 +56,8 @@ class DashboardViewModel : ObservableObject {
         if !id.isBlank {
             if var eventData = events.first(where: {$0.event.id == eventID}) {
                 eventData.event.participants.removeAll(where: {$0 == id})
-                eventRepository.updateEvent(eventData.event)
+                eventRepository.updateEvent(eventData.event, isWithdraw: true)
             }
         }
-        // update local
-        events.removeAll(where: {$0.event.id == eventID})
     }
 }
