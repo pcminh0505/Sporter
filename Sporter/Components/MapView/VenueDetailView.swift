@@ -233,8 +233,10 @@ extension VenueDetailView {
                     if let eventID = data.event.id {
                         if !(self.didJoinEvent[eventID] ?? false || venueDetailViewModel.didJoinEvent[eventID] ?? false) {
                             Button {
-                                venueDetailViewModel.joinEvent(eventID)
-                                self.didJoinEvent[eventID] = true
+                                withAnimation {
+                                    venueDetailViewModel.joinEvent(eventID)
+                                    self.didJoinEvent[eventID] = true
+                                }
                             } label: {
                                 SquareButton(imgName: "plus.square")
                                     .padding()
