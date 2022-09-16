@@ -36,16 +36,16 @@ struct StarRating: View {
 
   private var fullStar: some View {
       Image(systemName: "star.fill")
-          .foregroundColor(Color.theme.red)
+          .foregroundColor(Color.accentColor)
   }
 
   private var halfFullStar: some View {
     Image(systemName: "star.lefthalf.fill")
-          .foregroundColor(Color.theme.red)
+          .foregroundColor(Color.accentColor)
   }
 
   private var emptyStar: some View {
     Image(systemName: "star")
-          .foregroundColor(Color.theme.red)
+          .foregroundColor(Color.accentColor)
   }
 }

@@ -15,7 +15,7 @@ struct Event: Codable, Identifiable {
     var venue: Int
     var startTime: TimeInterval
     var endTime: TimeInterval
-    var isPublic: Bool
+    var isPrivate: Bool
     var participants: [String] = []
     
     enum CodingKeys: String, CodingKey {
@@ -26,7 +26,7 @@ struct Event: Codable, Identifiable {
         case venue
         case startTime
         case endTime
-        case isPublic
+        case isPrivate
         case participants
     }
 
