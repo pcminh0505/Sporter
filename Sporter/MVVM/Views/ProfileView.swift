@@ -34,122 +34,130 @@ struct ProfileView: View {
     @State var sportType: SportType = .none
     @State var level: Level = .none
 
+    // Erorr
+    @State var alert = false
+    @State var error = ""
+
     var body: some View {
-        ScrollView {
-            ZStack(alignment: .topTrailing) {
-                VStack {
-                    // Image setion
-                    if let image = self.image {
-                        Image(uiImage: image)
-                            .resizable()
-                            .scaledToFill()
-                            .cornerRadius(70)
-                            .frame(width: 140, height: 140)
-                            .clipShape(Circle())
-                            .overlay(RoundedRectangle(cornerRadius: 70).stroke(Color.theme.textColor, lineWidth: 2))
-                    } else {
-                        AsyncImage (
-                            url: URL(string: profileVM.currentUser?.profileImage ?? defaultImageURL),
-                            content: { image in
-                                image.resizable()
-                                    .resizable()
-                                    .scaledToFill()
-                                    .cornerRadius(70)
-                                    .frame(width: 140, height: 140)
-                                    .clipShape(Circle())
-                            },
-                            placeholder: {
-                                Image(systemName: "person.fill")
-                                    .cornerRadius(70)
-                                    .frame(width: 140, height: 140)
-                                    .background(Color(uiColor: .systemGray6))
-                                    .clipShape(Circle())
-                            }
-                        )
-                            .overlay(RoundedRectangle(cornerRadius: 70).stroke(Color(uiColor: .systemGray), lineWidth: 2))
-                    }
-
-                    Text(self.image == nil ? "Edit Avatar" : !self.isUploaded ? "Save New Avatar" : "Edit Avatar")
-                        .font(.headline)
-                        .foregroundColor(Color.accentColor)
-                        .padding(.horizontal, 20)
-                        .onTapGesture {
-
+        ZStack {
+            ScrollView {
+                ZStack(alignment: .topTrailing) {
+                    VStack {
+                        // Image setion
                         if let image = self.image {
-                            if !self.isUploaded {
-                                profileVM.uploadImage(image)
-                                DispatchQueue.main.asyncAfter(deadline: .now() + 1.5) {
-                                    self.isUploaded = true
+                            Image(uiImage: image)
+                                .resizable()
+                                .scaledToFill()
+                                .cornerRadius(70)
+                                .frame(width: 140, height: 140)
+                                .clipShape(Circle())
+                                .overlay(RoundedRectangle(cornerRadius: 70).stroke(Color.theme.textColor, lineWidth: 2))
+                        } else {
+                            AsyncImage (
+                                url: URL(string: profileVM.currentUser?.profileImage ?? defaultImageURL),
+                                content: { image in
+                                    image.resizable()
+                                        .resizable()
+                                        .scaledToFill()
+                                        .cornerRadius(70)
+                                        .frame(width: 140, height: 140)
+                                        .clipShape(Circle())
+                                },
+                                placeholder: {
+                                    ProgressView()
+                                        .cornerRadius(70)
+                                        .frame(width: 140, height: 140)
+                                        .background(Color(uiColor: .systemGray6))
+                                        .clipShape(Circle())
                                 }
+                            )
+                                .overlay(RoundedRectangle(cornerRadius: 70).stroke(Color(uiColor: .systemGray), lineWidth: 2))
+                        }
+
+                        Text(self.image == nil ? "Edit Avatar" : !self.isUploaded ? "Save New Avatar" : "Edit Avatar")
+                            .font(.headline)
+                            .foregroundColor(Color.accentColor)
+                            .padding(.horizontal, 20)
+                            .onTapGesture {
+
+                            if let image = self.image {
+                                if !self.isUploaded {
+                                    profileVM.uploadImage(image)
+                                    DispatchQueue.main.asyncAfter(deadline: .now() + 1.5) {
+                                        self.isUploaded = true
+                                    }
+                                }
+                            } else {
+                                self.showSheet = true
+                                self.isUploaded = false
+                            }
+                        }
+
+                        // Core info section
+                        coreInfo
+
+                        // Extra info section
+                        extraInfo
+
+                        // Log out button
+                        Button(action: {
+                            profileVM.logout()
+                        }) {
+                            Text("Log out")
+                                .foregroundColor(.white)
+                                .padding(.vertical)
+                        }
+                            .frame(maxWidth: .infinity)
+                            .background(Color.accentColor)
+                            .cornerRadius(10)
+                            .padding(.top, 25)
+                    }
+                        .sheet(isPresented: $showSheet) {
+                        ImagePicker(image: self.$image)
+                    }
+                        .padding(.horizontal)
+                        .padding(.top, 10)
+
+                    HStack {
+                        if isEditing {
+                            Button {
+                                initValue()
+                                self.isEditing.toggle()
+                            } label: {
+                                Text("Cancel")
+                            }
+                        }
+
+                        Spacer()
+
+                        if isEditing {
+                            Button {
+                                // Assign new value
+                                updateEditableValue()
+                                self.isEditing.toggle()
+                            } label: {
+                                Text("Save")
                             }
                         } else {
-                            self.showSheet = true
-                            self.isUploaded = false
+                            Button {
+                                self.isEditing.toggle()
+                            } label: {
+                                Text("Edit")
+                            }
                         }
                     }
-
-                    // Core info section
-                    coreInfo
-
-                    // Extra info section
-                    extraInfo
-
-                    // Log out button
-                    Button(action: {
-                        profileVM.logout()
-                    }) {
-                        Text("Log out")
-                            .foregroundColor(.white)
-                            .padding(.vertical)
-                    }
-                        .frame(maxWidth: .infinity)
-                        .background(Color.accentColor)
-                        .cornerRadius(10)
-                        .padding(.top, 25)
+                        .font(.system(size: 16))
+                        .padding(.horizontal)
+                        .padding(.top, 10)
                 }
-                    .sheet(isPresented: $showSheet) {
-                    ImagePicker(image: self.$image)
-                }
-                    .padding(.horizontal)
-                    .padding(.top, 10)
-
-                HStack {
-                    if isEditing {
-                        Button {
-                            initValue()
-                            self.isEditing.toggle()
-                        } label: {
-                            Text("Cancel")
-                        }
-                    }
-
-                    Spacer()
-
-                    if isEditing {
-                        Button {
-                            // Assign new value
-                            updateEditableValue()
-
-                            profileVM.updateUser()
-
-                            self.isEditing.toggle()
-                        } label: {
-                            Text("Save")
-                        }
-                    } else {
-                        Button {
-                            self.isEditing.toggle()
-                        } label: {
-                            Text("Edit")
-                        }
-                    }
-                }
-                    .font(.system(size: 16))
-                    .padding(.horizontal)
-                    .padding(.top, 10)
+                    .offset(y: -keyboardResponder.currentHeight * 0.9)
             }
-                .offset(y: -keyboardResponder.currentHeight * 0.9)
+
+            if self.alert {
+                ErrorView(alert: self.$alert, error: self.$error)
+            }
         }
+            .padding(.top, -25)
             .onAppear {
             initValue()
         }
@@ -169,12 +177,28 @@ struct ProfileView: View {
     }
 
     func updateEditableValue() {
-        profileVM.currentUser?.phone = self.phone
-        profileVM.currentUser?.email = self.email
-        profileVM.currentUser?.weight = Double(self.weight) ?? 60
-        profileVM.currentUser?.height = Double(self.height) ?? 1.70
-        profileVM.currentUser?.sportType = self.sportType.rawValue
-        profileVM.currentUser?.level = self.level.rawValue
+        if self.height.isDouble != nil &&
+            self.weight.isDouble != nil &&
+            self.email.isValidEmail &&
+            self.phone.isValidPhoneNumber {
+            profileVM.currentUser?.phone = self.phone
+            profileVM.currentUser?.email = self.email
+            profileVM.currentUser?.weight = Double(self.weight) ?? 60
+            profileVM.currentUser?.height = Double(self.height) ?? 1.70
+            profileVM.currentUser?.sportType = self.sportType.rawValue
+            profileVM.currentUser?.level = self.level.rawValue
+            
+            // Update to database
+            profileVM.updateUser()
+        } else {
+            self.error = "Invalid input. Please try again!"
+            self.alert.toggle()
+            // Reset value
+            self.phone = profileVM.currentUser?.phone ?? ""
+            self.email = profileVM.currentUser?.email ?? ""
+            self.weight = String(format: "%.1f", profileVM.currentUser?.weight ?? 0.0)
+            self.height = String(format: "%.2f", profileVM.currentUser?.height ?? 0.0)
+        }
     }
 }
 
