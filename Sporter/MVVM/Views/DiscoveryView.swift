@@ -10,7 +10,7 @@ import SwiftUI
 
 struct DiscoveryView: View {
     @StateObject var discoveryVM = DiscoveryViewModel()
-    
+
     var body: some View {
         VStack {
             // Heading
@@ -19,7 +19,7 @@ struct DiscoveryView: View {
                 .font(.title)
                 .bold()
                 .padding(.bottom, 0)
-            
+
             // Users Stack
             ZStack {
                 if let users = discoveryVM.displayingUsers {
@@ -45,22 +45,22 @@ struct DiscoveryView: View {
                 .padding()
                 .padding(.vertical)
                 .frame(maxWidth: .infinity, maxHeight: .infinity)
-            
+
             // Action Buttons
             HStack(spacing: 15) {
-                
+
                 Image(systemName: "arrow.backward")
                     .font(.system(size: 22, weight: .black))
                     .foregroundColor(Color.accentColor)
                     .shadow(radius: 5)
                     .padding(18)
-                
+
                 Text("Add Friend")
                     .foregroundColor(Color.accentColor)
                     .font(.caption)
                     .bold()
                     .padding(.bottom, 0)
-                
+
                 Button {
                     doSwipe()
                 } label: {
@@ -72,7 +72,7 @@ struct DiscoveryView: View {
                         .background(Color.accentColor)
                         .clipShape(Circle())
                 }
-                
+
                 Button {
                     doSwipe(rightSwipe: true)
                 } label: {
@@ -84,13 +84,13 @@ struct DiscoveryView: View {
                         .background(Color.blue)
                         .clipShape(Circle())
                 }
-                
+
                 Text("Skip")
                     .foregroundColor(Color.blue)
                     .font(.caption)
                     .bold()
                     .padding(.bottom, 0)
-                
+
                 Image(systemName: "arrow.right")
                     .font(.system(size: 22, weight: .black))
                     .foregroundColor(Color.blue)
@@ -110,9 +110,9 @@ struct DiscoveryView: View {
 
         // Use Notifications to post and recieving in Stack
         NotificationCenter.default.post(name: NSNotification.Name("ACTIONFROMBUTTON"), object: nil, userInfo: [
-            "id": first.id ?? "",
-            "rightSwipe": rightSwipe
-        ])
+                "id": first.id ?? "",
+                "rightSwipe": rightSwipe
+            ])
     }
 }
 
