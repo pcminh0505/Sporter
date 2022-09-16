@@ -16,7 +16,7 @@ class DiscoveryViewModel: ObservableObject, Identifiable {
     private var cancellables: Set<AnyCancellable> = []
 
     init () {
-        userRepo.$users
+        userRepo.$usersWithoutMatch
             .assign(to: \.displayingUsers, on: self)
             .store(in: &cancellables)
     }

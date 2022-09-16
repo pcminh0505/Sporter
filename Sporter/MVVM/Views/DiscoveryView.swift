@@ -13,6 +13,25 @@ struct DiscoveryView: View {
     
     var body: some View {
         VStack {
+            
+            // Top Nav Bar
+            Button {
+            } label: {
+                
+                Image(systemName: "list.dash")
+                    .resizable()
+                    .renderingMode(.template)
+                    .aspectRatio(contentMode: .fit)
+                    .frame(width: 22, height: 22)
+            }
+            .frame(maxWidth: .infinity, alignment: .leading )
+            .overlay(
+                Text("Discovery")
+                    .font(.title.bold())
+            )
+            .foregroundColor(.black)
+            .padding()
+            
             // Users Stack
             ZStack {
                 if let users = discoveryVM.displayingUsers {
@@ -40,17 +59,17 @@ struct DiscoveryView: View {
                 .frame(maxWidth: .infinity, maxHeight: .infinity)
             // Action Buttons
             HStack(spacing: 15) {
-                Button {
-
-                } label: {
-                    Image(systemName: "arrow.uturn.backward")
-                        .font(.system(size: 15, weight: .bold))
-                        .foregroundColor(.white)
-                        .shadow(radius: 5)
-                        .padding(13)
-                        .background(Color.gray)
-                        .clipShape(Circle())
-                }
+//                Button {
+//
+//                } label: {
+//                    Image(systemName: "arrow.uturn.backward")
+//                        .font(.system(size: 15, weight: .bold))
+//                        .foregroundColor(.white)
+//                        .shadow(radius: 5)
+//                        .padding(13)
+//                        .background(Color.gray)
+//                        .clipShape(Circle())
+//                }
 
                 Button {
                     doSwipe(rightSwipe: true)
@@ -64,17 +83,17 @@ struct DiscoveryView: View {
                         .clipShape(Circle())
                 }
 
-                Button {
-
-                } label: {
-                    Image(systemName: "star.fill")
-                        .font(.system(size: 15, weight: .bold))
-                        .foregroundColor(.white)
-                        .shadow(radius: 5)
-                        .padding(13)
-                        .background(Color.yellow)
-                        .clipShape(Circle())
-                }
+//                Button {
+//
+//                } label: {
+//                    Image(systemName: "star.fill")
+//                        .font(.system(size: 15, weight: .bold))
+//                        .foregroundColor(.white)
+//                        .shadow(radius: 5)
+//                        .padding(13)
+//                        .background(Color.yellow)
+//                        .clipShape(Circle())
+//                }
 
                 Button {
                     doSwipe()

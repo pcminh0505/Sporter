@@ -16,6 +16,24 @@ struct NotificationView: View {
     
     var body: some View {
         VStack {
+            // Top Nav Bar
+            Button {
+            } label: {
+                
+                Image(systemName: "list.dash")
+                    .resizable()
+                    .renderingMode(.template)
+                    .aspectRatio(contentMode: .fit)
+                    .frame(width: 22, height: 22)
+            }
+            .frame(maxWidth: .infinity, alignment: .leading )
+            .overlay(
+                Text("Notifications")
+                    .font(.title.bold())
+            )
+            .foregroundColor(.black)
+            .padding()
+            
             ZStack {
                 if let matchRequest = notiVM.currentUserMatch
                 {
