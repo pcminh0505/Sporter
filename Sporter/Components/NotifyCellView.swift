@@ -55,7 +55,6 @@ struct NotifyCellView: View {
                         // Accept
                         accept_friend()
                         delete_request()
-                        print("Accepted RQ")
                     } label: {
                         Text("ACCEPT")
                             .frame(maxWidth: .infinity)
@@ -67,7 +66,6 @@ struct NotifyCellView: View {
                     Button {
                         // Deny
                         delete_request()
-                        print("Reject RQ")
                     } label: {
                         Text("DENY")
                             .frame(maxWidth: .infinity)
