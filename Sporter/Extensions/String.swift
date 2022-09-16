@@ -8,12 +8,21 @@
 import Foundation
 
 extension String {
+    struct NumFormatter {
+        static let instance = NumberFormatter()
+    }
+
     //To check text field or String is blank or not
     var isBlank: Bool {
         get {
             let trimmed = trimmingCharacters(in: CharacterSet.whitespaces)
             return trimmed.isEmpty
         }
+    }
+
+    //Validate Double
+    var isDouble: Double? {
+        return NumFormatter.instance.number(from: self)?.doubleValue
     }
 
     //Validate Email

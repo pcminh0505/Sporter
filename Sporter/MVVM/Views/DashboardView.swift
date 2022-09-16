@@ -37,7 +37,7 @@ struct DashboardView: View {
                             .clipShape(Circle())
                     },
                     placeholder: {
-                        Image(systemName: "person.fill")
+                        ProgressView()
                             .cornerRadius(25)
                             .frame(width: 50, height: 50)
                             .background(Color(uiColor: .systemGray6))
