@@ -25,8 +25,6 @@ struct SporterApp: App {
         WindowGroup {
              LaunchView()
                 .environmentObject(NavigationHelper())
-//            AuthView()
-//            MapView()
         }
     }
 }
