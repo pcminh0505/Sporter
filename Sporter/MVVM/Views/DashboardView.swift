@@ -11,16 +11,25 @@ import Firebase
 struct DashboardView: View {
     @EnvironmentObject var navigationHelper: NavigationHelper
     @StateObject var dashboardViewModel = DashboardViewModel()
-    @State private var deleteAlert : Bool = false
-    @State private var withdrawAlert : Bool = false
-    @State private var selectedEventId : String = ""
-    
+    @StateObject var notiVM = NotificationViewModel()
+    @State private var deleteAlert: Bool = false
+    @State private var withdrawAlert: Bool = false
+    @State private var selectedEventId: String = ""
+
     let user: User
 
     var body: some View {
         VStack {
             NavigationLink(tag: "map", selection: $navigationHelper.selection) {
                 MapView()
+                    .navigationBarHidden(true)
+            } label: {
+                EmptyView()
+            }.isDetailLink(false)
+
+            NavigationLink(tag: "request", selection: $navigationHelper.selection) {
+                NotificationView()
+                    .environmentObject(notiVM)
                     .navigationBarHidden(true)
             } label: {
                 EmptyView()
@@ -38,7 +47,7 @@ struct DashboardView: View {
                             .clipShape(Circle())
                     },
                     placeholder: {
-                        Image(systemName: "person.fill")
+                        ProgressView()
                             .cornerRadius(25)
                             .frame(width: 50, height: 50)
                             .background(Color(uiColor: .systemGray6))
@@ -59,7 +68,11 @@ struct DashboardView: View {
 
                 Spacer()
 
-                SquareButton(imgName: "bell.fill")
+                Button {
+                    navigationHelper.selection = "request"
+                } label: {
+                    SquareButton(imgName: "bell.fill")
+                }
             }
 
             Button {
@@ -76,24 +89,24 @@ struct DashboardView: View {
                 .background(Color.accentColor)
                 .cornerRadius(10)
                 .padding(.top, 25)
-            
+
             Text("Upcoming Events")
                 .font(.title3)
                 .foregroundColor(Color.accentColor)
                 .fontWeight(.bold)
-            
+
             ScrollView {
                 VStack(alignment: .leading) {
-                    ForEach(dashboardViewModel.events, id:\.id) {data in
+                    ForEach(dashboardViewModel.events, id: \.id) { data in
                         VStack (alignment: .leading) {
                             VStack (alignment: .leading) {
                                 HStack (spacing: 5) {
                                     Text(data.event.title)
                                         .font(.headline)
                                         .fontWeight(.bold)
-                                    
+
                                     Spacer()
-                                    
+
                                     if data.event.isPrivate == true {
                                         Text("Private event")
                                             .font(.body)
@@ -108,41 +121,41 @@ struct DashboardView: View {
                                             .foregroundColor(Color.theme.darkGray)
                                     }
                                 }
-                                
-                                
+
+
                                 Text(data.event.description)
-                                
+
                                 HStack {
                                     Text("Creator:")
                                         .fontWeight(.bold)
                                     Text("\(data.creator.fname) \(data.creator.lname)")
                                 }
-                                
+
                                 HStack {
                                     Text("Venue:")
                                         .fontWeight(.bold)
                                     Text(data.venue.name)
                                 }
-                                
+
                             }
-                            .padding(.top)
-                            .padding(.horizontal)
-            
+                                .padding(.top)
+                                .padding(.horizontal)
+
                             HStack {
                                 Spacer()
-                                
+
                                 if let eventID = data.event.id {
-                                    if (dashboardViewModel.isEventCreator[eventID] ?? false ) {
+                                    if (dashboardViewModel.isEventCreator[eventID] ?? false) {
                                         Button {
                                             selectedEventId = eventID
                                             deleteAlert = true
                                         } label: {
                                             Text("Delete")
                                         }
-                                        .padding(.bottom)
-                                        .padding(.horizontal)
-                                        .buttonStyle(.borderedProminent)
-                                        .alert (isPresented: $deleteAlert) { DeleteAlertPopup }
+                                            .padding(.bottom)
+                                            .padding(.horizontal)
+                                            .buttonStyle(.borderedProminent)
+                                            .alert (isPresented: $deleteAlert) { DeleteAlertPopup }
                                     } else {
                                         Button {
                                             selectedEventId = eventID
@@ -150,23 +163,23 @@ struct DashboardView: View {
                                         } label: {
                                             Text("Withdraw")
                                         }
-                                        .buttonStyle(.borderedProminent)
-                                        .padding(.bottom)
-                                        .padding(.horizontal)
-                                        .alert(isPresented: $withdrawAlert) { WithdrawAlertPopup }
+                                            .buttonStyle(.borderedProminent)
+                                            .padding(.bottom)
+                                            .padding(.horizontal)
+                                            .alert(isPresented: $withdrawAlert) { WithdrawAlertPopup }
                                     }
                                 }
                             }
                         }
-                        .frame(maxWidth: .infinity)
-                        .background(RoundedRectangle(cornerRadius: 4).stroke(Color.accentColor, lineWidth: 2))
+                            .frame(maxWidth: .infinity)
+                            .background(RoundedRectangle(cornerRadius: 4).stroke(Color.accentColor, lineWidth: 2))
                     }
                 }
             }
-            
+
             Spacer()
         }
-        .padding()
+            .padding()
     }
 }
 
@@ -178,7 +191,7 @@ struct DashboardView_Previews: PreviewProvider {
 }
 
 extension DashboardView {
-    private var DeleteAlertPopup : Alert {
+    private var DeleteAlertPopup: Alert {
         Alert (
             title: Text("Do you want to delete this event?"),
             message: Text("This action can't undone"),
@@ -190,8 +203,8 @@ extension DashboardView {
             secondaryButton: .cancel()
         )
     }
-    
-    private var WithdrawAlertPopup : Alert {
+
+    private var WithdrawAlertPopup: Alert {
         Alert (
             title: Text("Do you want to withdraw from this event?"),
             message: Text("You can rejoin the event in map"),
