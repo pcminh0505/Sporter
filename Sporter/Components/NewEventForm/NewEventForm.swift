@@ -43,33 +43,33 @@ struct NewEventForm: View {
                     // Event form
                     VStack {
                         InputTextBox(title: "Title",
-                                     text: self.$title,
-                                     placeholder: "Cool Event")
+                            text: self.$title,
+                            placeholder: "Cool Event")
 
                         InputTextBox(title: "Description",
-                                     text: self.$description,
-                                     placeholder: "Let's meet up and exercise together!")
+                            text: self.$description,
+                            placeholder: "Let's meet up and exercise together!")
 
                         // Start Time and End Time pickers
                         VStack {
-                            DatePicker("Start Time", selection: self.$startTime, in: closedRange ,displayedComponents: [.date, .hourAndMinute])
+                            DatePicker("Start Time", selection: self.$startTime, in: closedRange, displayedComponents: [.date, .hourAndMinute])
                                 .padding(.horizontal)
                                 .padding(.vertical, 15)
-                            DatePicker("End Time", selection: self.$endTime, in: closedRange ,displayedComponents: [.date, .hourAndMinute])
+                            DatePicker("End Time", selection: self.$endTime, in: closedRange, displayedComponents: [.date, .hourAndMinute])
                                 .padding(.horizontal)
                                 .padding(.bottom, 15)
                         }
-                        .background(
+                            .background(
                             RoundedRectangle(cornerRadius: 4)
                                 .stroke(Color.theme.textColor.opacity(0.7), lineWidth: 2))
-                        .padding(.top, 25)
-                        
+                            .padding(.top, 25)
+
                         // Is the event public?
                         Toggle("Private Event", isOn: $isPrivate)
                             .toggleStyle(SwitchToggleStyle(tint: .accentColor))
                             .padding(.top, 10)
                     }
-                    .padding(.bottom)
+                        .padding(.bottom)
 
                     // Venue info (pre-populated)
                     VStack(spacing: 10) {
@@ -115,33 +115,33 @@ struct NewEventForm: View {
                             // Disable
                             isCreatingEvent = false
                         }, label: {
-                            Text("Cancel")
-                                .frame(maxWidth: .infinity)
-                                .padding()
-                                .foregroundColor(Color.accentColor)
-                                .background(RoundedRectangle(cornerRadius: 10).stroke())
-                        })
+                                Text("Cancel")
+                                    .frame(maxWidth: .infinity)
+                                    .padding()
+                                    .foregroundColor(Color.accentColor)
+                                    .background(RoundedRectangle(cornerRadius: 10).stroke())
+                            })
                             .padding(.vertical)
 
                         Button(action: {
                             // Save new event to Firebase
                             createEvent()
                         }, label: {
-                            if self.isLoading {
-                                ProgressView()
-                                    .progressViewStyle(CircularProgressViewStyle(tint: .white))
-                                    .padding(.vertical)
-                                    .frame(width: UIScreen.main.bounds.width - 50)
-                            }
-                            else {
-                                Text("Save")
-                                    .frame(maxWidth: .infinity)
-                                    .padding()
-                                    .foregroundColor(.white)
-                                    .background(Color.accentColor)
-                                    .cornerRadius(10)
+                                if self.isLoading {
+                                    ProgressView()
+                                        .progressViewStyle(CircularProgressViewStyle(tint: .white))
+                                        .padding(.vertical)
+                                        .frame(width: UIScreen.main.bounds.width - 50)
                                 }
-                        })
+                                else {
+                                    Text("Save")
+                                        .frame(maxWidth: .infinity)
+                                        .padding()
+                                        .foregroundColor(.white)
+                                        .background(Color.accentColor)
+                                        .cornerRadius(10)
+                                }
+                            })
                             .padding(.vertical)
                     }
 
@@ -150,18 +150,18 @@ struct NewEventForm: View {
                 }
                     .padding(.horizontal, 25)
             }
-            
+
             if self.alert {
                 ErrorView(alert: self.$alert, error: self.$error)
             }
         }
     }
-    
+
     func createEvent() {
         self.isLoading = true
-        
+
         // Do form validation
-        
+
         // Check if title is blank
         if self.title.isBlank {
             self.error = "Please fill the event title"
@@ -169,7 +169,7 @@ struct NewEventForm: View {
             self.isLoading = false
             return
         }
-        
+
         // Check if descpription is blank
         if self.description.isBlank {
             self.error = "Please fill the event description"
@@ -177,7 +177,7 @@ struct NewEventForm: View {
             self.isLoading = false
             return
         }
-        
+
         // Check if event time is invalid
         // If enough time, maybe parse the opening hours and check them
         if self.startTime >= self.endTime {
@@ -186,20 +186,20 @@ struct NewEventForm: View {
             self.isLoading = false
             return
         }
-        
+
         // All checks passed, upload new event to Firestore
         let id = UserDefaults.standard.value(forKey: "currentUser") as? String ?? ""
-        
+
         if !id.isBlank {
             eventRepository.createEvent(
                 Event(title: self.title.trimmingCharacters(in: .whitespacesAndNewlines),
-                      description: self.description.trimmingCharacters(in: .whitespacesAndNewlines),
-                      creator: id,
-                      venue: self.venue.id,
-                      startTime: self.startTime.timeIntervalSince1970,
-                      endTime: self.endTime.timeIntervalSince1970,
-                      isPrivate: self.isPrivate,
-                     participants: [id]))
+                    description: self.description.trimmingCharacters(in: .whitespacesAndNewlines),
+                    creator: id,
+                    venue: self.venue.id,
+                    startTime: self.startTime.timeIntervalSince1970,
+                    endTime: self.endTime.timeIntervalSince1970,
+                    isPrivate: self.isPrivate,
+                    participants: [id]))
             self.isLoading = false
             isCreatingEvent = false
         }

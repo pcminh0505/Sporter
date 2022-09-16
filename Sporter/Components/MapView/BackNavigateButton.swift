@@ -8,7 +8,7 @@
 import Foundation
 import SwiftUI
 
-struct BackNavigateButton : View {
+struct BackNavigateButton: View {
     var body: some View {
         ZStack {
             Image(systemName: "square.fill")
