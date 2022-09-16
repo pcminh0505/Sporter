@@ -60,7 +60,6 @@ class UserRepository: ObservableObject {
                 self.usersWithoutMatch = documents.compactMap { doc -> User? in
                     let friendList: [String] = self.currentUser?.friends ?? []
                     let senderList: [String] = self.matchs
-                    print(senderList)
                     // Except the current logged user
                     if doc.documentID == id {
                         return nil

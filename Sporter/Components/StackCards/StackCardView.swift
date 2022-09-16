@@ -123,10 +123,10 @@ struct StackCardView: View {
                             endSwipeActions()
                             
                             if translation > 0  {
-                                rightSwipe()
+                                rightSwipe(receiver: user.id ?? "")
                             }
                             else {
-                                leftSwipe(receiver: user.id ?? "")
+                                leftSwipe()
                             }
                         }
                         else {
@@ -152,10 +152,10 @@ struct StackCardView: View {
                     endSwipeActions()
                     
                     if rightSwipe  {
-                        self.rightSwipe()
+                        self.rightSwipe(receiver: user.id ?? "")
                     }
                     else {
-                        leftSwipe(receiver: user.id ?? "")
+                        leftSwipe()
                     }
                 }
             }
@@ -182,12 +182,12 @@ struct StackCardView: View {
         }
     }
     
-    func leftSwipe(receiver: String) {
-        discoveryVM.createMatch(receiver: receiver)
+    func leftSwipe() {
+        
     }
     
-    func rightSwipe() {
-        
+    func rightSwipe(receiver: String) {
+        discoveryVM.createMatch(receiver: receiver)
     }
     
     func getAge(bod: TimeInterval) -> Int {
