@@ -85,106 +85,19 @@ struct DashboardView: View {
                     .foregroundColor(Color.accentColor)
                     .fontWeight(.bold)
 
+                if dashboardViewModel.events.isEmpty {
+                    VStack {
+                        Text("No upcoming events")
+                            .font(.headline)
+                            .foregroundColor(Color.theme.darkGray)
+                        Text("Join or create new events in Map")
+                            .font(.subheadline)
+                            .foregroundColor(Color.theme.darkGray)
+                    }
+                }
+
                 ScrollView {
                     VStack(alignment: .leading) {
-                        if dashboardViewModel.events.isEmpty {
-                            VStack {
-                                Text("No upcoming events")
-                                    .font(.headline)
-                                    .foregroundColor(Color.theme.darkGray)
-                                Text("Join or create new events in Map")
-                                    .font(.subheadline)
-                                    .foregroundColor(Color.theme.darkGray)
-                            }
-                    .padding(.vertical)
-                    .foregroundColor(.white)
-            }
-                .frame(maxWidth: .infinity)
-                .background(Color.accentColor)
-                .cornerRadius(10)
-                .padding(.top, 25)
-            
-            Text("Upcoming Events")
-                .font(.title3)
-                .foregroundColor(Color.accentColor)
-                .fontWeight(.bold)
-            
-            ScrollView {
-                VStack(alignment: .leading) {
-                    ForEach(dashboardViewModel.events, id:\.id) {data in
-                        VStack (alignment: .leading) {
-                            VStack (alignment: .leading) {
-                                HStack (spacing: 5) {
-                                    Text(data.event.title)
-                                        .font(.headline)
-                                        .fontWeight(.bold)
-                                    
-                                    Spacer()
-                                    
-                                    if data.event.isPrivate == true {
-                                        Text("Private event")
-                                            .font(.body)
-                                            .foregroundColor(Color.theme.darkGray)
-                                        Image(systemName: "lock.fill")
-                                            .foregroundColor(Color.theme.darkGray)
-                                    } else {
-                                        Text("Public event")
-                                            .font(.body)
-                                            .foregroundColor(Color.theme.darkGray)
-                                        Image(systemName: "lock.open.fill")
-                                            .foregroundColor(Color.theme.darkGray)
-                                    }
-                                }
-                                
-                                
-                                Text(data.event.description)
-                                
-                                HStack {
-                                    Text("Creator:")
-                                        .fontWeight(.bold)
-                                    Text("\(data.creator.fname) \(data.creator.lname)")
-                                }
-                                
-                                HStack {
-                                    Text("Venue:")
-                                        .fontWeight(.bold)
-                                    Text(data.venue.name)
-                                }
-                                
-                            }
-                            .padding(.top)
-                            .padding(.horizontal)
-            
-                            HStack {
-                                Spacer()
-                                
-                                if let eventID = data.event.id {
-                                    if (dashboardViewModel.isEventCreator[eventID] ?? false ) {
-                                        Button {
-                                            selectedEventId = eventID
-                                            deleteAlert = true
-                                        } label: {
-                                            Text("Delete")
-                                        }
-                                        .padding(.bottom)
-                                        .padding(.horizontal)
-                                        .buttonStyle(.borderedProminent)
-                                        .alert (isPresented: $deleteAlert) { DeleteAlertPopup }
-                                    } else {
-                                        Button {
-                                            selectedEventId = eventID
-                                            withdrawAlert = true
-                                        } label: {
-                                            Text("Withdraw")
-                                        }
-                                        .buttonStyle(.borderedProminent)
-                                        .padding(.bottom)
-                                        .padding(.horizontal)
-                                        .alert(isPresented: $withdrawAlert) { WithdrawAlertPopup }
-                                    }
-                                }
-                            }
-                        }
                         ForEach(dashboardViewModel.events, id: \.id) { data in
                             VStack (alignment: .leading) {
                                 VStack (alignment: .leading, spacing: 5) {
@@ -262,7 +175,7 @@ struct DashboardView: View {
                                     }
                                 }
                             }
-                            .onTapGesture {
+                                .onTapGesture {
                                 withAnimation {
                                     if let eventID = data.event.id {
                                         selectedEventId = eventID
@@ -271,13 +184,13 @@ struct DashboardView: View {
                                     }
                                 }
                             }
-                            .frame(maxWidth: .infinity)
-                            .background(RoundedRectangle(cornerRadius: 4).stroke(Color.accentColor, lineWidth: 2))
+                                .frame(maxWidth: .infinity)
+                                .background(RoundedRectangle(cornerRadius: 4).stroke(Color.accentColor, lineWidth: 2))
                         }
                     }
                 }
             }
-            .blur(radius: CGFloat(blurAmount))
+                .blur(radius: CGFloat(blurAmount))
                 .padding()
             if isPopupShow {
                 VStack {
@@ -289,16 +202,17 @@ struct DashboardView: View {
                             blurAmount = 0
                         }
                     }, label: {
-                        Text("Close")
-                    })
+                            Text("Close")
+                        })
                 }.padding()
-                .frame(width: 300, height: 200)
-                .shadow(radius: 10)
-                .background(Color.theme.popupColor)
+                    .frame(width: 300, height: 200)
+                    .shadow(radius: 10)
+                    .background(Color.theme.popupColor)
             }
         }
     }
 }
+
 
 struct DashboardView_Previews: PreviewProvider {
     static var previews: some View {
