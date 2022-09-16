@@ -43,6 +43,7 @@
 		244F809528D4DB0900C84AED /* FriendListRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 244F809428D4DB0900C84AED /* FriendListRow.swift */; };
 		244F809728D4E33B00C84AED /* Conversion.swift in Sources */ = {isa = PBXBuildFile; fileRef = 244F809628D4E33B00C84AED /* Conversion.swift */; };
 		244F809928D4E88700C84AED /* FriendListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 244F809828D4E88700C84AED /* FriendListViewModel.swift */; };
+		244F809C28D5015200C84AED /* SearchBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 244F809B28D5015200C84AED /* SearchBar.swift */; };
 		246B09ED28BE17C6007B7070 /* UserRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 246B09EC28BE17C6007B7070 /* UserRepository.swift */; };
 		246B09EF28BE17DC007B7070 /* VenueRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 246B09EE28BE17DC007B7070 /* VenueRepository.swift */; };
 		246B09F328BE1847007B7070 /* UserModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 246B09F228BE1847007B7070 /* UserModel.swift */; };
@@ -103,6 +104,7 @@
 		244F809428D4DB0900C84AED /* FriendListRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendListRow.swift; sourceTree = "<group>"; };
 		244F809628D4E33B00C84AED /* Conversion.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Conversion.swift; sourceTree = "<group>"; };
 		244F809828D4E88700C84AED /* FriendListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendListViewModel.swift; sourceTree = "<group>"; };
+		244F809B28D5015200C84AED /* SearchBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchBar.swift; sourceTree = "<group>"; };
 		246B09EC28BE17C6007B7070 /* UserRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserRepository.swift; sourceTree = "<group>"; };
 		246B09EE28BE17DC007B7070 /* VenueRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VenueRepository.swift; sourceTree = "<group>"; };
 		246B09F228BE1847007B7070 /* UserModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserModel.swift; sourceTree = "<group>"; };
@@ -236,6 +238,7 @@
 		241A6EC428BDCFAF00C830BE /* Components */ = {
 			isa = PBXGroup;
 			children = (
+				244F809A28D5014300C84AED /* SearchBar */,
 				244F809328D4DAF600C84AED /* FriendListRow */,
 				241A38C628CF0D4400B19E59 /* SquareButton */,
 				24996E7428CE3359000E8623 /* InputTextBox */,
@@ -293,6 +296,14 @@
 				244F809428D4DB0900C84AED /* FriendListRow.swift */,
 			);
 			path = FriendListRow;
+			sourceTree = "<group>";
+		};
+		244F809A28D5014300C84AED /* SearchBar */ = {
+			isa = PBXGroup;
+			children = (
+				244F809B28D5015200C84AED /* SearchBar.swift */,
+			);
+			path = SearchBar;
 			sourceTree = "<group>";
 		};
 		246B09EB28BE1726007B7070 /* Repositories */ = {
@@ -526,6 +537,7 @@
 				2489E39628C85C0700642E54 /* StackCardView.swift in Sources */,
 				246B09EF28BE17DC007B7070 /* VenueRepository.swift in Sources */,
 				246B09ED28BE17C6007B7070 /* UserRepository.swift in Sources */,
+				244F809C28D5015200C84AED /* SearchBar.swift in Sources */,
 				0CD0DF5428CF420E00351711 /* EventRepository.swift in Sources */,
 				241A6EB128BDCD1300C830BE /* SporterApp.swift in Sources */,
 				24A6770F28CB6B3700A7BA9D /* TabBarItem.swift in Sources */,
