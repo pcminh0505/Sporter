@@ -33,7 +33,6 @@ class MatchRepository: ObservableObject {
         
         // Prevent crash
         if !id.isBlank {
-            print(id)
             db.collection("users").document(id)
                 .addSnapshotListener { doc, err in
                 if let doc = doc {
