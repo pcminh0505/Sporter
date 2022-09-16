@@ -30,162 +30,168 @@ struct DashboardView: View {
                     EmptyView()
                 }.isDetailLink(false)
 
-            NavigationLink(tag: "request", selection: $navigationHelper.selection) {
-                NotificationView()
-                    .environmentObject(notiVM)
-                    .navigationBarHidden(true)
-            } label: {
-                EmptyView()
-            }.isDetailLink(false)
+                NavigationLink(tag: "request", selection: $navigationHelper.selection) {
+                    NotificationView()
+                        .environmentObject(notiVM)
+                        .navigationBarHidden(true)
+                } label: {
+                    EmptyView()
+                }.isDetailLink(false)
 
-            HStack(spacing: 10) {
-                AsyncImage (
-                    url: URL(string: user.profileImage),
-                    content: { image in
-                        image.resizable()
-                            .resizable()
-                            .scaledToFill()
-                            .cornerRadius(25)
-                            .frame(width: 50, height: 50)
-                            .clipShape(Circle())
-                    },
-                    placeholder: {
-                        ProgressView()
-                            .cornerRadius(25)
-                            .frame(width: 50, height: 50)
-                            .background(Color(uiColor: .systemGray6))
-                            .clipShape(Circle())
+                HStack(spacing: 10) {
+                    AsyncImage (
+                        url: URL(string: user.profileImage),
+                        content: { image in
+                            image.resizable()
+                                .resizable()
+                                .scaledToFill()
+                                .cornerRadius(25)
+                                .frame(width: 50, height: 50)
+                                .clipShape(Circle())
+                        },
+                        placeholder: {
+                            ProgressView()
+                                .cornerRadius(25)
+                                .frame(width: 50, height: 50)
+                                .background(Color(uiColor: .systemGray6))
+                                .clipShape(Circle())
+                        }
+                    )
+                        .overlay(RoundedRectangle(cornerRadius: 25).stroke(Color.theme.textColor))
+
+                    VStack (alignment: .leading) {
+                        Text("Welcome")
+                            .font(.body)
+                        Text("\(user.fname) \(user.lname)")
+                            .font(.title2)
+                            .fontWeight(.bold)
                     }
-                )
-                    .overlay(RoundedRectangle(cornerRadius: 25).stroke(Color.theme.textColor))
 
-                VStack (alignment: .leading) {
-                    Text("Welcome")
-                        .font(.body)
-                    Text("\(user.fname) \(user.lname)")
-                        .font(.title2)
-                        .fontWeight(.bold)
+                        .foregroundColor(Color.theme.textColor)
+
+                    Spacer()
+
+                    Button {
+                        navigationHelper.selection = "request"
+                    } label: {
+                        SquareButton(imgName: "bell.fill")
+                    }
                 }
-
-                    .foregroundColor(Color.theme.textColor)
-
-                Spacer()
 
                 Button {
-                    navigationHelper.selection = "request"
+                    navigationHelper.selection = "map"
                 } label: {
-                    SquareButton(imgName: "bell.fill")
+                    HStack {
+                        Text("Go to Map")
+                        Image(systemName: "map.fill")
+                    }
+                        .padding(.vertical)
+                        .foregroundColor(.white)
                 }
-            }
+                    .frame(maxWidth: .infinity)
+                    .background(Color.accentColor)
+                    .cornerRadius(10)
+                    .padding(.top, 25)
 
-            Button {
-                navigationHelper.selection = "map"
-            } label: {
-                HStack {
-                    Text("Go to Map")
-                    Image(systemName: "map.fill")
-                }
-                    .padding(.vertical)
-                    .foregroundColor(.white)
-            }
-                .frame(maxWidth: .infinity)
-                .background(Color.accentColor)
-                .cornerRadius(10)
-                .padding(.top, 25)
+                Text("Upcoming Events")
+                    .font(.title3)
+                    .foregroundColor(Color.accentColor)
+                    .fontWeight(.bold)
 
-            Text("Upcoming Events")
-                .font(.title3)
-                .foregroundColor(Color.accentColor)
-                .fontWeight(.bold)
-
-            ScrollView {
-                VStack(alignment: .leading) {
-                    ForEach(dashboardViewModel.events, id: \.id) { data in
-                        VStack (alignment: .leading) {
+                ScrollView {
+                    VStack(alignment: .leading) {
+                        ForEach(dashboardViewModel.events, id: \.id) { data in
                             VStack (alignment: .leading) {
-                                HStack (spacing: 5) {
-                                    Text(data.event.title)
-                                        .font(.headline)
-                                        .fontWeight(.bold)
+                                VStack (alignment: .leading) {
+                                    HStack (spacing: 5) {
+                                        Text(data.event.title)
+                                            .font(.headline)
+                                            .fontWeight(.bold)
 
+                                        Spacer()
+
+                                        if data.event.isPrivate == true {
+                                            Text("Private event")
+                                                .font(.body)
+                                                .foregroundColor(Color.theme.darkGray)
+                                            Image(systemName: "lock.fill")
+                                                .foregroundColor(Color.theme.darkGray)
+                                        } else {
+                                            Text("Public event")
+                                                .font(.body)
+                                                .foregroundColor(Color.theme.darkGray)
+                                            Image(systemName: "lock.open.fill")
+                                                .foregroundColor(Color.theme.darkGray)
+                                        }
+                                    }
+
+
+                                    Text(data.event.description)
+
+                                    HStack {
+                                        Text("Venue:")
+                                            .fontWeight(.bold)
+                                        Text(data.venue.name)
+                                    }
+
+                                    HStack {
+                                        Text("At:")
+                                            .fontWeight(.bold)
+                                        Text(dashboardViewModel.timeConversion(data.event.startTime))
+                                    }
+
+                                    HStack {
+                                        Text("Creator:")
+                                            .fontWeight(.bold)
+                                        Text("\(data.creator.fname) \(data.creator.lname)")
+                                    }
+
+                                }
+                                    .padding(.top)
+                                    .padding(.horizontal)
+
+                                HStack {
                                     Spacer()
 
-                                    if data.event.isPrivate == true {
-                                        Text("Private event")
-                                            .font(.body)
-                                            .foregroundColor(Color.theme.darkGray)
-                                        Image(systemName: "lock.fill")
-                                            .foregroundColor(Color.theme.darkGray)
-                                    } else {
-                                        Text("Public event")
-                                            .font(.body)
-                                            .foregroundColor(Color.theme.darkGray)
-                                        Image(systemName: "lock.open.fill")
-                                            .foregroundColor(Color.theme.darkGray)
-                                    }
-                                }
-
-
-                                Text(data.event.description)
-
-                                HStack {
-                                    Text("Creator:")
-                                        .fontWeight(.bold)
-                                    Text("\(data.creator.fname) \(data.creator.lname)")
-                                }
-
-                                HStack {
-                                    Text("Venue:")
-                                        .fontWeight(.bold)
-                                    Text(data.venue.name)
-                                }
-
-                            }
-                                .padding(.top)
-                                .padding(.horizontal)
-
-                            HStack {
-                                Spacer()
-
-                                if let eventID = data.event.id {
-                                    if (dashboardViewModel.isEventCreator[eventID] ?? false) {
-                                        Button {
-                                            selectedEventId = eventID
-                                            deleteAlert = true
-                                        } label: {
-                                            Text("Delete")
+                                    if let eventID = data.event.id {
+                                        if (dashboardViewModel.isEventCreator[eventID] ?? false) {
+                                            Button {
+                                                selectedEventId = eventID
+                                                deleteAlert = true
+                                            } label: {
+                                                Text("Delete")
+                                            }
+                                                .padding(.bottom)
+                                                .padding(.horizontal)
+                                                .buttonStyle(.borderedProminent)
+                                                .alert (isPresented: $deleteAlert) { DeleteAlertPopup }
+                                        } else {
+                                            Button {
+                                                selectedEventId = eventID
+                                                withdrawAlert = true
+                                            } label: {
+                                                Text("Withdraw")
+                                            }
+                                                .buttonStyle(.borderedProminent)
+                                                .padding(.bottom)
+                                                .padding(.horizontal)
+                                                .alert(isPresented: $withdrawAlert) { WithdrawAlertPopup }
                                         }
-                                            .padding(.bottom)
-                                            .padding(.horizontal)
-                                            .buttonStyle(.borderedProminent)
-                                            .alert (isPresented: $deleteAlert) { DeleteAlertPopup }
-                                    } else {
-                                        Button {
-                                            selectedEventId = eventID
-                                            withdrawAlert = true
-                                        } label: {
-                                            Text("Withdraw")
-                                        }
-                                            .buttonStyle(.borderedProminent)
-                                            .padding(.bottom)
-                                            .padding(.horizontal)
-                                            .alert(isPresented: $withdrawAlert) { WithdrawAlertPopup }
                                     }
                                 }
                             }
+                                .frame(maxWidth: .infinity)
+                                .background(RoundedRectangle(cornerRadius: 4).stroke(Color.accentColor, lineWidth: 2))
                         }
-                            .frame(maxWidth: .infinity)
-                            .background(RoundedRectangle(cornerRadius: 4).stroke(Color.accentColor, lineWidth: 2))
                     }
                 }
-            }
 
-            Spacer()
+                Spacer()
+            }
+                .padding()
         }
-            .padding()
     }
 }
-
 
 struct DashboardView_Previews: PreviewProvider {
     static var previews: some View {
