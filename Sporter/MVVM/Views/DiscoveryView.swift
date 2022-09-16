@@ -51,30 +51,18 @@ struct DiscoveryView: View {
 
                 Image(systemName: "arrow.backward")
                     .font(.system(size: 22, weight: .black))
-                    .foregroundColor(Color.accentColor)
+                    .foregroundColor(Color.blue)
                     .shadow(radius: 5)
                     .padding(18)
-
-                Text("Add Friend")
-                    .foregroundColor(Color.accentColor)
+                
+                Text("Skip")
+                    .foregroundColor(Color.blue)
                     .font(.caption)
                     .bold()
                     .padding(.bottom, 0)
 
                 Button {
                     doSwipe()
-                } label: {
-                    Image(systemName: "suit.heart.fill")
-                        .font(.system(size: 20, weight: .black))
-                        .foregroundColor(.white)
-                        .shadow(radius: 5)
-                        .padding(18)
-                        .background(Color.accentColor)
-                        .clipShape(Circle())
-                }
-
-                Button {
-                    doSwipe(rightSwipe: true)
                 } label: {
                     Image(systemName: "xmark")
                         .font(.system(size: 20, weight: .black))
@@ -84,16 +72,28 @@ struct DiscoveryView: View {
                         .background(Color.blue)
                         .clipShape(Circle())
                 }
-
-                Text("Skip")
-                    .foregroundColor(Color.blue)
+                
+                Button {
+                    doSwipe(rightSwipe: true)
+                } label: {
+                    Image(systemName: "suit.heart.fill")
+                        .font(.system(size: 20, weight: .black))
+                        .foregroundColor(.white)
+                        .shadow(radius: 5)
+                        .padding(18)
+                        .background(Color.accentColor)
+                        .clipShape(Circle())
+                }
+                
+                Text("Add Friend")
+                    .foregroundColor(Color.accentColor)
                     .font(.caption)
                     .bold()
                     .padding(.bottom, 0)
 
                 Image(systemName: "arrow.right")
                     .font(.system(size: 22, weight: .black))
-                    .foregroundColor(Color.blue)
+                    .foregroundColor(Color.accentColor)
                     .shadow(radius: 5)
                     .padding(18)
             }

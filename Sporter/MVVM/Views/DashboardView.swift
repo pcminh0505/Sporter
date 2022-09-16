@@ -96,6 +96,94 @@ struct DashboardView: View {
                                     .font(.subheadline)
                                     .foregroundColor(Color.theme.darkGray)
                             }
+                    .padding(.vertical)
+                    .foregroundColor(.white)
+            }
+                .frame(maxWidth: .infinity)
+                .background(Color.accentColor)
+                .cornerRadius(10)
+                .padding(.top, 25)
+            
+            Text("Upcoming Events")
+                .font(.title3)
+                .foregroundColor(Color.accentColor)
+                .fontWeight(.bold)
+            
+            ScrollView {
+                VStack(alignment: .leading) {
+                    ForEach(dashboardViewModel.events, id:\.id) {data in
+                        VStack (alignment: .leading) {
+                            VStack (alignment: .leading) {
+                                HStack (spacing: 5) {
+                                    Text(data.event.title)
+                                        .font(.headline)
+                                        .fontWeight(.bold)
+                                    
+                                    Spacer()
+                                    
+                                    if data.event.isPrivate == true {
+                                        Text("Private event")
+                                            .font(.body)
+                                            .foregroundColor(Color.theme.darkGray)
+                                        Image(systemName: "lock.fill")
+                                            .foregroundColor(Color.theme.darkGray)
+                                    } else {
+                                        Text("Public event")
+                                            .font(.body)
+                                            .foregroundColor(Color.theme.darkGray)
+                                        Image(systemName: "lock.open.fill")
+                                            .foregroundColor(Color.theme.darkGray)
+                                    }
+                                }
+                                
+                                
+                                Text(data.event.description)
+                                
+                                HStack {
+                                    Text("Creator:")
+                                        .fontWeight(.bold)
+                                    Text("\(data.creator.fname) \(data.creator.lname)")
+                                }
+                                
+                                HStack {
+                                    Text("Venue:")
+                                        .fontWeight(.bold)
+                                    Text(data.venue.name)
+                                }
+                                
+                            }
+                            .padding(.top)
+                            .padding(.horizontal)
+            
+                            HStack {
+                                Spacer()
+                                
+                                if let eventID = data.event.id {
+                                    if (dashboardViewModel.isEventCreator[eventID] ?? false ) {
+                                        Button {
+                                            selectedEventId = eventID
+                                            deleteAlert = true
+                                        } label: {
+                                            Text("Delete")
+                                        }
+                                        .padding(.bottom)
+                                        .padding(.horizontal)
+                                        .buttonStyle(.borderedProminent)
+                                        .alert (isPresented: $deleteAlert) { DeleteAlertPopup }
+                                    } else {
+                                        Button {
+                                            selectedEventId = eventID
+                                            withdrawAlert = true
+                                        } label: {
+                                            Text("Withdraw")
+                                        }
+                                        .buttonStyle(.borderedProminent)
+                                        .padding(.bottom)
+                                        .padding(.horizontal)
+                                        .alert(isPresented: $withdrawAlert) { WithdrawAlertPopup }
+                                    }
+                                }
+                            }
                         }
                         ForEach(dashboardViewModel.events, id: \.id) { data in
                             VStack (alignment: .leading) {
