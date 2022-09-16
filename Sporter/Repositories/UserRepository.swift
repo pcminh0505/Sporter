@@ -12,17 +12,18 @@ import FirebaseFirestoreSwift
 class UserRepository: ObservableObject {
     private let db = Firestore.firestore()
     private let collection: String = "users"
-    
     @Published var currentUser: User? = nil
     @Published var usersWithoutMatch: [User] = []
     @Published var users: [User] = []
     @Published var matchingUsers: [User] = []
-    //    var matches: [Match] = []
-    var matchs: [String] = []
+    private var matchs: [String] = []
+    
     init() {
         getCurrentUser()
         getAllUsers()
-        getUsersWithoutMatch()
+        getFilteredSend()
+        getFilteredReceive()
+        getFilteredUser()
     }
     
     func getCurrentUser() {
@@ -46,10 +47,42 @@ class UserRepository: ObservableObject {
         }
     }
     
-    func getUsersWithoutMatch() {
-        // Except the current logged user
+    func getFilteredUser() {
+        let id = UserDefaults.standard.value(forKey: "currentUser") as? String ?? ""
+
+        db.collection(collection)
+            .addSnapshotListener { (querySnapshot, error) in
+                guard let documents = querySnapshot?.documents else {
+                    print("No documents")
+                    return
+                }
+                
+                self.usersWithoutMatch = documents.compactMap { doc -> User? in
+                    let friendList: [String] = self.currentUser?.friends ?? []
+                    let senderList: [String] = self.matchs
+                    print(senderList)
+                    // Except the current logged user
+                    if doc.documentID == id {
+                        return nil
+                    }
+                    
+                    if friendList.contains(doc.documentID) {
+                        return nil
+                    }
+                    
+                    if senderList.contains(doc.documentID) {
+                        return nil
+                    }
+                    
+                    return try? doc.data(as: User.self)
+                }
+            }
+    }
+    
+    func getFilteredSend() {
         let id = UserDefaults.standard.value(forKey: "currentUser") as? String ?? ""
         
+        // Get all relevant matches to user id
         db.collection("match")
             .whereField("sender", isEqualTo: id)
             .addSnapshotListener { [self] (querySnapshot, error) in
@@ -66,40 +99,42 @@ class UserRepository: ObservableObject {
                                       sender: data["sender"] as! String,
                                       receiver: data["receiver"] as! String,
                                       accept: (data["accept"] != nil))
-                    
+
                     matchs.append(match.sender)
                     if (match.sender == id) {
                         matchs.append(match.receiver)
                     }
                 }
-                            
-                db.collection(collection)
-                    .addSnapshotListener { (querySnapshot, error) in
-                        guard let documents = querySnapshot?.documents else {
-                            print("No documents")
-                            return
-                        }
-                        
-                        self.usersWithoutMatch = documents.compactMap { doc -> User? in
-                            let friendList: [String] = self.currentUser?.friends ?? []
-                            let senderList: [String] = self.matchs
-                            print(senderList)
-                            // Except the current logged user
-                            if doc.documentID == id {
-                                return nil
-                            }
-                            
-                            if friendList.contains(doc.documentID) {
-                                return nil
-                            }
-                            
-                            if senderList.contains(doc.documentID) {
-                                return nil
-                            }
-                            
-                            return try? doc.data(as: User.self)
-                        }
+            }
+    }
+    
+    func getFilteredReceive() {
+        // Except the current logged user
+        let id = UserDefaults.standard.value(forKey: "currentUser") as? String ?? ""
+        
+        // Get all relevant matches to user id
+        db.collection("match")
+            .whereField("receiver", isEqualTo: id)
+            .addSnapshotListener { [self] (querySnapshot, error) in
+                guard let documents = querySnapshot?.documents else {
+                    print("No documents")
+                    return
+                }
+                
+                // Get in match into a list from documents
+                for doc in documents {
+                    let data = doc.data()
+                    
+                    let match = Match(id: doc.documentID,
+                                      sender: data["sender"] as! String,
+                                      receiver: data["receiver"] as! String,
+                                      accept: (data["accept"] != nil))
+
+                    matchs.append(match.sender)
+                    if (match.receiver == id) {
+                        matchs.append(match.sender)
                     }
+                }
             }
     }
     
