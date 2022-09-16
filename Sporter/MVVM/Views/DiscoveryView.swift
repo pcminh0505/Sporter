@@ -13,24 +13,12 @@ struct DiscoveryView: View {
     
     var body: some View {
         VStack {
-            
-            // Top Nav Bar
-            Button {
-            } label: {
-                
-                Image(systemName: "list.dash")
-                    .resizable()
-                    .renderingMode(.template)
-                    .aspectRatio(contentMode: .fit)
-                    .frame(width: 22, height: 22)
-            }
-            .frame(maxWidth: .infinity, alignment: .leading )
-            .overlay(
-                Text("Discovery")
-                    .font(.title.bold())
-            )
-            .foregroundColor(.black)
-            .padding()
+            // Heading
+            Text("Explore People")
+                .foregroundColor(Color.accentColor)
+                .font(.title)
+                .bold()
+                .padding(.bottom, 0)
             
             // Users Stack
             ZStack {
@@ -57,20 +45,9 @@ struct DiscoveryView: View {
                 .padding()
                 .padding(.vertical)
                 .frame(maxWidth: .infinity, maxHeight: .infinity)
+            
             // Action Buttons
             HStack(spacing: 15) {
-//                Button {
-//
-//                } label: {
-//                    Image(systemName: "arrow.uturn.backward")
-//                        .font(.system(size: 15, weight: .bold))
-//                        .foregroundColor(.white)
-//                        .shadow(radius: 5)
-//                        .padding(13)
-//                        .background(Color.gray)
-//                        .clipShape(Circle())
-//                }
-
                 Button {
                     doSwipe(rightSwipe: true)
                 } label: {
@@ -82,19 +59,6 @@ struct DiscoveryView: View {
                         .background(Color.blue)
                         .clipShape(Circle())
                 }
-
-//                Button {
-//
-//                } label: {
-//                    Image(systemName: "star.fill")
-//                        .font(.system(size: 15, weight: .bold))
-//                        .foregroundColor(.white)
-//                        .shadow(radius: 5)
-//                        .padding(13)
-//                        .background(Color.yellow)
-//                        .clipShape(Circle())
-//                }
-
                 Button {
                     doSwipe()
                 } label: {
@@ -111,7 +75,6 @@ struct DiscoveryView: View {
                 .disabled(discoveryVM.displayingUsers.isEmpty)
                 .opacity((discoveryVM.displayingUsers.isEmpty) ? 0.6 : 1)
         }
-            .frame(maxWidth: .infinity, maxHeight: UIScreen.main.bounds.height * 0.75, alignment: .top)
     }
 
     func doSwipe(rightSwipe: Bool = false) {

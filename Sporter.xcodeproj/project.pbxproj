@@ -39,6 +39,7 @@
 		241CEB2A28C751300017CD72 /* sporter.json in Resources */ = {isa = PBXBuildFile; fileRef = 241CEB2928C751300017CD72 /* sporter.json */; };
 		2422BFBD28D03B06006C3A13 /* Keyboard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2422BFBC28D03B06006C3A13 /* Keyboard.swift */; };
 		24282C1A28BE032C00CDFE61 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 24282C1928BE032C00CDFE61 /* GoogleService-Info.plist */; };
+		244F809228D46C5D00C84AED /* FriendListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 244F809128D46C5D00C84AED /* FriendListView.swift */; };
 		246B09ED28BE17C6007B7070 /* UserRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 246B09EC28BE17C6007B7070 /* UserRepository.swift */; };
 		246B09EF28BE17DC007B7070 /* VenueRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 246B09EE28BE17DC007B7070 /* VenueRepository.swift */; };
 		246B09F328BE1847007B7070 /* UserModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 246B09F228BE1847007B7070 /* UserModel.swift */; };
@@ -97,6 +98,7 @@
 		241CEB2928C751300017CD72 /* sporter.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = sporter.json; sourceTree = "<group>"; };
 		2422BFBC28D03B06006C3A13 /* Keyboard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Keyboard.swift; sourceTree = "<group>"; };
 		24282C1928BE032C00CDFE61 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		244F809128D46C5D00C84AED /* FriendListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendListView.swift; sourceTree = "<group>"; };
 		246B09EC28BE17C6007B7070 /* UserRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserRepository.swift; sourceTree = "<group>"; };
 		246B09EE28BE17DC007B7070 /* VenueRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VenueRepository.swift; sourceTree = "<group>"; };
 		246B09F228BE1847007B7070 /* UserModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserModel.swift; sourceTree = "<group>"; };
@@ -257,6 +259,7 @@
 				246B09F628BFB9E9007B7070 /* LaunchView.swift */,
 				246B09FA28BFBACA007B7070 /* MapView.swift */,
 				24A6771428CB6F5D00A7BA9D /* ProfileView.swift */,
+				244F809128D46C5D00C84AED /* FriendListView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -519,6 +522,7 @@
 				2493A5CD28C8658C0055F8D2 /* VenueViewModel.swift in Sources */,
 				0CD0DF5228CF3E8500351711 /* EventModel.swift in Sources */,
 				241A6ECD28BDD12A00C830BE /* Lottie.swift in Sources */,
+				244F809228D46C5D00C84AED /* FriendListView.swift in Sources */,
 				CC53617128CFA8E300C9F7B7 /* NotificationView.swift in Sources */,
 				CC53616D28CFA8A100C9F7B7 /* NotifyCellView.swift in Sources */,
 				2422BFBD28D03B06006C3A13 /* Keyboard.swift in Sources */,
