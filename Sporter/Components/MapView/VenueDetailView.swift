@@ -134,17 +134,18 @@ extension VenueDetailView {
             Text(venue.name)
                 .font(.system(size: 20))
                 .fontWeight(.bold)
-                .foregroundColor(Color.theme.red)
+                .foregroundColor(Color.accentColor)
 
             Text(venue.address)
                 .font(.system(size: 15))
+                .frame(height: 40)
         }
     }
     
     private var venueDetailText : some View {
         VStack (alignment: .leading, spacing: 5) {
             HStack {
-                Text("Open time:")
+                Text("Opening Hours:")
                     .font(.headline)
                     .fontWeight(.bold)
                 Text(venue.open_time + " - " + venue.close_time)
@@ -169,7 +170,7 @@ extension VenueDetailView {
                         Text("Website")
                             .font(.headline)
                             .fontWeight(.bold)
-                    }.foregroundColor(Color.theme.red)
+                    }.foregroundColor(Color.accentColor)
                 }
             }
             
@@ -215,9 +216,11 @@ extension VenueDetailView {
     private var eventListView : some View {
         VStack(alignment: .leading, spacing: 10) {
             ForEach(venueDetailViewModel.events, id:\.id) {data in
-                HStack (alignment: .center) {
-                    VStack {
+                HStack {
+                    VStack (alignment: .leading) {
                         Text(data.event.title)
+                            .font(.headline)
+                            .fontWeight(.bold)
                         Text(data.event.description)
                         
                         HStack {
@@ -225,6 +228,23 @@ extension VenueDetailView {
                                 .fontWeight(.bold)
                             Text("\(data.creator.fname) \(data.creator.lname)")
                         }
+                        
+                        HStack (spacing: 5) {
+                            if data.event.isPrivate == true {
+                                Text("Private event")
+                                    .font(.body)
+                                    .foregroundColor(Color.theme.darkGray)
+                                Image(systemName: "lock.fill")
+                                    .foregroundColor(Color.theme.darkGray)
+                            } else {
+                                Text("Public event")
+                                    .font(.body)
+                                    .foregroundColor(Color.theme.darkGray)
+                                Image(systemName: "lock.open.fill")
+                                    .foregroundColor(Color.theme.darkGray)
+                            }
+                        }
+                        
                     }
                     .padding()
                     

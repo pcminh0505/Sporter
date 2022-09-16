@@ -76,6 +76,20 @@ class EventRespository: ObservableObject {
                   for e in events {
                       Task {
                           let user = try await self.getEventCreator(e.creator)
+                          // check private mode
+                          if e.isPrivate {
+                              // not friend with creator -> skip
+                              let id = UserDefaults.standard.value(forKey: "currentUser") as? String ?? ""
+                              
+                              if id != e.creator {
+                                  if !id.isBlank {
+                                      if !user.friends.contains(id) {
+                                          return
+                                      }
+                                  }
+                              }
+                          }
+                            
                           let venue = try await self.getEventVenue(e.venue)
                           
                           let result = EventData.init(event: e, creator: user, venue: venue)

@@ -72,7 +72,6 @@ struct MapView: View {
                         .cornerRadius(8)
                         .labelStyle(.iconOnly)
                         .symbolVariant(.fill)
-                        .tint(Color.theme.red)
                 }
                 .padding(.trailing, 20)
                 .padding(.top, 40)

@@ -17,7 +17,7 @@ struct NewEventForm: View {
     @State var description = ""
     @State var startTime: Date = Date()
     @State var endTime: Date = Date().addingTimeInterval(3600)
-    @State var isPublic: Bool = false
+    @State var isPrivate: Bool = false
     @State var isLoading: Bool = false
     @State var alert = false
     @State var error = ""
@@ -65,7 +65,7 @@ struct NewEventForm: View {
                         .padding(.top, 25)
                         
                         // Is the event public?
-                        Toggle("Public Event", isOn: $isPublic)
+                        Toggle("Private Event", isOn: $isPrivate)
                             .toggleStyle(SwitchToggleStyle(tint: .accentColor))
                             .padding(.top, 10)
                     }
@@ -198,7 +198,7 @@ struct NewEventForm: View {
                       venue: self.venue.id,
                       startTime: self.startTime.timeIntervalSince1970,
                       endTime: self.endTime.timeIntervalSince1970,
-                      isPublic: self.isPublic,
+                      isPrivate: self.isPrivate,
                      participants: [id]))
             self.isLoading = false
             isCreatingEvent = false

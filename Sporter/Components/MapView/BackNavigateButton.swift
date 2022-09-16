@@ -13,7 +13,7 @@ struct BackNavigateButton : View {
         ZStack {
             Image(systemName: "square.fill")
                 .resizable()
-                .foregroundColor(Color.theme.red)
+                .foregroundColor(Color.accentColor)
                 .scaledToFit()
                 .frame(width: 40, height: 40)
             Image(systemName: "chevron.left")
