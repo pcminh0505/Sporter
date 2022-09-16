@@ -26,37 +26,75 @@ struct StackCardView: View {
             
             let index = CGFloat(discoveryVM.getIndex(user: user))
             let topOffset = (index <= 2 ? index: 2) * 15
+            let scale = 1.0
             
             ZStack {
-                
-                if let image = self.image {
-                    Image(uiImage: image)
-                        .resizable()
-                        .aspectRatio(contentMode: .fill)
-                        .frame(width: size.width - topOffset, height: size.height)
-                        .cornerRadius(15)
-                        .offset(y: -topOffset)
-                } else {
-                    AsyncImage (
-                        url: URL(string: user.profileImage),
-                        content: { image in
-                            image.resizable()
-                                .resizable()
-                                .aspectRatio(contentMode: .fill)
-                                .frame(width: size.width - topOffset, height: size.height)
-                                .cornerRadius(15)
-                                .offset(y: -topOffset)
-                        },
-                        placeholder: {
-                            ProgressView()
-                                .frame(width: size.width - topOffset, height: size.height)
-                                .cornerRadius(15)
-                                .offset(y: -topOffset)
-                                .background(Color(uiColor: .systemGray6))
-                        }
-                    )
+                VStack {
+                    if let image = self.image {
+                        Image(uiImage: image)
+                            .resizable()
+                            .aspectRatio(contentMode: .fill)
+                            .frame(width: size.width*scale - topOffset*scale, height: size.height*scale)
+                            .cornerRadius(15)
+                            .offset(y: -topOffset*scale)
+                    } else {
+                        AsyncImage (
+                            url: URL(string: user.profileImage),
+                            content: { image in
+                                image.resizable()
+                                    .resizable()
+                                    .aspectRatio(contentMode: .fill)
+                                    .frame(width: size.width - topOffset*scale, height: size.height*scale)
+                                    .cornerRadius(15)
+                                    .offset(y: -topOffset*scale)
+                            },
+                            placeholder: {
+                                ProgressView()
+                                    .frame(width: size.width - topOffset*scale, height: size.height*scale)
+                                    .cornerRadius(15)
+                                    .offset(y: -topOffset*scale)
+                                    .background(Color(uiColor: .systemGray6))
+                            }
+                        )
+                    }
+                    Text("\(user.fname) \(user.lname)")
+                        .foregroundColor(Color.accentColor)
+                        .bold()
+                        .padding(.leading, 10)
+                        .padding(.top, -5)
+                        .font(.title)
+                        .frame(maxWidth: .infinity, alignment: .bottomLeading)
+                    Text("Gender: \(user.gender)")
+                        .bold()
+                        .padding(.leading, 10)
+                        .padding(.top, -15)
+                        .frame(maxWidth: .infinity, alignment: .bottomLeading)
+                    Text("Age: \(getAge(bod: user.bod))")
+                        .bold()
+                        .padding(.leading, 10)
+                        .padding(.top, -15)
+                        .frame(maxWidth: .infinity, alignment: .bottomLeading)
+                    Text("Sport Goal: \(user.sportType)")
+                        .bold()
+                        .padding(.leading, 10)
+                        .padding(.top, -15)
+//                        .padding(.bottom, )
+                        .frame(maxWidth: .infinity, alignment: .bottomLeading)
                 }
-                
+                .padding(.bottom, 100)
+                .foregroundColor(.black)
+                    .background(
+                        RoundedRectangle(cornerRadius: 15).fill(.white))
+                    .frame(width: size.width - topOffset*scale, height: size.height*scale+30)
+                    .cornerRadius(15)
+                    .offset(y: -topOffset*scale)
+                .overlay(
+                        RoundedRectangle(cornerRadius: 15)
+                            .stroke(.black, lineWidth: 3)
+                            .frame(width: size.width - topOffset*scale, height: size.height*scale+30)
+                            .cornerRadius(15)
+                            .offset(y: -topOffset*scale)
+                    )
             }
             .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .center)
         }
@@ -96,7 +134,7 @@ struct StackCardView: View {
                             
                         }
                     }
-
+                    
                 })
         )
         .onReceive(NotificationCenter.default.publisher(for: Notification.Name("ACTIONFROMBUTTON"), object: nil)) {data in
@@ -151,11 +189,26 @@ struct StackCardView: View {
     func rightSwipe() {
         
     }
+    
+    func getAge(bod: TimeInterval) -> Int {
+        let birthday = NSDate(timeIntervalSince1970: bod)
+        let now = Date()
+        let calendar = Calendar.current
+
+        let ageComponents = calendar.dateComponents([.year], from: birthday as Date, to: now)
+        return ageComponents.year!
+    }
 }
 
 // Extending view to get bounds
 extension View {
     func getRect()->CGRect{
         return UIScreen.main.bounds
+    }
+}
+
+struct Stackcard_Previews: PreviewProvider {
+    static var previews: some View {
+        DiscoveryView()
     }
 }

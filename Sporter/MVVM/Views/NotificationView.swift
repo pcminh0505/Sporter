@@ -64,9 +64,7 @@ struct NotificationView: View {
                     ProgressView()
                 }
             }
-                .padding(.top, 30)
-                .padding()
-                .padding(.vertical)
+                
                 .frame(maxWidth: .infinity, maxHeight: .infinity)
 
             //                List (0...25, id: \.self) {i in
