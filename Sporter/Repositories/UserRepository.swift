@@ -79,6 +79,26 @@ class UserRepository: ObservableObject {
 
                 return try? doc.data(as: User.self)
             }
+
+            self.usersWithoutMatch = documents.compactMap { doc -> User? in
+                let friendList: [String] = self.currentUser?.friends ?? []
+                let senderList: [String] = self.matchs
+                
+                // Except the current logged user
+                if doc.documentID == id {
+                    return nil
+                }
+
+                if friendList.contains(doc.documentID) {
+                    return nil
+                }
+
+                if senderList.contains(doc.documentID) {
+                    return nil
+                }
+
+                return try? doc.data(as: User.self)
+            }
         }
     }
 
@@ -99,9 +119,9 @@ class UserRepository: ObservableObject {
                 let data = doc.data()
 
                 let match = Match(id: doc.documentID,
-                    sender: data["sender"] as! String,
-                    receiver: data["receiver"] as! String,
-                    accept: (data["accept"] != nil))
+                                  sender: data["sender"] as! String,
+                                  receiver: data["receiver"] as! String,
+                                  accept: (data["accept"] != nil))
 
                 matchs.append(match.sender)
                 if (match.sender == id) {
@@ -129,9 +149,9 @@ class UserRepository: ObservableObject {
                 let data = doc.data()
 
                 let match = Match(id: doc.documentID,
-                    sender: data["sender"] as! String,
-                    receiver: data["receiver"] as! String,
-                    accept: (data["accept"] != nil))
+                                  sender: data["sender"] as! String,
+                                  receiver: data["receiver"] as! String,
+                                  accept: (data["accept"] != nil))
 
                 matchs.append(match.sender)
                 if (match.receiver == id) {
