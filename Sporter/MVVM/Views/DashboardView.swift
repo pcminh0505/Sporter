@@ -10,6 +10,7 @@ import Firebase
 
 struct DashboardView: View {
     @EnvironmentObject var navigationHelper: NavigationHelper
+    @EnvironmentObject var notiVM: NotificationViewModel
     @StateObject var dashboardViewModel = DashboardViewModel()
 //    @State private var deleteAlert : Bool = false
 //    @State private var withdrawAlert : Bool = false
@@ -20,6 +21,14 @@ struct DashboardView: View {
         VStack {
             NavigationLink(tag: "map", selection: $navigationHelper.selection) {
                 MapView()
+                    .navigationBarHidden(true)
+            } label: {
+                EmptyView()
+            }.isDetailLink(false)
+            
+            NavigationLink(tag: "request", selection: $navigationHelper.selection) {
+                NotificationView()
+                    .environmentObject(notiVM)
                     .navigationBarHidden(true)
             } label: {
                 EmptyView()
@@ -58,7 +67,11 @@ struct DashboardView: View {
 
                 Spacer()
 
-                SquareButton(imgName: "bell.fill")
+                Button {
+                    navigationHelper.selection = "request"
+                } label: {
+                    SquareButton(imgName: "bell.fill")
+                }
             }
 
             Button {

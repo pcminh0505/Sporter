@@ -14,18 +14,19 @@ struct HomeView: View {
     @StateObject var notiVM = NotificationViewModel()
     @StateObject var profileVM = ProfileViewModel()
     @StateObject var discoveryVM = DiscoveryViewModel()
+    
     var body: some View {
         CustomTabBarContainerView(selection: $tabSelection) {
             DashboardView(user: profileVM.currentUser ?? User.unset)
+                .environmentObject(notiVM)
                 .tabBarItem(tab: .home, selection: $tabSelection)
             
             DiscoveryView()
                 .environmentObject(discoveryVM)
                 .tabBarItem(tab: .explore, selection: $tabSelection)
             
-            NotificationView()
-                .environmentObject(notiVM)
-                .tabBarItem(tab: .notify, selection: $tabSelection)
+            FriendListView()
+                .tabBarItem(tab: .friend, selection: $tabSelection)
 
             ProfileView()
                 .environmentObject(profileVM)
