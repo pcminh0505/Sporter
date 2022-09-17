@@ -24,7 +24,7 @@ struct DiscoveryView: View {
             ZStack {
                 if let users = discoveryVM.displayingUsers {
                     if users.isEmpty {
-                        Text("Come back later we can find more matches for you")
+                        Text("Come back later, we can find more matches for you")
                             .font(.caption)
                             .foregroundColor(.gray)
                     }

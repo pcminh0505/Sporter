@@ -53,10 +53,10 @@ struct NewEventForm: View {
 
                         // Start Time and End Time pickers
                         VStack {
-                            DatePicker("Start Time", selection: self.$startTime, in: closedRange, displayedComponents: [.date, .hourAndMinute])
+                            DatePicker("Start", selection: self.$startTime, in: closedRange, displayedComponents: [.date, .hourAndMinute])
                                 .padding(.horizontal)
                                 .padding(.vertical, 15)
-                            DatePicker("End Time", selection: self.$endTime, in: closedRange, displayedComponents: [.date, .hourAndMinute])
+                            DatePicker("End", selection: self.$endTime, in: closedRange, displayedComponents: [.date, .hourAndMinute])
                                 .padding(.horizontal)
                                 .padding(.bottom, 15)
                         }
@@ -110,7 +110,7 @@ struct NewEventForm: View {
                     }
                         .padding(.vertical)
 
-                    // Save button
+                    // Save and cancel buttons
                     HStack (spacing: 20) {
                         Button(action: {
                             // Disable
@@ -120,7 +120,9 @@ struct NewEventForm: View {
                                     .frame(maxWidth: .infinity)
                                     .padding()
                                     .foregroundColor(Color.accentColor)
-                                    .background(RoundedRectangle(cornerRadius: 10).stroke())
+                                    .background(
+                                        RoundedRectangle(cornerRadius: 10)
+                                            .stroke(Color.accentColor))
                             })
                             .padding(.vertical)
 

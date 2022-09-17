@@ -11,7 +11,7 @@ import SwiftUI
 struct NotificationView: View {
     @EnvironmentObject var notiVM: NotificationViewModel
     @EnvironmentObject var navigationHelper: NavigationHelper
-    
+
     let matchRepo: MatchRepository = MatchRepository()
     let userRepo: UserRepository = UserRepository()
 
@@ -38,16 +38,13 @@ struct NotificationView: View {
                 .foregroundColor(Color.accentColor)
                 .padding()
 
-
             // Heading
-
-
             ZStack {
                 if let matchRequest = notiVM.currentUserMatch
                 {
                     // let _ = print(matchRequest)
                     if matchRequest.isEmpty {
-                        Text("Come back later we can find more matches for you")
+                        Text("Come back later, we can find more matches for you")
                             .font(.caption)
                             .foregroundColor(.gray)
                     }
@@ -64,12 +61,7 @@ struct NotificationView: View {
                     ProgressView()
                 }
             }
-                
                 .frame(maxWidth: .infinity, maxHeight: .infinity)
-
-            //                List (0...25, id: \.self) {i in
-            //                    CellView()
-            //                }
         }
     }
 }

@@ -9,8 +9,8 @@ import Foundation
 import Combine
 
 enum SortOption: String, Codable, CaseIterable {
-    case name = "Name (Alphabetical)"
-    case nameReversed = "Name (Reverse Alphabetical)"
+    case name = "Name (A-Z)"
+    case nameReversed = "Name (Z-A)"
     case age = "Age (Ascending)"
     case ageReversed = "Age (Descending)"
 }

@@ -14,7 +14,7 @@ struct NotifyCellView: View {
     @State private var showSheet = false
     var user: User
     @EnvironmentObject var notiVM: NotificationViewModel
-    
+
     var body: some View {
         HStack {
             // Image setion
@@ -47,45 +47,51 @@ struct NotifyCellView: View {
                 )
                     .overlay(RoundedRectangle(cornerRadius: 70).stroke(Color(uiColor: .systemGray), lineWidth: 2))
             }
-            
+
             VStack(alignment: .leading, spacing: 10) {
                 Text("\(user.fname) \(user.lname) has sent you a friend request.")
-                HStack() {
-                    Button {
+
+                HStack (spacing: 10) {
+                    Button(action: {
                         // Accept
                         accept_friend()
                         delete_request()
-                    } label: {
-                        Text("ACCEPT")
-                            .frame(maxWidth: .infinity)
-                            .padding()
-                            .foregroundColor(Color.accentColor)
-                            .background(RoundedRectangle(cornerRadius: 10).stroke())
-                    }
-                    .buttonStyle(BorderlessButtonStyle())
-                    Button {
+                    }, label: {
+                            Text("Accept")
+                                .frame(minWidth: 100)
+                                .padding(.vertical)
+                                .foregroundColor(.white)
+                                .background(Color.accentColor)
+                                .cornerRadius(10)
+                        })
+                        .padding(.vertical, 10)
+
+                    Button(action: {
                         // Deny
                         delete_request()
-                    } label: {
-                        Text("DENY")
-                            .frame(maxWidth: .infinity)
-                            .padding()
-                            .foregroundColor(Color.accentColor)
-                            .background(RoundedRectangle(cornerRadius: 10).stroke())
-                    }
-                    .buttonStyle(BorderlessButtonStyle())
+                    }, label: {
+                            Text("Deny")
+                                .frame(minWidth: 100)
+                                .padding(.vertical)
+                                .foregroundColor(Color.accentColor)
+                                .background(
+                                RoundedRectangle(cornerRadius: 10)
+                                    .stroke(Color.accentColor))
+                        })
+                        .padding(.vertical, 10)
                 }
             }
+                .padding(.leading)
         }
     }
-    
+
     func accept_friend() {
         // update current user friend list
         var friendList: [String] = notiVM.currentUser?.friends ?? []
         friendList.append(user.id ?? "")
         notiVM.currentUser?.friends = friendList
         notiVM.updateCurrentUser()
-        
+
         // update other user friend list
         var otherUser = user
         var otherFriends: [String] = otherUser.friends
@@ -93,7 +99,7 @@ struct NotifyCellView: View {
         otherUser.friends = otherFriends
         notiVM.updateUser(otherUser)
     }
-    
+
     func delete_request() {
         let index = notiVM.getIndex(user: user)
         let match = notiVM.matches

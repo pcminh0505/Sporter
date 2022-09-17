@@ -23,6 +23,7 @@ struct DashboardView: View {
     var body: some View {
         ZStack {
             VStack {
+                // Navigation links (no hidden UI)
                 NavigationLink(tag: "map", selection: $navigationHelper.selection) {
                     MapView()
                         .navigationBarHidden(true)
@@ -38,6 +39,7 @@ struct DashboardView: View {
                     EmptyView()
                 }.isDetailLink(false)
 
+                // Avatar bar
                 HStack(spacing: 10) {
                     AsyncImage (
                         url: URL(string: user.profileImage),
@@ -77,128 +79,151 @@ struct DashboardView: View {
                         SquareButton(imgName: "bell.fill")
                     }
                 }
+                    .padding()
 
-                Button {
-                    navigationHelper.selection = "map"
-                } label: {
-                    HStack {
-                        Text("Go to Map")
-                        Image(systemName: "map.fill")
+                Divider()
+
+                // Header: Upcoming Events + Go to Map
+                HStack {
+                    Text("Upcoming Events")
+                        .font(.title2)
+                        .fontWeight(.bold)
+                        .foregroundColor(Color.accentColor)
+                    Spacer()
+                    Button {
+                        navigationHelper.selection = "map"
+                    } label: {
+                        HStack {
+                            Text("Go to Map")
+                            Image(systemName: "map.fill")
+                        }
+                            .padding(.horizontal)
+                            .padding(.vertical, 10)
+                            .foregroundColor(.white)
+                            .background(Color.accentColor)
+                            .cornerRadius(10)
                     }
-                        .padding(.vertical)
-                        .foregroundColor(.white)
                 }
-                    .frame(maxWidth: .infinity)
-                    .background(Color.accentColor)
-                    .cornerRadius(10)
-                    .padding(.top, 25)
+                    .padding(.horizontal)
+                    .padding(.top)
 
-                Text("Upcoming Events")
-                    .font(.title3)
-                    .foregroundColor(Color.accentColor)
-                    .fontWeight(.bold)
+                VStack(alignment: .leading, spacing: 10) {
+                    // Display if event list is empty
+                    if dashboardViewModel.events.isEmpty {
+                        Text("You are not joining any events.")
+                            .padding()
+                    }
 
-                ScrollView {
-                    VStack(alignment: .leading) {
-                        ForEach(dashboardViewModel.events, id: \.id) { data in
-                            VStack (alignment: .leading) {
-                                VStack (alignment: .leading) {
-                                    HStack (spacing: 5) {
+                    // Personal events list
+                    ScrollView {
+                        VStack {
+                            ForEach(dashboardViewModel.events, id: \.id) { data in
+                                // Individual event card (tap to show pop-up)
+                                VStack {
+                                    // Venue name and join status
+                                    HStack {
+                                        if data.event.isPrivate == true {
+                                            Image(systemName: "lock.fill")
+                                                .foregroundColor(.accentColor)
+                                        }
                                         Text(data.event.title)
                                             .font(.headline)
                                             .fontWeight(.bold)
+                                            .foregroundColor(.accentColor)
+                                            .lineLimit(1)
 
                                         Spacer()
 
-                                        if data.event.isPrivate == true {
-                                            Text("Private event")
-                                                .font(.body)
-                                                .foregroundColor(Color.theme.darkGray)
-                                            Image(systemName: "lock.fill")
-                                                .foregroundColor(Color.theme.darkGray)
-                                        } else {
-                                            Text("Public event")
-                                                .font(.body)
-                                                .foregroundColor(Color.theme.darkGray)
-                                            Image(systemName: "lock.open.fill")
-                                                .foregroundColor(Color.theme.darkGray)
+                                        // Delete / Leave button
+                                        if let eventID = data.event.id {
+                                            // If user is the event creator, can delete event
+                                            if (dashboardViewModel.isEventCreator[eventID] ?? false) {
+                                                Button {
+                                                    selectedEvent = data
+                                                    deleteAlert = true
+                                                } label: {
+                                                    HStack {
+                                                        Image(systemName: "trash.fill")
+                                                        Text("Delete")
+                                                            .font(.headline)
+                                                            .fontWeight(.bold)
+                                                    }
+                                                        .padding(.horizontal, 10)
+                                                        .padding(.vertical, 5)
+                                                        .background(Color.accentColor)
+                                                        .foregroundColor(.white)
+                                                        .cornerRadius(5)
+                                                }
+                                                    .alert(isPresented: $deleteAlert) { DeleteAlertPopup }
+                                            } else {
+                                                Button {
+                                                    selectedEvent = data
+                                                    withdrawAlert = true
+                                                } label: {
+                                                    HStack {
+                                                        Image(systemName: "door.left.hand.open")
+                                                        Text("Leave")
+                                                            .font(.headline)
+                                                            .fontWeight(.bold)
+                                                    }
+                                                        .padding(.horizontal, 10)
+                                                        .padding(.vertical, 5)
+                                                        .background(Color.accentColor)
+                                                        .foregroundColor(.white)
+                                                        .cornerRadius(5)
+                                                }
+                                                    .alert(isPresented: $withdrawAlert) { WithdrawAlertPopup }
+                                            }
                                         }
                                     }
+                                        .padding(.horizontal)
+                                        .padding(.top)
 
+                                    // Event information
+                                    VStack (alignment: .leading, spacing: 5) {
+                                        Text(data.event.description)
+                                            .lineLimit(1)
 
-                                    Text(data.event.description)
+                                        HStack {
+                                            Text("Creator:").fontWeight(.bold)
+                                            Text("\(data.creator.fname) \(data.creator.lname)")
+                                            Spacer()
+                                        }
 
-                                    HStack {
-                                        Text("Venue:")
-                                            .fontWeight(.bold)
-                                        Text(data.venue.name)
+                                        HStack {
+                                            Image(systemName: "clock.fill")
+                                            Text(dashboardViewModel.timeConversion(data.event.startTime))
+                                            Text("-")
+                                            Text(dashboardViewModel.timeConversion(data.event.endTime))
+                                        }
                                     }
-
-                                    HStack {
-                                        Text("At:")
-                                            .fontWeight(.bold)
-                                        Text(dashboardViewModel.timeConversion(data.event.startTime))
-                                    }
-
-                                    HStack {
-                                        Text("Creator:")
-                                            .fontWeight(.bold)
-                                        Text("\(data.creator.fname) \(data.creator.lname)")
-                                    }
-
+                                        .font(.system(size: 15))
+                                        .padding(.bottom, 15)
+                                        .padding(.horizontal, 15)
                                 }
-                                    .padding(.top)
-                                    .padding(.horizontal)
-
-                                HStack {
-                                    Spacer()
-
-                                    if let eventID = data.event.id {
-                                        if (dashboardViewModel.isEventCreator[eventID] ?? false) {
-                                            Button {
-                                                selectedEvent = data
-                                                deleteAlert = true
-                                            } label: {
-                                                Text("Delete")
-                                            }
-                                                .padding(.bottom)
-                                                .padding(.horizontal)
-                                                .buttonStyle(.borderedProminent)
-                                                .alert (isPresented: $deleteAlert) { DeleteAlertPopup }
-                                        } else {
-                                            Button {
-                                                selectedEvent = data
-                                                withdrawAlert = true
-                                            } label: {
-                                                Text("Withdraw")
-                                            }
-                                                .buttonStyle(.borderedProminent)
-                                                .padding(.bottom)
-                                                .padding(.horizontal)
-                                                .alert(isPresented: $withdrawAlert) { WithdrawAlertPopup }
-                                        }
+                                    .frame(maxWidth: .infinity)
+                                    .background(RoundedRectangle(cornerRadius: 10)
+                                        .stroke(Color.accentColor, lineWidth: 2))
+                                    .padding(.bottom, 5)
+                                    .onTapGesture {
+                                    withAnimation {
+                                        selectedEvent = data
+                                        blurAmount = 5
+                                        isPopupShow = true
                                     }
                                 }
                             }
-                            .frame(maxWidth: .infinity)
-                            .background(
-                                RoundedRectangle(cornerRadius: 10)
-                                    .stroke(Color.accentColor, lineWidth: 2)
-                            )
-                            .onTapGesture {
-                                withAnimation {
-                                    selectedEvent = data
-                                    blurAmount = 2
-                                    isPopupShow = true
-                                }
-                            }
+                            Spacer()
                         }
+                            .padding()
                     }
                 }
             }
                 .allowsHitTesting(!isPopupShow)
                 .blur(radius: CGFloat(blurAmount))
-                .padding()
+                .padding(.bottom, -25) // Fix weird white space at the bottom
+
+            // Pop-up UI
             if isPopupShow {
                 VStack (alignment: .leading) {
                     HStack {
@@ -209,41 +234,42 @@ struct DashboardView: View {
                             .foregroundColor(Color.accentColor)
                         Spacer()
                     }
-                    .padding()
-                    
+                        .padding()
+
                     if let event = selectedEvent?.event, let venue = selectedEvent?.venue, let user = selectedEvent?.creator {
                         VStack (alignment: .leading, spacing: 10) {
-                                Text("**Title:** \(event.title)")
-                                Text("**Description:** \(event.description)")
-                                Text("**From:** \(dashboardViewModel.timeConversion(event.startTime))")
-                                Text("**To:** \(dashboardViewModel.timeConversion(event.endTime))")
-                                Text("**Venue:** \(venue.name)")
-                            
-                                Text("**Address:** \(venue.address)")
-                                
-                                Text("**Creator:** \(user.fname) \(user.lname)")
-                            
+                            Text("**Title:** \(event.title)")
+                            Text("**Description:** \(event.description)")
+                            Text("**From:** \(dashboardViewModel.timeConversion(event.startTime))")
+                            Text("**To:** \(dashboardViewModel.timeConversion(event.endTime))")
+                            Text("**Venue:** \(venue.name)")
+                            Text("**Address:** \(venue.address)")
+                            Text("**Creator:** \(user.fname) \(user.lname)")
+
                             HStack {
                                 Spacer()
                                 if event.isPrivate {
-                                    Text("Private event - only available to friends and family.")
+                                    Text("Private Event - available to friends and family")
                                         .font(.subheadline)
                                         .italic()
+                                        .multilineTextAlignment(.center)
                                         .foregroundColor(Color.theme.darkGray)
                                 } else {
-                                    Text("Public event - available to everyone.")
+                                    Text("Public Event - available to everyone")
                                         .font(.subheadline)
                                         .italic()
+                                        .multilineTextAlignment(.center)
                                         .foregroundColor(Color.theme.darkGray)
                                 }
                                 Spacer()
                             }
+                                .padding(.top)
                         }
-                        .padding(.horizontal)
+                            .padding()
                     }
-                    
                     Spacer()
                     
+                    // Close button
                     HStack {
                         Spacer()
                         Button {
@@ -252,19 +278,17 @@ struct DashboardView: View {
                         } label: {
                             Text("Close")
                         }
-                        .padding()
-                        .buttonStyle(.borderedProminent)
+                            .padding()
+                            .buttonStyle(.borderedProminent)
                         Spacer()
                     }
                 }
                 .frame(width: UIScreen.main.bounds.width * 0.8,
-                       height: UIScreen.main.bounds.height * 0.55)
-                .cornerRadius(20)
+                       height: UIScreen.main.bounds.height * 0.6)
                 .background(
-                    RoundedRectangle(cornerRadius: 0)
-                        .stroke(Color.theme.darkGray, lineWidth: 2)
-                        .background(Color.theme.popupColor)
-                )
+                    RoundedRectangle(cornerRadius: 10)
+                    .fill(Color.theme.popupColor)
+                    .shadow(radius: 10))
             }
         }
     }
