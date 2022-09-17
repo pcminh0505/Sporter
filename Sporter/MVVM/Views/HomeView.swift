@@ -23,7 +23,7 @@ struct HomeView: View {
 
             DiscoveryView()
                 .environmentObject(discoveryVM)
-                .tabBarItem(tab: .explore, selection: $tabSelection)
+                .tabBarItem(tab: .discover, selection: $tabSelection)
 
             FriendListView()
                 .environmentObject(friendListVM)

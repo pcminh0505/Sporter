@@ -44,7 +44,7 @@ struct FriendListView: View {
             List {
                 ForEach(friendListVM.friendList) { user in
                     FriendListRow(user: user)
-                        .listRowInsets(.init(top: 10, leading: 10, bottom: 10, trailing: 10))
+                        .listRowInsets(.init(top: 15, leading: 15, bottom: 15, trailing: 15))
                 }
             }
                 .listStyle(PlainListStyle())

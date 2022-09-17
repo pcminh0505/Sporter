@@ -242,7 +242,7 @@ extension VenueDetailView {
                             .multilineTextAlignment(.leading)
 
                         Spacer()
-
+                        
                         // Join button and join badge
                         if let eventID = data.event.id {
                             if !(self.didJoinEvent[eventID] ?? false || venueDetailViewModel.didJoinEvent[eventID] ?? false) {

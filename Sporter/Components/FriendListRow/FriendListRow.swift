@@ -81,7 +81,7 @@ struct FriendListRow: View {
             }
 
                 .foregroundColor(Color.theme.textColor)
-                .padding(.leading, 5)
+                .padding(.horizontal, 5)
         }
             .font(.subheadline)
     }

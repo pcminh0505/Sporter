@@ -13,13 +13,6 @@ struct DiscoveryView: View {
 
     var body: some View {
         VStack {
-            // Heading
-            Text("Explore People")
-                .foregroundColor(Color.accentColor)
-                .font(.title)
-                .bold()
-                .padding(.bottom, 0)
-
             // Users Stack
             ZStack {
                 if let users = discoveryVM.displayingUsers {
@@ -41,63 +34,54 @@ struct DiscoveryView: View {
                     ProgressView()
                 }
             }
-                .padding(.top, 0)
-                .padding()
-                .padding(.vertical)
+                .padding(.horizontal)
+                .padding(.top, 40)
+                .padding(.bottom)
                 .frame(maxWidth: .infinity, maxHeight: .infinity)
 
             // Action Buttons
-            HStack(spacing: 15) {
-
+            HStack (alignment: .center) {
+                // Swipe left indicator
                 Image(systemName: "arrow.backward")
-                    .font(.system(size: 22, weight: .black))
+                    .font(.system(size: 25, weight: .black))
                     .foregroundColor(Color.blue)
                     .shadow(radius: 5)
-                    .padding(18)
-                
-                Text("Skip")
-                    .foregroundColor(Color.blue)
-                    .font(.caption)
-                    .bold()
-                    .padding(.bottom, 0)
 
+                // Swipe left
                 Button {
                     doSwipe()
                 } label: {
-                    Image(systemName: "xmark")
-                        .font(.system(size: 20, weight: .black))
+                    Image(systemName: "hand.thumbsdown.fill")
+                        .font(.system(size: 25, weight: .black))
                         .foregroundColor(.white)
                         .shadow(radius: 5)
-                        .padding(18)
+                        .padding()
                         .background(Color.blue)
                         .clipShape(Circle())
                 }
-                
+                    .padding(10)
+
+                // Swipe right
                 Button {
                     doSwipe(rightSwipe: true)
                 } label: {
-                    Image(systemName: "suit.heart.fill")
-                        .font(.system(size: 20, weight: .black))
+                    Image(systemName: "hand.thumbsup.fill")
+                        .font(.system(size: 25, weight: .black))
                         .foregroundColor(.white)
                         .shadow(radius: 5)
-                        .padding(18)
+                        .padding()
                         .background(Color.accentColor)
                         .clipShape(Circle())
                 }
-                
-                Text("Add Friend")
-                    .foregroundColor(Color.accentColor)
-                    .font(.caption)
-                    .bold()
-                    .padding(.bottom, 0)
+                    .padding(10)
 
+                // Swipe right indicator
                 Image(systemName: "arrow.right")
-                    .font(.system(size: 22, weight: .black))
+                    .font(.system(size: 25, weight: .black))
                     .foregroundColor(Color.accentColor)
                     .shadow(radius: 5)
-                    .padding(18)
+
             }
-            .padding(.top, 10)
                 .disabled(discoveryVM.displayingUsers.isEmpty)
                 .opacity((discoveryVM.displayingUsers.isEmpty) ? 0.6 : 1)
         }

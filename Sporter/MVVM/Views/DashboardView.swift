@@ -299,6 +299,7 @@ extension DashboardView {
                 .padding()
         }
     }
+    
     // Popup detail view when user taps on an event from the list
     private var EventDetailPopup: some View {
         VStack (alignment: .leading) {
