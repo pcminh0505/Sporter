@@ -239,6 +239,7 @@ extension VenueDetailView {
                             .fontWeight(.bold)
                             .foregroundColor(.accentColor)
                             .lineLimit(2)
+                            .multilineTextAlignment(.leading)
 
                         Spacer()
 
@@ -281,6 +282,7 @@ extension VenueDetailView {
                     VStack (alignment: .leading, spacing: 5) {
                         Text(data.event.description)
                             .lineLimit(2)
+                            .multilineTextAlignment(.leading)
 
                         HStack {
                             Text("**Creator:** \(data.creator.fname) \(data.creator.lname)")

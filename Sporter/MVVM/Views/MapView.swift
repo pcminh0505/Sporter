@@ -46,7 +46,7 @@ struct MapView: View {
                         BackNavigateButton()
                     }
                     HStack {
-                        TextField("Find Venue...", text: $mapViewModel.searchText)
+                        TextField("Find venue...", text: $mapViewModel.searchText)
                             .foregroundColor(Color.theme.textColor)
                             .font(.system(size: 18))
                             .focused($searchFocused)

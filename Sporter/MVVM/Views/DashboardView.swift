@@ -188,7 +188,7 @@ extension DashboardView {
                 ForEach(dashboardViewModel.events, id: \.id) { data in
                     // Individual event card (tap to show pop-up)
                     VStack {
-                        // Venue name and join status
+                        // Venue name
                         HStack (alignment: .center) {
                             if data.event.isPrivate == true {
                                 Image(systemName: "lock.fill")
@@ -200,6 +200,7 @@ extension DashboardView {
                                 .fontWeight(.bold)
                                 .foregroundColor(.accentColor)
                                 .lineLimit(2)
+                                .multilineTextAlignment(.leading)
 
                             Spacer()
 
