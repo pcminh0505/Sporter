@@ -154,7 +154,7 @@ extension DashboardView {
     private var DeleteEventAlertPopup: Alert {
         Alert (
             title: Text("Do you want to delete this event?"),
-            message: Text("This action can't undone"),
+            message: Text("This action cannot be undone"),
             primaryButton: .destructive(Text("Delete")) {
                 withAnimation {
                     if let event = selectedEvent?.event {
@@ -169,7 +169,7 @@ extension DashboardView {
     private var LeaveEventAlertPopup: Alert {
         Alert (
             title: Text("Do you want to leave this event?"),
-            message: Text("You can rejoin the event in map"),
+            message: Text("You can rejoin this event in the map"),
             primaryButton: .destructive(Text("Leave")) {
                 withAnimation {
                     if let event = selectedEvent?.event {
@@ -180,24 +180,27 @@ extension DashboardView {
             secondaryButton: .cancel()
         )
     }
+    
     // Show list of events that current user participates in
-    private var UserEventList : some View {
+    private var UserEventList: some View {
         ScrollView {
             VStack {
                 ForEach(dashboardViewModel.events, id: \.id) { data in
                     // Individual event card (tap to show pop-up)
                     VStack {
-                        // Venue name and join status
-                        HStack (alignment: .top) {
+                        // Venue name
+                        HStack (alignment: .center) {
                             if data.event.isPrivate == true {
                                 Image(systemName: "lock.fill")
                                     .foregroundColor(.accentColor)
                             }
+                            
                             Text(data.event.title)
                                 .font(.headline)
                                 .fontWeight(.bold)
                                 .foregroundColor(.accentColor)
                                 .lineLimit(2)
+                                .multilineTextAlignment(.leading)
 
                             Spacer()
 
@@ -222,7 +225,7 @@ extension DashboardView {
                                             .cornerRadius(5)
                                     }
                                         .alert(isPresented: $deleteAlert) { DeleteEventAlertPopup }
-                                // If user is not the event creator, can leave the event
+                                    // If user is not the event creator, can leave the event
                                 } else {
                                     Button {
                                         selectedEvent = data
@@ -259,11 +262,21 @@ extension DashboardView {
                             }
 
                             HStack {
-                                Image(systemName: "clock.fill")
-                                Text(dashboardViewModel.timeConversion(data.event.startTime))
-                                Text("-")
-                                Text(dashboardViewModel.timeConversion(data.event.endTime))
+                                VStack(alignment: .center) {
+                                    Image(systemName: "clock.fill")
+                                    Image(systemName: "person.2.fill")
+                                }
+                                VStack(alignment: .leading) {
+                                    HStack {
+                                        Text(dashboardViewModel.timeConversion(data.event.startTime))
+                                        Text("-")
+                                        Text(dashboardViewModel.timeConversion(data.event.endTime))
+                                    }
+                                    Text("**No. of participants:** \(data.event.participants.count)")
+                                }
+                                Spacer()
                             }
+                                .padding(.top, 5)
                         }
                             .font(.system(size: 15))
                             .padding(.bottom, 15)
@@ -286,8 +299,9 @@ extension DashboardView {
                 .padding()
         }
     }
+    
     // Popup detail view when user taps on an event from the list
-    private var EventDetailPopup : some View {
+    private var EventDetailPopup: some View {
         VStack (alignment: .leading) {
             HStack {
                 Spacer()
@@ -308,7 +322,7 @@ extension DashboardView {
                     Text("**Venue:** \(venue.name)")
                     Text("**Address:** \(venue.address)")
                     Text("**Creator:** \(user.fname) \(user.lname)")
-                    Text("**No. participants:** \(event.participants.count)")
+                    Text("**No. of participants:** \(event.participants.count)")
 
                     HStack {
                         Spacer()
@@ -332,7 +346,7 @@ extension DashboardView {
                     .padding()
             }
             Spacer()
-            
+
             // Close button
             HStack {
                 Spacer()
@@ -347,11 +361,11 @@ extension DashboardView {
                 Spacer()
             }
         }
-        .frame(width: UIScreen.main.bounds.width * 0.8,
-               height: UIScreen.main.bounds.height * 0.6)
-        .background(
+            .frame(width: UIScreen.main.bounds.width * 0.8,
+            height: UIScreen.main.bounds.height * 0.6)
+            .background(
             RoundedRectangle(cornerRadius: 10)
-            .fill(Color.theme.popupColor)
-            .shadow(radius: 10))
+                .fill(Color.theme.popupColor)
+                .shadow(radius: 10))
     }
 }

@@ -228,18 +228,21 @@ extension VenueDetailView {
             ForEach(venueDetailViewModel.events, id: \.id) { data in
                 VStack {
                     // Venue name and join status
-                    HStack {
+                    HStack (alignment: .center) {
                         if data.event.isPrivate == true {
                             Image(systemName: "lock.fill")
                                 .foregroundColor(.accentColor)
                         }
+                        
                         Text(data.event.title)
                             .font(.headline)
                             .fontWeight(.bold)
                             .foregroundColor(.accentColor)
+                            .lineLimit(2)
+                            .multilineTextAlignment(.leading)
 
                         Spacer()
-
+                        
                         // Join button and join badge
                         if let eventID = data.event.id {
                             if !(self.didJoinEvent[eventID] ?? false || venueDetailViewModel.didJoinEvent[eventID] ?? false) {
@@ -278,6 +281,8 @@ extension VenueDetailView {
                     // Event information
                     VStack (alignment: .leading, spacing: 5) {
                         Text(data.event.description)
+                            .lineLimit(2)
+                            .multilineTextAlignment(.leading)
 
                         HStack {
                             Text("**Creator:** \(data.creator.fname) \(data.creator.lname)")
@@ -285,16 +290,21 @@ extension VenueDetailView {
                         }
                         
                         HStack {
-                            Text("**No. participants:** \(data.event.participants.count)")
+                            VStack(alignment: .center) {
+                                Image(systemName: "clock.fill")
+                                Image(systemName: "person.2.fill")
+                            }
+                            VStack(alignment: .leading) {
+                                HStack {
+                                    Text(venueDetailViewModel.timeConversion(data.event.startTime))
+                                    Text("-")
+                                    Text(venueDetailViewModel.timeConversion(data.event.endTime))
+                                }
+                                Text("**No. of participants:** \(data.event.participants.count)")
+                            }
                             Spacer()
                         }
-
-                        HStack {
-                            Image(systemName: "clock.fill")
-                            Text(venueDetailViewModel.timeConversion(data.event.startTime))
-                            Text("-")
-                            Text(venueDetailViewModel.timeConversion(data.event.endTime))
-                        }
+                            .padding(.top, 5)
                     }
                         .font(.system(size: 15))
                         .padding(.bottom, 15)

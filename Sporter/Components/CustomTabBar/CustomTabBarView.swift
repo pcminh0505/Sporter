@@ -27,7 +27,7 @@ struct CustomTabBarView: View {
 struct CustomTabBarView_Previews: PreviewProvider {
 
     static let tabs: [TabBarItem] = [
-            .home, .explore, .profile
+            .home, .discover, .profile
     ]
 
     static var previews: some View {
