@@ -322,7 +322,7 @@ extension DashboardView {
                     Text("**Venue:** \(venue.name)")
                     Text("**Address:** \(venue.address)")
                     Text("**Creator:** \(user.fname) \(user.lname)")
-                    Text("**No. participants:** \(event.participants.count)")
+                    Text("**No. of participants:** \(event.participants.count)")
 
                     HStack {
                         Spacer()
