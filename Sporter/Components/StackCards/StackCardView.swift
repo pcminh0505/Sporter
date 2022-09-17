@@ -26,7 +26,7 @@ struct StackCardView: View {
             
             let index = CGFloat(discoveryVM.getIndex(user: user))
             let topOffset = (index <= 2 ? index: 2) * 15
-            let scale = 1.0
+            let scale = 0.95
             
             ZStack {
                 VStack {
@@ -64,18 +64,21 @@ struct StackCardView: View {
                         .padding(.top, -5)
                         .font(.title)
                         .frame(maxWidth: .infinity, alignment: .bottomLeading)
-                    Text("Gender: \(user.gender)")
+                    Text("Gender: \(user.gender)".capitalized)
                         .bold()
+                        .foregroundColor(Color.theme.textColor)
                         .padding(.leading, 10)
                         .padding(.top, -15)
                         .frame(maxWidth: .infinity, alignment: .bottomLeading)
-                    Text("Age: \(getAge(bod: user.bod))")
+                    Text("Age: \(getAge(bod: user.bod))".capitalized)
                         .bold()
+                        .foregroundColor(Color.theme.textColor)
                         .padding(.leading, 10)
                         .padding(.top, -15)
                         .frame(maxWidth: .infinity, alignment: .bottomLeading)
-                    Text("Sport Goal: \(user.sportType)")
+                    Text("Sport Goal: \(user.sportType)".capitalized)
                         .bold()
+                        .foregroundColor(Color.theme.textColor)
                         .padding(.leading, 10)
                         .padding(.top, -15)
 //                        .padding(.bottom, )
@@ -84,14 +87,14 @@ struct StackCardView: View {
                 .padding(.bottom, 100)
                 .foregroundColor(.black)
                     .background(
-                        RoundedRectangle(cornerRadius: 15).fill(.white))
-                    .frame(width: size.width - topOffset*scale, height: size.height*scale+30)
+                        RoundedRectangle(cornerRadius: 15).fill(Color(uiColor: .systemGray5)))
+                    .frame(width: size.width*scale - topOffset*scale, height: size.height*scale+30)
                     .cornerRadius(15)
                     .offset(y: -topOffset*scale)
                 .overlay(
                         RoundedRectangle(cornerRadius: 15)
-                            .stroke(.black, lineWidth: 3)
-                            .frame(width: size.width - topOffset*scale, height: size.height*scale+30)
+                            .stroke(Color.theme.textColor, lineWidth: 2)
+                            .frame(width: size.width*scale - topOffset*scale, height: size.height*scale+30)
                             .cornerRadius(15)
                             .offset(y: -topOffset*scale)
                     )
