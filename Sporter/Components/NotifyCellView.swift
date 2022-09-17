@@ -62,7 +62,8 @@ struct NotifyCellView: View {
                                 .background(Color.accentColor)
                                 .cornerRadius(10)
                         })
-
+                    .buttonStyle(BorderlessButtonStyle())
+                    
                     Button(action: {
                         // Deny
                         delete_request()
@@ -75,6 +76,7 @@ struct NotifyCellView: View {
                                 RoundedRectangle(cornerRadius: 10)
                                     .stroke(Color.accentColor))
                         })
+                    .buttonStyle(BorderlessButtonStyle())
                 }
             }
                 .padding(.leading)
