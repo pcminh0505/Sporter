@@ -44,6 +44,10 @@ struct InputTextBox: View {
 }
 struct InputTextBox_Previews: PreviewProvider {
     static var previews: some View {
-        InputTextBox(title: "Phone Number", text: .constant("01234"), placeholder: "+84...", validation: "Must include country code. Eg. +84...")
+        Group {
+            InputTextBox(title: "Phone Number", text: .constant("01234"), placeholder: "+84...", validation: "Must include country code, e.g., +84...")
+            InputTextBox(title: "Phone Number", text: .constant("01234"), placeholder: "+84...", validation: "Must include country code, e.g., +84...")
+                .preferredColorScheme(.dark)
+        }
     }
 }

@@ -40,6 +40,10 @@ struct SearchBar: View {
 
 struct SearchBar_Previews: PreviewProvider {
     static var previews: some View {
-        SearchBar(searchText: .constant("Search for Friends"))
+        Group {
+            SearchBar(searchText: .constant("Search for friends"))
+            SearchBar(searchText: .constant("Search for friends"))
+                .preferredColorScheme(.dark)
+        }
     }
 }

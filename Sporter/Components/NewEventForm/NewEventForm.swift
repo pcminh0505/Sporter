@@ -38,6 +38,7 @@ struct NewEventForm: View {
                         .foregroundColor(Color.accentColor)
                         .font(.title)
                         .bold()
+                        .padding(.top, 10)
                         .padding(.bottom, 0)
 
                     // Event form

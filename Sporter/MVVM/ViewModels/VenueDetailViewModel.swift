@@ -64,4 +64,13 @@ class VenueDetailViewModel : ObservableObject {
             }
         }
     }
+    
+    func timeConversion(_ unixTime: Double) -> String {
+        let date = NSDate(timeIntervalSince1970: TimeInterval(unixTime))
+        let utcDateFormatter = DateFormatter()
+        utcDateFormatter.dateStyle = .short
+        utcDateFormatter.timeStyle = .short
+
+        return utcDateFormatter.string(from: date as Date)
+    }
 }

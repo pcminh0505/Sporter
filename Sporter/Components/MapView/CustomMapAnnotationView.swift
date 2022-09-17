@@ -10,7 +10,6 @@ import SwiftUI
 
 struct CustomMapAnnotationView : View {
     @Environment(\.colorScheme) var colorScheme
-//    let accentColor =
     let name: String
     
     var body: some View {

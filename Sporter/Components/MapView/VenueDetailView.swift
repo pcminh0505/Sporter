@@ -10,10 +10,10 @@ import SwiftUI
 import MapKit
 import Combine
 
-struct VenueDetailView : View {
+struct VenueDetailView: View {
     @EnvironmentObject var navigationHelper: NavigationHelper
-    var venueDetailViewModel : VenueDetailViewModel
-    
+    var venueDetailViewModel: VenueDetailViewModel
+
     let venue: Venue
     @Binding var isPreviewShow: Bool
     @State var startingOffsetY: CGFloat = UIScreen.main.bounds.height * 0.735
@@ -22,16 +22,15 @@ struct VenueDetailView : View {
     @State private var isRotated = false
     @State var isCreatingEvent: Bool = false
     @State var didJoinEvent = [String: Bool]()
-        
-    init (venue: Venue, isPreviewShow: Binding<Bool>, venueDetailViewModel : VenueDetailViewModel) {
+
+    init (venue: Venue, isPreviewShow: Binding<Bool>, venueDetailViewModel: VenueDetailViewModel) {
         self._isPreviewShow = isPreviewShow
         self.venue = venue
         self.venueDetailViewModel = venueDetailViewModel
         self.didJoinEvent = venueDetailViewModel.didJoinEvent
     }
-    
+
     var body: some View {
-        
         VStack (alignment: .leading, spacing: 10) {
             // Navigation to New Event Form
             NavigationLink(isActive: $isCreatingEvent) {
@@ -47,15 +46,22 @@ struct VenueDetailView : View {
                 .padding(.horizontal)
             venuePreviewText
                 .padding(.horizontal)
-                .padding(.bottom, 30)
+                .padding(.bottom)
 
             ScrollView(.vertical) {
                 VStack (alignment: .leading) {
                     venueDetailText
-                    
-                    VStack (alignment: .center, spacing: 10) {
+                        .padding(.bottom)
+
+                    VStack (alignment: .center, spacing: 5) {
                         venuePreviewImage
-                        
+                            .cornerRadius(10)
+                            .shadow(radius: 5)
+                            .padding(.top)
+
+                        Divider()
+                            .padding(.vertical)
+
                         Button {
                             isCreatingEvent = true
                         } label: {
@@ -66,70 +72,70 @@ struct VenueDetailView : View {
                                 .padding(.vertical)
                                 .foregroundColor(.white)
                         }
-                        .frame(maxWidth: .infinity)
-                        .background(Color.accentColor)
-                        .cornerRadius(10)
-                        .padding(.top, 25)
-                        
+                            .frame(maxWidth: .infinity)
+                            .background(Color.accentColor)
+                            .cornerRadius(10)
+
                         Text("Events")
-                            .font(.headline)
+                            .font(.system(size: 20))
                             .fontWeight(.bold)
-                            .padding(.top, 10)
-                        
+                            .padding(.top, 25)
+                            .padding(.bottom, 10)
+
                         eventListView
                     }
-                    .frame(maxWidth: .infinity)
+                        .frame(maxWidth: .infinity)
                 }
-                .padding(.horizontal)
+                    .padding(.horizontal)
             }
             Spacer()
         }
-        .background(Color.theme.popupColor)
-        .frame(maxWidth: .infinity)
-        .cornerRadius(30)
-        .offset(y: startingOffsetY)
-        .offset(y: currentDragOffsetY)
-        .offset(y: endingOffsetY)
-        .gesture (
+            .background(Color.theme.popupColor)
+            .frame(maxWidth: .infinity)
+            .cornerRadius(30)
+            .offset(y: startingOffsetY)
+            .offset(y: currentDragOffsetY)
+            .offset(y: endingOffsetY)
+            .gesture (
             DragGesture()
-                .onChanged {value in
-                    withAnimation(.spring()) {
-                        currentDragOffsetY = value.translation.height
-                    }
+                .onChanged { value in
+                withAnimation(.spring()) {
+                    currentDragOffsetY = value.translation.height
                 }
+            }
                 .onEnded { value in
-                    withAnimation(.spring()) {
-                        if currentDragOffsetY < -UIScreen.main.bounds.height * 0.2 {
-                            endingOffsetY = -startingOffsetY
-                            isRotated.toggle()
-                        } else if currentDragOffsetY > UIScreen.main.bounds.height * 0.2 && endingOffsetY != 0 {
-                            endingOffsetY = 0
-                            isRotated.toggle()
-                        }
-                        currentDragOffsetY = 0
+                withAnimation(.spring()) {
+                    if currentDragOffsetY < -UIScreen.main.bounds.height * 0.2 {
+                        endingOffsetY = -startingOffsetY
+                        isRotated.toggle()
+                    } else if currentDragOffsetY > UIScreen.main.bounds.height * 0.2 && endingOffsetY != 0 {
+                        endingOffsetY = 0
+                        isRotated.toggle()
                     }
+                    currentDragOffsetY = 0
                 }
+            }
         )
     }
 }
 
 extension VenueDetailView {
-    private var venuePreviewImage : some View {
+    private var venuePreviewImage: some View {
         AsyncImage (
             url: URL(string: venue.img),
             content: { image in
-                image.resizable()
-                     .aspectRatio(contentMode: .fit)
-                     .frame(maxHeight: 250)
-                     .scaledToFit()
+                image
+                    .resizable()
+                    .aspectRatio(contentMode: .fit)
+                    .frame(maxHeight: 250)
             },
             placeholder: {
                 ProgressView()
             }
         )
     }
-    
-    private var venuePreviewText : some View {
+
+    private var venuePreviewText: some View {
         VStack (alignment: .leading, spacing: 5) {
             Text(venue.name)
                 .font(.system(size: 20))
@@ -138,11 +144,11 @@ extension VenueDetailView {
 
             Text(venue.address)
                 .font(.system(size: 15))
-                .frame(height: 40)
+                .frame(minHeight: 40)
         }
     }
-    
-    private var venueDetailText : some View {
+
+    private var venueDetailText: some View {
         VStack (alignment: .leading, spacing: 5) {
             HStack {
                 Text("Opening Hours:")
@@ -156,14 +162,14 @@ extension VenueDetailView {
                     .fontWeight(.bold)
                 Text(venue.phone)
             }
-            
+
             HStack {
                 Text("Ratings:")
                     .font(.headline)
                     .fontWeight(.bold)
                 StarRating(rating: Float(venue.rating)!)
                 Spacer()
-                
+
                 Link(destination: URL(string: venue.website)!) {
                     HStack {
                         Image(systemName: "link")
@@ -173,15 +179,14 @@ extension VenueDetailView {
                     }.foregroundColor(Color.accentColor)
                 }
             }
-            
         }
     }
-    
-    private var header : some View {
+
+    private var header: some View {
         HStack {
             Image(systemName: "xmark")
                 .foregroundColor(.clear)
-            
+
             Spacer()
             Button {
                 withAnimation(.linear) {
@@ -202,7 +207,7 @@ extension VenueDetailView {
                     .rotationEffect(Angle.degrees(isRotated ? 180 : 0))
             }
             Spacer()
-            
+
             Button {
                 withAnimation() {
                     isPreviewShow.toggle()
@@ -211,66 +216,101 @@ extension VenueDetailView {
                 Image(systemName: "xmark")
             }
         }
+            .padding(.bottom)
     }
-    
-    private var eventListView : some View {
+
+    private var eventListView: some View {
         VStack(alignment: .leading, spacing: 10) {
-            ForEach(venueDetailViewModel.events, id:\.id) {data in
-                HStack {
-                    VStack (alignment: .leading) {
+            // Display if event list is empty
+            if venueDetailViewModel.events.isEmpty {
+                Text("This venue does not have any events.")
+            }
+
+            ForEach(venueDetailViewModel.events, id: \.id) { data in
+                VStack {
+                    // Venue name and join status
+                    HStack {
+                        if data.event.isPrivate == true {
+                            Image(systemName: "lock.fill")
+                                .foregroundColor(.accentColor)
+                        }
                         Text(data.event.title)
                             .font(.headline)
                             .fontWeight(.bold)
-                        Text(data.event.description)
-                        
-                        HStack {
-                            Text("Creator:")
-                                .fontWeight(.bold)
-                            Text("\(data.creator.fname) \(data.creator.lname)")
-                        }
-                        
-                        HStack (spacing: 5) {
-                            if data.event.isPrivate == true {
-                                Text("Private event")
-                                    .font(.body)
-                                    .foregroundColor(Color.theme.darkGray)
-                                Image(systemName: "lock.fill")
-                                    .foregroundColor(Color.theme.darkGray)
-                            } else {
-                                Text("Public event")
-                                    .font(.body)
-                                    .foregroundColor(Color.theme.darkGray)
-                                Image(systemName: "lock.open.fill")
-                                    .foregroundColor(Color.theme.darkGray)
-                            }
-                        }
-                        
-                    }
-                    .padding()
-                    
-                    Spacer()
-                    
-                    if let eventID = data.event.id {
-                        if !(self.didJoinEvent[eventID] ?? false || venueDetailViewModel.didJoinEvent[eventID] ?? false) {
-                            Button {
-                                withAnimation {
-                                    venueDetailViewModel.joinEvent(eventID)
-                                    self.didJoinEvent[eventID] = true
+                            .foregroundColor(.accentColor)
+
+                        Spacer()
+
+                        // Join button and join badge
+                        if let eventID = data.event.id {
+                            if !(self.didJoinEvent[eventID] ?? false || venueDetailViewModel.didJoinEvent[eventID] ?? false) {
+                                Button {
+                                    withAnimation {
+                                        venueDetailViewModel.joinEvent(eventID)
+                                        self.didJoinEvent[eventID] = true
+                                    }
+                                } label: {
+                                    HStack {
+                                        Image(systemName: "calendar.badge.plus")
+                                        Text("Join")
+                                            .font(.headline)
+                                            .fontWeight(.bold)
+                                    }
+                                        .padding(.horizontal, 10)
+                                        .padding(.vertical, 5)
+                                        .background(Color.accentColor)
+                                        .foregroundColor(.white)
+                                        .cornerRadius(5)
                                 }
-                            } label: {
-                                SquareButton(imgName: "plus.square")
-                                    .padding()
+                            } else {
+                                Text("Joined")
+                                    .font(.headline)
+                                    .fontWeight(.bold)
+                                    .padding(.horizontal, 10)
+                                    .padding(.vertical, 5)
+                                    .foregroundColor(Color.theme.textColor)
+                                    .cornerRadius(5)
                             }
-                        } else {
-                            Text("Joined")
-                                .padding()
                         }
                     }
-                    
+                        .padding(.horizontal)
+                        .padding(.top)
+
+                    // Event information
+                    VStack (alignment: .leading, spacing: 5) {
+                        Text(data.event.description)
+
+                        HStack {
+                            Text("Creator:").fontWeight(.bold)
+                            Text("\(data.creator.fname) \(data.creator.lname)")
+                            Spacer()
+                        }
+
+                        HStack {
+                            Image(systemName: "clock.fill")
+                            Text(venueDetailViewModel.timeConversion(data.event.startTime))
+                            Text("-")
+                            Text(venueDetailViewModel.timeConversion(data.event.endTime))
+                        }
+                    }
+                        .font(.system(size: 15))
+                        .padding(.bottom, 15)
+                        .padding(.horizontal, 15)
                 }
-                .frame(maxWidth: .infinity)
-                .background(RoundedRectangle(cornerRadius: 4).stroke(Color.accentColor, lineWidth: 2))
+                    .frame(maxWidth: .infinity)
+                    .background(RoundedRectangle(cornerRadius: 10)
+                        .stroke(Color.accentColor, lineWidth: 2))
+                    .padding(.bottom, 5)
             }
         }
+    }
+}
+
+struct VenueDetailView_Previews: PreviewProvider {
+    static var previews: some View {
+        VenueDetailView(venue: Venue.sampleData[0],
+            isPreviewShow: .constant(false),
+            venueDetailViewModel:
+                VenueDetailViewModel.init(venue: Venue.sampleData[0]))
     }
 }
