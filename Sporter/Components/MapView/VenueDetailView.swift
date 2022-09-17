@@ -15,7 +15,7 @@ struct VenueDetailView: View {
     var venueDetailViewModel: VenueDetailViewModel
 
     let venue: Venue
-    @Binding var isPreviewShown: Bool
+    @Binding var isPreviewShow: Bool
     @State var startingOffsetY: CGFloat = UIScreen.main.bounds.height * 0.735
     @State var currentDragOffsetY: CGFloat = 0
     @State var endingOffsetY: CGFloat = 0
@@ -24,7 +24,7 @@ struct VenueDetailView: View {
     @State var didJoinEvent = [String: Bool]()
 
     init (venue: Venue, isPreviewShow: Binding<Bool>, venueDetailViewModel: VenueDetailViewModel) {
-        self._isPreviewShown = isPreviewShow
+        self._isPreviewShow = isPreviewShow
         self.venue = venue
         self.venueDetailViewModel = venueDetailViewModel
         self.didJoinEvent = venueDetailViewModel.didJoinEvent
@@ -210,7 +210,7 @@ extension VenueDetailView {
 
             Button {
                 withAnimation() {
-                    isPreviewShown.toggle()
+                    isPreviewShow.toggle()
                 }
             } label: {
                 Image(systemName: "xmark")
