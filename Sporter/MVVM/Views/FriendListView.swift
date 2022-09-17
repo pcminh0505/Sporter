@@ -13,7 +13,7 @@ struct FriendListView: View {
     var body: some View {
         VStack {
             // Heading
-            Text("Friend List")
+            Text("My Friends")
                 .foregroundColor(Color.accentColor)
                 .font(.title)
                 .bold()
@@ -40,8 +40,6 @@ struct FriendListView: View {
                 }
             }
                 .padding(.horizontal)
-
-
 
             List {
                 ForEach(friendListVM.friendList) { user in
