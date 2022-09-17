@@ -33,14 +33,12 @@ struct NotifyCellView: View {
                         image.resizable()
                             .resizable()
                             .clipShape(Circle())
-                            .frame(width: 50, height: 50)
+                            .frame(width: 70, height: 70)
                             .scaledToFill()
-                            .cornerRadius(70)
                     },
                     placeholder: {
                         ProgressView()
-                            .cornerRadius(70)
-                            .frame(width: 50, height: 50)
+                            .frame(width: 70, height: 70)
                             .background(Color(uiColor: .systemGray6))
                             .clipShape(Circle())
                     }
@@ -59,12 +57,11 @@ struct NotifyCellView: View {
                     }, label: {
                             Text("Accept")
                                 .frame(minWidth: 100)
-                                .padding(.vertical)
+                                .padding(.vertical, 10)
                                 .foregroundColor(.white)
                                 .background(Color.accentColor)
                                 .cornerRadius(10)
                         })
-                        .padding(.vertical, 10)
 
                     Button(action: {
                         // Deny
@@ -72,13 +69,12 @@ struct NotifyCellView: View {
                     }, label: {
                             Text("Deny")
                                 .frame(minWidth: 100)
-                                .padding(.vertical)
+                                .padding(.vertical, 10)
                                 .foregroundColor(Color.accentColor)
                                 .background(
                                 RoundedRectangle(cornerRadius: 10)
                                     .stroke(Color.accentColor))
                         })
-                        .padding(.vertical, 10)
                 }
             }
                 .padding(.leading)

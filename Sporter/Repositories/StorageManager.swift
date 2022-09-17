@@ -19,6 +19,7 @@ public class StorageManager: ObservableObject {
         listItem(id)
     }
 
+    // Upload image to Firebase Storage
     func upload(id: String, image: UIImage) {
         self.isDoingTask = true
         // Create a storage reference
@@ -61,6 +62,7 @@ public class StorageManager: ObservableObject {
         self.isDoingTask = false
     }
 
+    // Get URL profileImage of an user
     func listItem(_ id: String) {
         self.isDoingTask = true
         // Create a reference
@@ -81,6 +83,7 @@ public class StorageManager: ObservableObject {
         self.isDoingTask = false
     }
 
+    // Get all URLs of profileImage in the storage
     func listAllFiles() {
         // Create a reference
         let storageRef = storage.reference().child(self.root)

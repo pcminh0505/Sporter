@@ -10,33 +10,33 @@ import SwiftUI
 
 struct StackCardView: View {
     @EnvironmentObject var discoveryVM: DiscoveryViewModel
-    
+
     var user: User
-    
+
     // Gesture Properties
     let defaultImageURL: String = "https://t4.ftcdn.net/jpg/00/64/67/63/360_F_64676383_LdbmhiNM6Ypzb3FM4PPuFP9rHe7ri8Ju.jpg"
     @State private var image: UIImage?
     @State var offset: CGFloat = 0
     @GestureState var isDragging: Bool = false
     @State var endSwipe: Bool = false
-    
+
     var body: some View {
-        GeometryReader {proxy in
+        GeometryReader { proxy in
             let size = proxy.size
-            
+
             let index = CGFloat(discoveryVM.getIndex(user: user))
-            let topOffset = (index <= 2 ? index: 2) * 15
+            let topOffset = (index <= 2 ? index : 2) * 15
             let scale = 0.95
-            
+
             ZStack {
                 VStack {
                     if let image = self.image {
                         Image(uiImage: image)
                             .resizable()
                             .aspectRatio(contentMode: .fill)
-                            .frame(width: size.width*scale - topOffset*scale, height: size.height*scale)
+                            .frame(width: size.width * scale - topOffset * scale, height: size.height * scale)
                             .cornerRadius(15)
-                            .offset(y: -topOffset*scale)
+                            .offset(y: -topOffset * scale)
                     } else {
                         AsyncImage (
                             url: URL(string: user.profileImage),
@@ -44,15 +44,15 @@ struct StackCardView: View {
                                 image.resizable()
                                     .resizable()
                                     .aspectRatio(contentMode: .fill)
-                                    .frame(width: size.width - topOffset*scale, height: size.height*scale)
+                                    .frame(width: size.width - topOffset * scale, height: size.height * scale)
                                     .cornerRadius(15)
-                                    .offset(y: -topOffset*scale)
+                                    .offset(y: -topOffset * scale)
                             },
                             placeholder: {
                                 ProgressView()
-                                    .frame(width: size.width - topOffset*scale, height: size.height*scale)
+                                    .frame(width: size.width - topOffset * scale, height: size.height * scale)
                                     .cornerRadius(15)
-                                    .offset(y: -topOffset*scale)
+                                    .offset(y: -topOffset * scale)
                                     .background(Color(uiColor: .systemGray6))
                             }
                         )
@@ -76,85 +76,91 @@ struct StackCardView: View {
                         .padding(.leading, 10)
                         .padding(.top, -15)
                         .frame(maxWidth: .infinity, alignment: .bottomLeading)
-                    Text("Sport Goal: \(user.sportType)".capitalized)
-                        .bold()
+                    HStack {
+                        Text("Level:").bold()
+                        Text("\(user.level.capitalized)")
+
+                        Spacer()
+
+                        Text("Goal:").bold()
+                        Text("\(user.sportType.capitalized)")
+
+                    }
                         .foregroundColor(Color.theme.textColor)
-                        .padding(.leading, 10)
+                        .padding(.horizontal, 10)
                         .padding(.top, -15)
-//                        .padding(.bottom, )
-                        .frame(maxWidth: .infinity, alignment: .bottomLeading)
                 }
-                .padding(.bottom, 100)
-                .foregroundColor(.black)
+                    .padding(.bottom, 100)
+                    .foregroundColor(.black)
                     .background(
-                        RoundedRectangle(cornerRadius: 15).fill(Color(uiColor: .systemGray5)))
-                    .frame(width: size.width*scale - topOffset*scale, height: size.height*scale+30)
+                    RoundedRectangle(cornerRadius: 15).fill(Color(uiColor: .systemGray5)))
+                    .frame(width: size.width * scale - topOffset * scale, height: size.height * scale + 30)
                     .cornerRadius(15)
-                    .offset(y: -topOffset*scale)
-                .overlay(
-                        RoundedRectangle(cornerRadius: 15)
-                            .stroke(Color.theme.textColor, lineWidth: 2)
-                            .frame(width: size.width*scale - topOffset*scale, height: size.height*scale+30)
-                            .cornerRadius(15)
-                            .offset(y: -topOffset*scale)
-                    )
+                    .offset(y: -topOffset * scale)
+                    .overlay(
+                    RoundedRectangle(cornerRadius: 15)
+                        .stroke(Color.theme.textColor, lineWidth: 2)
+                        .frame(width: size.width * scale - topOffset * scale, height: size.height * scale + 30)
+                        .cornerRadius(15)
+                        .offset(y: -topOffset * scale)
+                )
             }
-            .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .center)
+                .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .center)
         }
-        .offset(x: offset)
-        .rotationEffect(.init(degrees: getRotation(angle: 8)))
-        .contentShape(Rectangle().trim(from: 0, to: endSwipe ? 0: 1))
-        .gesture(
+            .offset(x: offset)
+            .rotationEffect(.init(degrees: getRotation(angle: 8)))
+            .contentShape(Rectangle().trim(from: 0, to: endSwipe ? 0 : 1))
+            .gesture(
             DragGesture()
                 .updating($isDragging, body: { value, out, _ in
-                    out = true
-                })
-                .onChanged({value in
-                    let translation = value.translation.width
-                    offset = (isDragging ? translation: .zero)
-                })
+                out = true
+            })
+                .onChanged({ value in
+                let translation = value.translation.width
+                offset = (isDragging ? translation : .zero)
+            })
                 .onEnded({ value in
-                    let width = getRect().width - 50
-                    let translation = value.translation.width
-                    
-                    let checkingStatus = (translation > 0 ? translation: -translation)
-                    
-                    withAnimation{
-                        if checkingStatus > (width / 2) {
-                            // Remove card
-                            offset = (translation > 0 ? width : -width) * 2
-                            endSwipeActions()
-                            
-                            if translation > 0  {
-                                rightSwipe(receiver: user.id ?? "")
-                            }
-                            else {
-                                leftSwipe()
-                            }
+                let width = getRect().width - 50
+                let translation = value.translation.width
+
+                let checkingStatus = (translation > 0 ? translation : -translation)
+
+                withAnimation {
+                    if checkingStatus > (width / 2) {
+                        // Remove card
+                        offset = (translation > 0 ? width : -width) * 2
+                        endSwipeActions()
+
+                        if translation > 0 {
+                            rightSwipe(receiver: user.id ?? "")
                         }
                         else {
-                            offset = .zero
-                            
+                            leftSwipe()
                         }
                     }
-                    
-                })
+                    else {
+                        offset = .zero
+
+                    }
+                }
+
+            })
         )
-        .onReceive(NotificationCenter.default.publisher(for: Notification.Name("ACTIONFROMBUTTON"), object: nil)) {data in
-            
+            .onReceive(NotificationCenter.default.publisher(for: Notification.Name("ACTIONFROMBUTTON"), object: nil)) { data in
+
             guard let info = data.userInfo else {
                 return
             }
-            
+
             let id = info["id"] as? String ?? ""
             let rightSwipe = info["rightSwipe"] as? Bool ?? false
             let width = getRect().width - 50
             if user.id == id {
-                withAnimation{
+                withAnimation {
                     offset = (rightSwipe ? width : -width) * 2
                     endSwipeActions()
-                    
-                    if rightSwipe  {
+
+                    if rightSwipe {
                         self.rightSwipe(receiver: user.id ?? "")
                     }
                     else {
@@ -162,37 +168,37 @@ struct StackCardView: View {
                     }
                 }
             }
-            
+
         }
     }
-    
+
     func getRotation(angle: Double) -> Double {
         let rotation = (offset / (getRect().width - 50)) * angle
         return rotation
     }
-    
+
     func endSwipeActions() {
         withAnimation(.none) {
             endSwipe = true
         }
-        
+
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
-            if let _ = discoveryVM.displayingUsers.first{
-                let _ = withAnimation{
+            if let _ = discoveryVM.displayingUsers.first {
+                let _ = withAnimation {
                     discoveryVM.displayingUsers.removeFirst()
                 }
             }
         }
     }
-    
+
     func leftSwipe() {
-        
+
     }
-    
+
     func rightSwipe(receiver: String) {
         discoveryVM.createMatch(receiver: receiver)
     }
-    
+
     func getAge(bod: TimeInterval) -> Int {
         let birthday = NSDate(timeIntervalSince1970: bod)
         let now = Date()
@@ -205,7 +211,7 @@ struct StackCardView: View {
 
 // Extending view to get bounds
 extension View {
-    func getRect()->CGRect{
+    func getRect() -> CGRect {
         return UIScreen.main.bounds
     }
 }

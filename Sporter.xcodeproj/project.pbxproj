@@ -69,7 +69,6 @@
 		24A6771328CB6C1300A7BA9D /* CustomTabBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24A6771228CB6C1300A7BA9D /* CustomTabBarView.swift */; };
 		24A6771528CB6F5D00A7BA9D /* ProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24A6771428CB6F5D00A7BA9D /* ProfileView.swift */; };
 		24A6771728CB6FF100A7BA9D /* DashboardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24A6771628CB6FF100A7BA9D /* DashboardView.swift */; };
-		24A6771928CB715F00A7BA9D /* ChatView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 24A6771828CB715F00A7BA9D /* ChatView.swift */; };
 		CC53616D28CFA8A100C9F7B7 /* NotifyCellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC53616C28CFA8A100C9F7B7 /* NotifyCellView.swift */; };
 		CC53616F28CFA8D000C9F7B7 /* MatchModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC53616E28CFA8D000C9F7B7 /* MatchModel.swift */; };
 		CC53617128CFA8E300C9F7B7 /* NotificationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC53617028CFA8E300C9F7B7 /* NotificationView.swift */; };
@@ -130,7 +129,6 @@
 		24A6771228CB6C1300A7BA9D /* CustomTabBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTabBarView.swift; sourceTree = "<group>"; };
 		24A6771428CB6F5D00A7BA9D /* ProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileView.swift; sourceTree = "<group>"; };
 		24A6771628CB6FF100A7BA9D /* DashboardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashboardView.swift; sourceTree = "<group>"; };
-		24A6771828CB715F00A7BA9D /* ChatView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatView.swift; sourceTree = "<group>"; };
 		CC53616C28CFA8A100C9F7B7 /* NotifyCellView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = NotifyCellView.swift; path = Sporter/Components/NotifyCellView.swift; sourceTree = SOURCE_ROOT; };
 		CC53616E28CFA8D000C9F7B7 /* MatchModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MatchModel.swift; sourceTree = "<group>"; };
 		CC53617028CFA8E300C9F7B7 /* NotificationView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NotificationView.swift; sourceTree = "<group>"; };
@@ -238,15 +236,15 @@
 		241A6EC428BDCFAF00C830BE /* Components */ = {
 			isa = PBXGroup;
 			children = (
-				244F809A28D5014300C84AED /* SearchBar */,
-				244F809328D4DAF600C84AED /* FriendListRow */,
-				241A38C628CF0D4400B19E59 /* SquareButton */,
-				24996E7428CE3359000E8623 /* InputTextBox */,
-				24996E6B28CCA1D5000E8623 /* ImagePicker */,
 				24A6770B28CB6A4D00A7BA9D /* CustomTabBar */,
+				244F809328D4DAF600C84AED /* FriendListRow */,
+				24996E6B28CCA1D5000E8623 /* ImagePicker */,
+				24996E7428CE3359000E8623 /* InputTextBox */,
 				241A6ECA28BDD0FD00C830BE /* Lottie */,
 				0CAF6B4428C84A3D003EFF26 /* MapView */,
 				0EF3B15F28CF759B00627E11 /* NewEventForm */,
+				244F809A28D5014300C84AED /* SearchBar */,
+				241A38C628CF0D4400B19E59 /* SquareButton */,
 				24A6770428CB530C00A7BA9D /* StackCards */,
 			);
 			path = Components;
@@ -256,16 +254,15 @@
 			isa = PBXGroup;
 			children = (
 				24A676FB28CB298900A7BA9D /* AuthViews */,
-				24A6771828CB715F00A7BA9D /* ChatView.swift */,
 				241A6F0A28BDFDA400C830BE /* CheckView.swift */,
-				CC53617028CFA8E300C9F7B7 /* NotificationView.swift */,
 				24A6771628CB6FF100A7BA9D /* DashboardView.swift */,
 				2489E39328C85C0100642E54 /* DiscoveryView.swift */,
+				244F809128D46C5D00C84AED /* FriendListView.swift */,
 				24A6770928CB579500A7BA9D /* HomeView.swift */,
 				246B09F628BFB9E9007B7070 /* LaunchView.swift */,
 				246B09FA28BFBACA007B7070 /* MapView.swift */,
+				CC53617028CFA8E300C9F7B7 /* NotificationView.swift */,
 				24A6771428CB6F5D00A7BA9D /* ProfileView.swift */,
-				244F809128D46C5D00C84AED /* FriendListView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -273,10 +270,10 @@
 		241A6EC628BDCFD200C830BE /* Models */ = {
 			isa = PBXGroup;
 			children = (
-				246B09F228BE1847007B7070 /* UserModel.swift */,
-				CC53616E28CFA8D000C9F7B7 /* MatchModel.swift */,
-				0C8FF7F928C4E10D0094465D /* VenueModel.swift */,
 				0CD0DF5128CF3E8500351711 /* EventModel.swift */,
+				CC53616E28CFA8D000C9F7B7 /* MatchModel.swift */,
+				246B09F228BE1847007B7070 /* UserModel.swift */,
+				0C8FF7F928C4E10D0094465D /* VenueModel.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -309,11 +306,11 @@
 		246B09EB28BE1726007B7070 /* Repositories */ = {
 			isa = PBXGroup;
 			children = (
+				0CD0DF5328CF420E00351711 /* EventRepository.swift */,
 				CC53617428CFA91000C9F7B7 /* MatchRepository.swift */,
+				24996E6E28CCC97B000E8623 /* StorageManager.swift */,
 				246B09EC28BE17C6007B7070 /* UserRepository.swift */,
 				246B09EE28BE17DC007B7070 /* VenueRepository.swift */,
-				24996E6E28CCC97B000E8623 /* StorageManager.swift */,
-				0CD0DF5328CF420E00351711 /* EventRepository.swift */,
 			);
 			path = Repositories;
 			sourceTree = "<group>";
@@ -331,9 +328,9 @@
 		246B09F528BE1B52007B7070 /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
+				246B09FE28BFBC1E007B7070 /* Color.swift */,
 				0CE4BDFA28CB97FC00CBFF37 /* GlowBorder.swift */,
 				24A676F928CB237F00A7BA9D /* String.swift */,
-				246B09FE28BFBC1E007B7070 /* Color.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -341,13 +338,13 @@
 		2493A5C728C865720055F8D2 /* ViewModels */ = {
 			isa = PBXGroup;
 			children = (
+				0CD79BE328D25EA4002E1525 /* DashboardViewModel.swift */,
 				2493A5C928C8658C0055F8D2 /* DiscoveryViewModel.swift */,
-				CC53617228CFA90300C9F7B7 /* NotificationViewModel.swift */,
+				244F809828D4E88700C84AED /* FriendListViewModel.swift */,
 				2493A5C828C8658C0055F8D2 /* MapViewModel.swift */,
+				CC53617228CFA90300C9F7B7 /* NotificationViewModel.swift */,
 				241A38C428CEF2D500B19E59 /* ProfileViewModel.swift */,
 				0C954E0728D073B200A90675 /* VenueDetailViewModel.swift */,
-				0CD79BE328D25EA4002E1525 /* DashboardViewModel.swift */,
-				244F809828D4E88700C84AED /* FriendListViewModel.swift */,
 			);
 			path = ViewModels;
 			sourceTree = "<group>";
@@ -390,9 +387,9 @@
 		24A6770628CB549200A7BA9D /* Utils */ = {
 			isa = PBXGroup;
 			children = (
+				244F809628D4E33B00C84AED /* Conversion.swift */,
 				2422BFBC28D03B06006C3A13 /* Keyboard.swift */,
 				24A6770728CB54A500A7BA9D /* Navigation.swift */,
-				244F809628D4E33B00C84AED /* Conversion.swift */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -531,7 +528,6 @@
 				2493A5CB28C8658C0055F8D2 /* MapViewModel.swift in Sources */,
 				0CAF6B4828C87716003EFF26 /* VenueDetailView.swift in Sources */,
 				0CD0DF5028CF2FE600351711 /* StarRating.swift in Sources */,
-				24A6771928CB715F00A7BA9D /* ChatView.swift in Sources */,
 				241A38C528CEF2D500B19E59 /* ProfileViewModel.swift in Sources */,
 				246B09FF28BFBC1E007B7070 /* Color.swift in Sources */,
 				2489E39628C85C0700642E54 /* StackCardView.swift in Sources */,
