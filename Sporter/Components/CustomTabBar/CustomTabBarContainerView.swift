@@ -23,7 +23,7 @@ struct CustomTabBarContainerView<Content:View>: View {
             content
 
             Spacer()
-            
+
             CustomTabBarView(tabs: tabs, selection: $selection, localSelection: selection)
                 .padding(.bottom, 25)
         }

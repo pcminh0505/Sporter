@@ -32,42 +32,31 @@ struct FriendListRow: View {
             )
                 .overlay(RoundedRectangle(cornerRadius: 50).stroke(Color.theme.textColor))
 
-
             VStack (alignment: .leading, spacing: 5) {
                 HStack {
                     Text("\(user.fname) \(user.lname) (\(user.gender == "male" ? "M" : "F"))")
                         .font(.title2)
                         .fontWeight(.bold)
-
                     Spacer()
-
                     HStack {
-                        Text("Age: ")
-                            .bold()
+                        Text("Age: ").bold()
                         Text("\(ConversionHelper.getAge(user.bod))")
-
                     }
                         .font(.caption)
                 }
 
                 HStack {
-                    Text("Phone: ")
-                        .font(.headline)
+                    Text("Phone: ").font(.headline)
                     Text(user.phone)
                 }
-
+                
                 HStack {
-                    Text("Email: ")
-                        .font(.headline)
+                    Text("Email: ").font(.headline)
                     Text(user.email)
                 }
-
-
-
+                
                 HStack {
-                    Text("Level")
-                        .font(.headline)
-
+                    Text("Level").font(.headline)
                     Button {
                         print("")
                     } label: {
@@ -77,12 +66,8 @@ struct FriendListRow: View {
                         .buttonStyle(.bordered)
                         .foregroundColor(Color.accentColor)
                         .clipShape(RoundedRectangle(cornerRadius: 10))
-
                     Spacer()
-
-                    Text("Goal")
-                        .font(.headline)
-
+                    Text("Goal").font(.headline)
                     Button {
                         print("")
                     } label: {
@@ -96,6 +81,7 @@ struct FriendListRow: View {
             }
 
                 .foregroundColor(Color.theme.textColor)
+                .padding(.leading, 5)
         }
             .font(.subheadline)
     }
@@ -103,8 +89,13 @@ struct FriendListRow: View {
 
 struct FriendListRow_Previews: PreviewProvider {
     static var previews: some View {
-        FriendListRow(user: User.unset)
-            .previewLayout(.sizeThatFits)
+        Group {
+            FriendListRow(user: User.unset)
+                .previewLayout(.sizeThatFits)
+            FriendListRow(user: User.unset)
+                .preferredColorScheme(.dark)
+                .previewLayout(.sizeThatFits)
+        }
     }
 }
 

@@ -15,7 +15,6 @@ struct TabBarItemsPreferenceKey: PreferenceKey {
     static func reduce(value: inout [TabBarItem], nextValue: () -> [TabBarItem]) {
         value += nextValue()
     }
-
 }
 
 struct TabBarItemViewModifer: ViewModifier {
@@ -47,13 +46,10 @@ struct TabBarItemViewModiferWithOnAppear: ViewModifier {
                 .preference(key: TabBarItemsPreferenceKey.self, value: [tab])
         }
     }
-
 }
 
 extension View {
-
     func tabBarItem(tab: TabBarItem, selection: Binding<TabBarItem>) -> some View {
         modifier(TabBarItemViewModiferWithOnAppear(tab: tab, selection: selection))
     }
-
 }

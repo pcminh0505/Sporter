@@ -7,6 +7,7 @@
 
 import SwiftUI
 
+// Opens the photo library for users to pick from
 struct ImagePicker: UIViewControllerRepresentable {
 
     @Binding var image: UIImage?
@@ -18,7 +19,6 @@ struct ImagePicker: UIViewControllerRepresentable {
     }
 
     class Coordinator: NSObject, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
-
         let parent: ImagePicker
 
         init(parent: ImagePicker) {
@@ -44,5 +44,4 @@ struct ImagePicker: UIViewControllerRepresentable {
     func updateUIViewController(_ uiViewController: UIViewControllerType, context: Context) {
 
     }
-
 }

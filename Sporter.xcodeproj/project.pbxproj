@@ -170,9 +170,9 @@
 		0CAF6B4428C84A3D003EFF26 /* MapView */ = {
 			isa = PBXGroup;
 			children = (
-				0CAF6B4528C84A59003EFF26 /* CustomMapAnnotationView.swift */,
 				0CAF6B4728C87715003EFF26 /* VenueDetailView.swift */,
 				0CE4BDFC28CBBACB00CBFF37 /* BackNavigateButton.swift */,
+				0CAF6B4528C84A59003EFF26 /* CustomMapAnnotationView.swift */,
 				0CD0DF4F28CF2FE600351711 /* StarRating.swift */,
 			);
 			path = MapView;
