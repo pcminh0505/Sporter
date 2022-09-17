@@ -144,7 +144,7 @@ extension VenueDetailView {
 
             Text(venue.address)
                 .font(.system(size: 15))
-                .frame(height: 40)
+                .frame(minHeight: 40)
         }
     }
 
@@ -230,6 +230,10 @@ extension VenueDetailView {
                 VStack {
                     // Venue name and join status
                     HStack {
+                        if data.event.isPrivate == true {
+                            Image(systemName: "lock.fill")
+                                .foregroundColor(.accentColor)
+                        }
                         Text(data.event.title)
                             .font(.headline)
                             .fontWeight(.bold)
@@ -279,6 +283,7 @@ extension VenueDetailView {
                         HStack {
                             Text("Creator:").fontWeight(.bold)
                             Text("\(data.creator.fname) \(data.creator.lname)")
+                            Spacer()
                         }
 
                         HStack {
@@ -287,23 +292,6 @@ extension VenueDetailView {
                             Text("-")
                             Text(venueDetailViewModel.timeConversion(data.event.endTime))
                         }
-
-                        HStack (spacing: 5) {
-                            if data.event.isPrivate == true {
-                                Text("Private Event")
-                                    .font(.body)
-                                    .foregroundColor(Color.theme.darkGray)
-                                Image(systemName: "lock.fill")
-                                    .foregroundColor(Color.theme.darkGray)
-                            } else {
-                                Text("Public Event")
-                                    .font(.body)
-                                    .foregroundColor(Color.theme.darkGray)
-                                Image(systemName: "lock.open.fill")
-                                    .foregroundColor(Color.theme.darkGray)
-                            }
-                        }
-                            .padding(.top, 5)
                     }
                         .font(.system(size: 15))
                         .padding(.bottom, 15)
