@@ -27,6 +27,7 @@ class UserRepository: ObservableObject {
         getFilteredUser()
     }
 
+    // Get current user information
     func getCurrentUser() {
         let id = UserDefaults.standard.value(forKey: "currentUser") as? String ?? ""
 
@@ -51,6 +52,7 @@ class UserRepository: ObservableObject {
         }
     }
 
+    // Get filtered user for matching features
     func getFilteredUser() {
         let id = UserDefaults.standard.value(forKey: "currentUser") as? String ?? ""
 
@@ -102,6 +104,7 @@ class UserRepository: ObservableObject {
         }
     }
 
+    // Listen to all sent request of current user
     func getFilteredSend() {
         let id = UserDefaults.standard.value(forKey: "currentUser") as? String ?? ""
 
@@ -131,6 +134,7 @@ class UserRepository: ObservableObject {
         }
     }
 
+    // Listen to all received request of current user
     func getFilteredReceive() {
         // Except the current logged user
         let id = UserDefaults.standard.value(forKey: "currentUser") as? String ?? ""
@@ -161,6 +165,7 @@ class UserRepository: ObservableObject {
         }
     }
 
+    // Get all user in the collection
     func getAllUsers() {
         // Except the current logged user
         let id = UserDefaults.standard.value(forKey: "currentUser") as? String ?? ""
@@ -183,6 +188,7 @@ class UserRepository: ObservableObject {
         }
     }
 
+    // Create new user
     func createUser(userID: String, _ user: User) {
         do {
             try db.collection(collection).document(userID).setData(from: user)
@@ -191,6 +197,7 @@ class UserRepository: ObservableObject {
         }
     }
 
+    // Update user information
     func updateUser(_ user: User) {
         guard let userID = user.id else { return }
         do {
@@ -201,6 +208,7 @@ class UserRepository: ObservableObject {
         }
     }
 
+    // Get user for friend request
     func getListOfUserBaseOnMatch(matchList: [Match]) -> [User] {
         // Prevent crash
         if !matchList.isEmpty {
@@ -220,6 +228,7 @@ class UserRepository: ObservableObject {
         return matchingUsers
     }
 
+    // Get all friends' information
     func getAllFriends(_ friendList: [String]) {
         db.collection(collection)
             .addSnapshotListener { (querySnapshot, error) in

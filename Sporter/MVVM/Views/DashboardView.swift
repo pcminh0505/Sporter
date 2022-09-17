@@ -85,7 +85,7 @@ struct DashboardView: View {
 
                 // Header: Upcoming Events + Go to Map
                 HStack {
-                    Text("Upcoming Events")
+                    Text("My Events")
                         .font(.title2)
                         .fontWeight(.bold)
                         .foregroundColor(Color.accentColor)
@@ -94,8 +94,8 @@ struct DashboardView: View {
                         navigationHelper.selection = "map"
                     } label: {
                         HStack {
-                            Text("Go to Map")
                             Image(systemName: "map.fill")
+                            Text("Explore")
                         }
                             .padding(.horizontal)
                             .padding(.vertical, 10)
@@ -110,7 +110,19 @@ struct DashboardView: View {
                 VStack(alignment: .leading, spacing: 10) {
                     // Display if event list is empty
                     if dashboardViewModel.events.isEmpty {
-                        Text("You are not joining any events.")
+                        VStack {
+                            Text("You are not joining any events.")
+                                .italic()
+
+                            Button {
+                                navigationHelper.selection = "map"
+                            } label: {
+                                Text("Explore nearby gyms")
+                                    .italic()
+                            }
+
+                        }
+                            .font(.caption)
                             .padding()
                     } else {
                         // Personal events list

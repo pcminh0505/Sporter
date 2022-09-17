@@ -74,22 +74,33 @@ struct ProfileView: View {
                                 .overlay(RoundedRectangle(cornerRadius: 70).stroke(Color(uiColor: .systemGray), lineWidth: 2))
                         }
 
-                        Text(self.image == nil ? "Edit Avatar" : !self.isUploaded ? "Save New Avatar" : "Edit Avatar")
-                            .font(.headline)
-                            .foregroundColor(Color.accentColor)
-                            .padding(.horizontal, 20)
-                            .onTapGesture {
-
-                            if let image = self.image {
-                                if !self.isUploaded {
-                                    profileVM.uploadImage(image)
-                                    DispatchQueue.main.asyncAfter(deadline: .now() + 1.5) {
-                                        self.isUploaded = true
+                        if profileVM.isLoading {
+                            ProgressView()
+                                .font(.headline)
+                                .foregroundColor(Color.accentColor)
+                        } else {
+                            Button {
+                                profileVM.isLoading = true
+                                if let image = self.image {
+                                    if !self.isUploaded {
+                                        profileVM.uploadImage(image)
+                                        // Force reload UI
+                                        DispatchQueue.main.asyncAfter(deadline: .now() + 1.5) {
+                                            self.isUploaded = true
+                                            profileVM.isLoading = false
+                                            self.image = nil
+                                        }
                                     }
+                                } else {
+                                    self.showSheet = true
+                                    self.isUploaded = false
+                                    profileVM.isLoading = false
                                 }
-                            } else {
-                                self.showSheet = true
-                                self.isUploaded = false
+                            } label: {
+                                Text(self.image == nil ? "Edit Avatar" : !self.isUploaded ? "Save New Avatar" : "Edit Avatar")
+                                    .font(.headline)
+                                    .foregroundColor(Color.accentColor)
+                                    .padding(.horizontal, 20)
                             }
                         }
 
@@ -179,15 +190,13 @@ struct ProfileView: View {
     func updateEditableValue() {
         if self.height.isDouble != nil &&
             self.weight.isDouble != nil &&
-            self.email.isValidEmail &&
             self.phone.isValidPhoneNumber {
             profileVM.currentUser?.phone = self.phone
-            profileVM.currentUser?.email = self.email
             profileVM.currentUser?.weight = Double(self.weight) ?? 60
             profileVM.currentUser?.height = Double(self.height) ?? 1.70
             profileVM.currentUser?.sportType = self.sportType.rawValue
             profileVM.currentUser?.level = self.level.rawValue
-            
+
             // Update to database
             profileVM.updateUser()
         } else {
@@ -249,7 +258,10 @@ extension ProfileView {
                 .disabled(true)
                 .padding(.top, 25)
 
-
+            InputTextBox(title: "Email",
+                         text: self.$email,
+                         placeholder: "abc@gmail.com")
+                .disabled(true)
 
             InputTextBox(title: "Phone Number",
                          text: self.$phone,
@@ -257,10 +269,6 @@ extension ProfileView {
                          numberOnly: true)
                 .disabled(!isEditing)
 
-            InputTextBox(title: "Email",
-                         text: self.$email,
-                         placeholder: "abc@gmail.com")
-                .disabled(!isEditing)
         }
             .foregroundColor(!isEditing ? Color(uiColor: .systemGray) : Color.theme.textColor)
     }

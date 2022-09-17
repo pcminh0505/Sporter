@@ -16,6 +16,7 @@ class ProfileViewModel: ObservableObject, Identifiable {
     private let storageManager = StorageManager()
 
     @Published var currentUser: User? = nil
+    @Published var isLoading: Bool = false
     private var cancellables: Set<AnyCancellable> = []
 
     init () {

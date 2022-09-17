@@ -27,6 +27,7 @@ class MatchRepository: ObservableObject {
         getAllMatchRequest()
     }
     
+    // Get all match request of current user
     func getAllMatchRequest() {
         // Except the current logged user
         let id = UserDefaults.standard.value(forKey: "currentUser") as? String ?? ""
@@ -91,6 +92,8 @@ class MatchRepository: ObservableObject {
                 self.matches = temp
             }
     }
+    
+    // Create a new match request
     func createMatch(matchID: String, _ match: Match) {
         var cancel: Bool = false
         matches.forEach { matching in
@@ -111,6 +114,7 @@ class MatchRepository: ObservableObject {
         }
     }
     
+    // Update match request
     func updateMatch(_ match: Match) {
         guard let matchID = match.id else { return }
         
@@ -121,6 +125,7 @@ class MatchRepository: ObservableObject {
         }
     }
     
+    // Delete match request
     func deleteMatch (_ match: Match) {
         self.matches = []
         self.matchUsers = []

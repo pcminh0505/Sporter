@@ -52,6 +52,7 @@ struct NotificationView: View {
                         List(selection: $singleSelection) {
                             ForEach(matchRequest) { user in
                                 NotifyCellView(user: user)
+                                    .listRowInsets(.init(top: 10, leading: 10, bottom: 10, trailing: 10))
                                     .environmentObject(notiVM)
                             }
                         }

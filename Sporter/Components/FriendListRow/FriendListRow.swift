@@ -35,7 +35,7 @@ struct FriendListRow: View {
             VStack (alignment: .leading, spacing: 5) {
                 HStack {
                     Text("\(user.fname) \(user.lname) (\(user.gender == "male" ? "M" : "F"))")
-                        .font(.title2)
+                        .font(.headline)
                         .fontWeight(.bold)
                     Spacer()
                     HStack {
@@ -46,17 +46,17 @@ struct FriendListRow: View {
                 }
 
                 HStack {
-                    Text("Phone: ").font(.headline)
+                    Text("Phone: ").bold()
                     Text(user.phone)
                 }
                 
                 HStack {
-                    Text("Email: ").font(.headline)
+                    Text("Email: ").bold()
                     Text(user.email)
                 }
                 
                 HStack {
-                    Text("Level").font(.headline)
+                    Text("Level").bold()
                     Button {
                         print("")
                     } label: {
@@ -67,7 +67,7 @@ struct FriendListRow: View {
                         .foregroundColor(Color.accentColor)
                         .clipShape(RoundedRectangle(cornerRadius: 10))
                     Spacer()
-                    Text("Goal").font(.headline)
+                    Text("Goal").bold()
                     Button {
                         print("")
                     } label: {
