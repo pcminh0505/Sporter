@@ -22,6 +22,7 @@ struct VenueDetailView: View {
     @State private var isRotated = false
     @State var isCreatingEvent: Bool = false
     @State var didJoinEvent = [String: Bool]()
+    @State var temp = 0
 
     init (venue: Venue, isPreviewShow: Binding<Bool>, venueDetailViewModel: VenueDetailViewModel) {
         self._isPreviewShow = isPreviewShow
@@ -250,6 +251,7 @@ extension VenueDetailView {
                                         withAnimation {
                                             venueDetailViewModel.joinEvent(eventID)
                                             self.didJoinEvent[eventID] = true
+                                            temp = 1
                                         }
                                     } label: {
                                         HStack {
@@ -300,10 +302,11 @@ extension VenueDetailView {
                                         Text("-")
                                         Text(venueDetailViewModel.timeConversion(data.event.endTime))
                                     }
-                                    if !(self.didJoinEvent[data.event.id ?? "n/a"] ?? false || venueDetailViewModel.didJoinEvent[data.event.id ?? "n/a"] ?? false) {
+                                    if !(self.didJoinEvent[data.event.id ?? "n/a"] ?? false) {
                                         Text("**No. of participants:** \(data.event.participants.count)")
                                     } else {
-                                        Text("**No. of participants:** \(data.event.participants.count + 1)")
+                                        let temp = self.temp
+                                        Text("**No. of participants:** \(data.event.participants.count + temp)")
                                     }
                                 }
                                 Spacer()
