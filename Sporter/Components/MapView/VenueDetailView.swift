@@ -224,96 +224,101 @@ extension VenueDetailView {
             if venueDetailViewModel.events.isEmpty {
                 Text("This venue does not have any events.")
             }
-
-            ForEach(venueDetailViewModel.events, id: \.id) { data in
-                VStack {
-                    // Venue name and join status
-                    HStack (alignment: .center) {
-                        if data.event.isPrivate == true {
-                            Image(systemName: "lock.fill")
+            else {
+                ForEach(venueDetailViewModel.events, id: \.id) { data in
+                    VStack {
+                        // Venue name and join status
+                        HStack (alignment: .center) {
+                            if data.event.isPrivate == true {
+                                Image(systemName: "lock.fill")
+                                    .foregroundColor(.accentColor)
+                            }
+                            
+                            Text(data.event.title)
+                                .font(.headline)
+                                .fontWeight(.bold)
                                 .foregroundColor(.accentColor)
-                        }
-                        
-                        Text(data.event.title)
-                            .font(.headline)
-                            .fontWeight(.bold)
-                            .foregroundColor(.accentColor)
-                            .lineLimit(2)
-                            .multilineTextAlignment(.leading)
+                                .lineLimit(2)
+                                .multilineTextAlignment(.leading)
 
-                        Spacer()
-                        
-                        // Join button and join badge
-                        if let eventID = data.event.id {
-                            if !(self.didJoinEvent[eventID] ?? false || venueDetailViewModel.didJoinEvent[eventID] ?? false) {
-                                Button {
-                                    withAnimation {
-                                        venueDetailViewModel.joinEvent(eventID)
-                                        self.didJoinEvent[eventID] = true
+                            Spacer()
+                            
+                            // Join button and join badge
+                            if let eventID = data.event.id {
+                                if !(self.didJoinEvent[eventID] ?? false || venueDetailViewModel.didJoinEvent[eventID] ?? false) {
+                                    Button {
+                                        withAnimation {
+                                            venueDetailViewModel.joinEvent(eventID)
+                                            self.didJoinEvent[eventID] = true
+                                        }
+                                    } label: {
+                                        HStack {
+                                            Image(systemName: "calendar.badge.plus")
+                                            Text("Join")
+                                                .font(.headline)
+                                                .fontWeight(.bold)
+                                        }
+                                            .padding(.horizontal, 10)
+                                            .padding(.vertical, 5)
+                                            .background(Color.accentColor)
+                                            .foregroundColor(.white)
+                                            .cornerRadius(5)
                                     }
-                                } label: {
-                                    HStack {
-                                        Image(systemName: "calendar.badge.plus")
-                                        Text("Join")
-                                            .font(.headline)
-                                            .fontWeight(.bold)
-                                    }
+                                } else {
+                                    Text("Joined")
+                                        .font(.headline)
+                                        .fontWeight(.bold)
                                         .padding(.horizontal, 10)
                                         .padding(.vertical, 5)
-                                        .background(Color.accentColor)
-                                        .foregroundColor(.white)
+                                        .foregroundColor(Color.theme.textColor)
                                         .cornerRadius(5)
                                 }
-                            } else {
-                                Text("Joined")
-                                    .font(.headline)
-                                    .fontWeight(.bold)
-                                    .padding(.horizontal, 10)
-                                    .padding(.vertical, 5)
-                                    .foregroundColor(Color.theme.textColor)
-                                    .cornerRadius(5)
                             }
                         }
-                    }
-                        .padding(.horizontal)
-                        .padding(.top)
+                            .padding(.horizontal)
+                            .padding(.top)
 
-                    // Event information
-                    VStack (alignment: .leading, spacing: 5) {
-                        Text(data.event.description)
-                            .lineLimit(2)
-                            .multilineTextAlignment(.leading)
+                        // Event information
+                        VStack (alignment: .leading, spacing: 5) {
+                            Text(data.event.description)
+                                .lineLimit(2)
+                                .multilineTextAlignment(.leading)
 
-                        HStack {
-                            Text("**Creator:** \(data.creator.fname) \(data.creator.lname)")
-                            Spacer()
-                        }
-                        
-                        HStack {
-                            VStack(alignment: .center) {
-                                Image(systemName: "clock.fill")
-                                Image(systemName: "person.2.fill")
+                            HStack {
+                                Text("**Creator:** \(data.creator.fname) \(data.creator.lname)")
+                                Spacer()
                             }
-                            VStack(alignment: .leading) {
-                                HStack {
-                                    Text(venueDetailViewModel.timeConversion(data.event.startTime))
-                                    Text("-")
-                                    Text(venueDetailViewModel.timeConversion(data.event.endTime))
+                            
+                            HStack {
+                                VStack(alignment: .center) {
+                                    Image(systemName: "clock.fill")
+                                    Image(systemName: "person.2.fill")
                                 }
-                                Text("**No. of participants:** \(data.event.participants.count)")
+                                VStack(alignment: .leading) {
+                                    HStack {
+                                        Text(venueDetailViewModel.timeConversion(data.event.startTime))
+                                        Text("-")
+                                        Text(venueDetailViewModel.timeConversion(data.event.endTime))
+                                    }
+                                    if !(self.didJoinEvent[data.event.id ?? "n/a"] ?? false || venueDetailViewModel.didJoinEvent[data.event.id ?? "n/a"] ?? false) {
+                                        Text("**No. of participants:** \(data.event.participants.count)")
+                                    } else {
+                                        Text("**No. of participants:** \(data.event.participants.count + 1)")
+                                    }
+                                }
+                                Spacer()
                             }
-                            Spacer()
+                                .padding(.top, 5)
                         }
-                            .padding(.top, 5)
+                            .font(.system(size: 15))
+                            .padding(.bottom, 15)
+                            .padding(.horizontal, 15)
                     }
-                        .font(.system(size: 15))
-                        .padding(.bottom, 15)
-                        .padding(.horizontal, 15)
+                        .frame(maxWidth: .infinity)
+                        .background(RoundedRectangle(cornerRadius: 10)
+                            .stroke(Color.accentColor, lineWidth: 2))
+                        .padding(.bottom, 5)
                 }
-                    .frame(maxWidth: .infinity)
-                    .background(RoundedRectangle(cornerRadius: 10)
-                        .stroke(Color.accentColor, lineWidth: 2))
-                    .padding(.bottom, 5)
             }
         }
     }
