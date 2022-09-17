@@ -9,6 +9,7 @@ import Foundation
 import FirebaseFirestoreSwift
 
 struct User: Codable, Identifiable {
+    // attributes for User struct
     @DocumentID var id: String?
     var fname: String
     var lname: String
@@ -46,17 +47,17 @@ struct User: Codable, Identifiable {
         let data = (try? JSONEncoder().encode(self)) ?? Data()
         return (try? JSONSerialization.jsonObject(with: data, options: .mutableContainers) as? [String: Any]) ?? [:]
     }
-    
+    // object for UI previews
     static let unset = User(fname: "Minh", lname: "Pham", gender: "male", bod: 0, email: "pcminh0505@gmail.com", phone: "0123456789")
 }
-
+// user gender values
 enum Gender: String, CaseIterable, Identifiable {
     case male
     case female
     case other
     var id: String { self.rawValue }
 }
-
+// user level values
 enum Level: String, CaseIterable, Identifiable {
     case beginner
     case casual
@@ -64,7 +65,7 @@ enum Level: String, CaseIterable, Identifiable {
     case none
     var id: String { self.rawValue }
 }
-
+// user sport type values
 enum SportType: String, CaseIterable, Identifiable {
     case strength
     case health

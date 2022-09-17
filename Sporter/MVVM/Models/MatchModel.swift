@@ -9,6 +9,7 @@ import Foundation
 import FirebaseFirestoreSwift
 
 struct Match: Codable, Identifiable {
+    // Attributes for Match struct
     @DocumentID var id: String?
     var sender: String
     var receiver: String

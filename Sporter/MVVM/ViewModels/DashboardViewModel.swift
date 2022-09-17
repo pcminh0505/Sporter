@@ -16,10 +16,11 @@ class DashboardViewModel: ObservableObject {
     @Published var cancellables: Set<AnyCancellable> = []
 
     init() {
+        // Get events that current user attends, save to events
         self.eventRepository.$eventsByUser
             .assign(to: \.events, on: self)
             .store(in: &cancellables)
-
+        // Map events to dictionary array, showing if current user is the creator of each event
         self.eventRepository.$eventsByUser
             .map { events in
             let id = UserDefaults.standard.value(forKey: "currentUser") as? String ?? ""
@@ -37,10 +38,11 @@ class DashboardViewModel: ObservableObject {
         }
             .assign(to: \.isEventCreator, on: self)
             .store(in: &cancellables)
-
+        // Call function from event repo
         self.eventRepository.getEventsByCurrentUser()
     }
-
+    
+    // Delete an event
     func deleteEvent(_ eventID: String) {
         // update on cloud
         if let eventData = events.first(where: { $0.event.id == eventID }) {
@@ -48,7 +50,8 @@ class DashboardViewModel: ObservableObject {
         }
     }
 
-    func withdrawEvent(_ eventID: String) {
+    // Leave an event
+    func leaveEvent(_ eventID: String) {
         // update on cloud
         let id = UserDefaults.standard.value(forKey: "currentUser") as? String ?? ""
 
@@ -60,7 +63,8 @@ class DashboardViewModel: ObservableObject {
             }
         }
     }
-
+    
+    // Convert timeinterval to NSDate
     func timeConversion(_ unixTime: Double) -> String {
         let date = NSDate(timeIntervalSince1970: TimeInterval(unixTime))
         let utcDateFormatter = DateFormatter()

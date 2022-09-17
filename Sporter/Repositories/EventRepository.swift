@@ -26,8 +26,7 @@ class EventRespository: ObservableObject {
     @Published var eventsByUser: [EventData] = []
     @Published var eventsByVenue: [EventData] = []
 
-    var queriedData = [EventData]()
-
+    // Query Firestore for events that current user attends
     func getEventsByCurrentUser() {
         let id = UserDefaults.standard.value(forKey: "currentUser") as? String ?? ""
 
@@ -35,17 +34,18 @@ class EventRespository: ObservableObject {
         if !id.isBlank {
             db.collection(eventCollection).whereField("participants", arrayContains: id)
                 .addSnapshotListener { querySnapshot, error in
-                // 4
+                // Error
                 if let error = error {
                     print("Error getting events: \(error.localizedDescription)")
                     return
                 }
-
+                // Get events, map to eventsByUser, with each event's venue and creator
                 if let events = querySnapshot?.documents.compactMap({ document in
                     try? document.data(as: Event.self)
                 }) {
                     for e in events {
                         Task {
+                            // Get event's creator and venue
                             let user = try await self.getEventCreator(e.creator)
                             let venue = try await self.getEventVenue(e.venue)
 
@@ -60,27 +60,31 @@ class EventRespository: ObservableObject {
             }
         }
     }
-
+    // Query Firestore for events that a venue host
     func getEventsByVenue(_ id: Int) {
         db.collection(eventCollection).whereField("venue", isEqualTo: id)
             .addSnapshotListener { querySnapshot, error in
-            // 4
+            // Error
             if let error = error {
                 print("Error getting events: \(error.localizedDescription)")
                 return
             }
-
+            // Get events, map to eventsByVenue, with each event's venue and creator
             if let events = querySnapshot?.documents.compactMap({ document in
                 try? document.data(as: Event.self)
             }) {
                 for e in events {
                     Task {
+                        // Get event's creator and venue
                         let user = try await self.getEventCreator(e.creator)
-                        // check private mode
+                        let venue = try await self.getEventVenue(e.venue)
+                        
+                        // If private event, check current user friendship with event creator
                         if e.isPrivate {
-                            // not friend with creator -> skip
                             let id = UserDefaults.standard.value(forKey: "currentUser") as? String ?? ""
-
+                            // If is event creator -> add event to list
+                            // If friend with creator -> add
+                            // If not friend -> skip event
                             if id != e.creator {
                                 if !id.isBlank {
                                     if !user.friends.contains(id) {
@@ -89,8 +93,6 @@ class EventRespository: ObservableObject {
                                 }
                             }
                         }
-
-                        let venue = try await self.getEventVenue(e.venue)
 
                         let result = EventData.init(event: e, creator: user, venue: venue)
                         // Check if new event then append
@@ -102,7 +104,7 @@ class EventRespository: ObservableObject {
             }
         }
     }
-
+    // Create new event on Firestore
     func createEvent(_ event: Event) {
         do {
             let _ = try db.collection(eventCollection).addDocument(from: event)
@@ -110,7 +112,7 @@ class EventRespository: ObservableObject {
             print("Error adding event to Firestore: \(error.localizedDescription).")
         }
     }
-
+    // Update existing event on Firetore
     func updateEvent(_ event: Event, isWithdraw: Bool) {
         guard let eventID = event.id else { return }
         do {
@@ -123,7 +125,7 @@ class EventRespository: ObservableObject {
             eventsByUser.removeAll(where: { $0.event.id == eventID })
         }
     }
-
+    // Delete existing event on Firestore
     func deleteEvent(_ event: Event) {
         guard let eventID = event.id else { return }
         db.collection(eventCollection).document(eventID).delete() { err in
@@ -136,10 +138,11 @@ class EventRespository: ObservableObject {
         }
         eventsByUser.removeAll(where: { $0.event.id == eventID })
     }
-
+    // Get event creator
     func getEventCreator(_ id: String) async throws -> User {
         return try await db.collection(userCollection).document(id).getDocument(as: User.self)
     }
+    // Get event venue
     func getEventVenue(_ id: Int) async throws -> Venue {
         return try await db.collection(venueCollection).document(String(id)).getDocument(as: Venue.self)
     }

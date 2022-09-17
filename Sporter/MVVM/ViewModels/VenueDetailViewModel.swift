@@ -21,16 +21,16 @@ class VenueDetailViewModel : ObservableObject {
     
     init(venue: Venue) {
         self.venue = venue
-        
+        // Get venue
         $venue
           .compactMap { $0.id }
           .assign(to: \.id, on: self)
           .store(in: &cancellables)
-
+        // Get events in selected venue, save to events
         self.eventRepository.$eventsByVenue
             .assign(to: \.events, on: self)
             .store(in: &cancellables)
-        
+        // Map events to dictionary array, showing if current user has joined each event
         self.eventRepository.$eventsByVenue
             .map{ events in
                 let id = UserDefaults.standard.value(forKey: "currentUser") as? String ?? ""
@@ -48,16 +48,20 @@ class VenueDetailViewModel : ObservableObject {
             }
             .assign(to: \.didJoinEvent, on: self)
             .store(in: &cancellables)
-
+        // Call function from event repo
         self.eventRepository.getEventsByVenue(id)
     }
     
+    // Join event
     func joinEvent(_ eventID: String) {
         let id = UserDefaults.standard.value(forKey: "currentUser") as? String ?? ""
         
         // Prevent crash
         if !id.isBlank {
             if var eventData = events.first(where: {$0.event.id == eventID}) {
+                // Append user id to event participants
+                // Update event on Firebase
+                // Edit Bool value for event in didJoinEvent
                 eventData.event.participants.append(id)
                 eventRepository.updateEvent(eventData.event, isWithdraw: false)
                 self.didJoinEvent[eventID] = true
@@ -65,6 +69,7 @@ class VenueDetailViewModel : ObservableObject {
         }
     }
     
+    // Convert timeinterval to NSDate
     func timeConversion(_ unixTime: Double) -> String {
         let date = NSDate(timeIntervalSince1970: TimeInterval(unixTime))
         let utcDateFormatter = DateFormatter()

@@ -12,7 +12,7 @@ struct DashboardView: View {
     @EnvironmentObject var navigationHelper: NavigationHelper
     @StateObject var dashboardViewModel = DashboardViewModel()
     @State private var deleteAlert: Bool = false
-    @State private var withdrawAlert: Bool = false
+    @State private var leaveAlert: Bool = false
     @State private var selectedEvent: EventData?
     @State private var isPopupShow: Bool = false
     @State private var blurAmount = 0
@@ -112,110 +112,9 @@ struct DashboardView: View {
                     if dashboardViewModel.events.isEmpty {
                         Text("You are not joining any events.")
                             .padding()
-                    }
-
-                    // Personal events list
-                    ScrollView {
-                        VStack {
-                            ForEach(dashboardViewModel.events, id: \.id) { data in
-                                // Individual event card (tap to show pop-up)
-                                VStack {
-                                    // Venue name and join status
-                                    HStack {
-                                        if data.event.isPrivate == true {
-                                            Image(systemName: "lock.fill")
-                                                .foregroundColor(.accentColor)
-                                        }
-                                        Text(data.event.title)
-                                            .font(.headline)
-                                            .fontWeight(.bold)
-                                            .foregroundColor(.accentColor)
-                                            .lineLimit(1)
-
-                                        Spacer()
-
-                                        // Delete / Leave button
-                                        if let eventID = data.event.id {
-                                            // If user is the event creator, can delete event
-                                            if (dashboardViewModel.isEventCreator[eventID] ?? false) {
-                                                Button {
-                                                    selectedEvent = data
-                                                    deleteAlert = true
-                                                } label: {
-                                                    HStack {
-                                                        Image(systemName: "trash.fill")
-                                                        Text("Delete")
-                                                            .font(.headline)
-                                                            .fontWeight(.bold)
-                                                    }
-                                                        .padding(.horizontal, 10)
-                                                        .padding(.vertical, 5)
-                                                        .background(Color.accentColor)
-                                                        .foregroundColor(.white)
-                                                        .cornerRadius(5)
-                                                }
-                                                    .alert(isPresented: $deleteAlert) { DeleteAlertPopup }
-                                            } else {
-                                                Button {
-                                                    selectedEvent = data
-                                                    withdrawAlert = true
-                                                } label: {
-                                                    HStack {
-                                                        Image(systemName: "door.left.hand.open")
-                                                        Text("Leave")
-                                                            .font(.headline)
-                                                            .fontWeight(.bold)
-                                                    }
-                                                        .padding(.horizontal, 10)
-                                                        .padding(.vertical, 5)
-                                                        .background(Color.accentColor)
-                                                        .foregroundColor(.white)
-                                                        .cornerRadius(5)
-                                                }
-                                                    .alert(isPresented: $withdrawAlert) { WithdrawAlertPopup }
-                                            }
-                                        }
-                                    }
-                                        .padding(.horizontal)
-                                        .padding(.top)
-
-                                    // Event information
-                                    VStack (alignment: .leading, spacing: 5) {
-                                        Text(data.event.description)
-                                            .lineLimit(1)
-
-                                        HStack {
-                                            Text("Creator:").fontWeight(.bold)
-                                            Text("\(data.creator.fname) \(data.creator.lname)")
-                                            Spacer()
-                                        }
-
-                                        HStack {
-                                            Image(systemName: "clock.fill")
-                                            Text(dashboardViewModel.timeConversion(data.event.startTime))
-                                            Text("-")
-                                            Text(dashboardViewModel.timeConversion(data.event.endTime))
-                                        }
-                                    }
-                                        .font(.system(size: 15))
-                                        .padding(.bottom, 15)
-                                        .padding(.horizontal, 15)
-                                }
-                                    .frame(maxWidth: .infinity)
-                                    .background(RoundedRectangle(cornerRadius: 10)
-                                        .stroke(Color.accentColor, lineWidth: 2))
-                                    .padding(.bottom, 5)
-                                    .onTapGesture {
-                                    withAnimation {
-                                        selectedEvent = data
-                                        blurAmount = 5
-                                        isPopupShow = true
-                                    }
-                                }
-                            }
-                            Spacer()
-                        }
-                            .padding()
+                    } else {
+                        // Personal events list
+                        UserEventList
                     }
                 }
             }
@@ -225,70 +124,7 @@ struct DashboardView: View {
 
             // Pop-up UI
             if isPopupShow {
-                VStack (alignment: .leading) {
-                    HStack {
-                        Spacer()
-                        Text("Event Detail")
-                            .font(.title2)
-                            .fontWeight(.bold)
-                            .foregroundColor(Color.accentColor)
-                        Spacer()
-                    }
-                        .padding()
-
-                    if let event = selectedEvent?.event, let venue = selectedEvent?.venue, let user = selectedEvent?.creator {
-                        VStack (alignment: .leading, spacing: 10) {
-                            Text("**Title:** \(event.title)")
-                            Text("**Description:** \(event.description)")
-                            Text("**From:** \(dashboardViewModel.timeConversion(event.startTime))")
-                            Text("**To:** \(dashboardViewModel.timeConversion(event.endTime))")
-                            Text("**Venue:** \(venue.name)")
-                            Text("**Address:** \(venue.address)")
-                            Text("**Creator:** \(user.fname) \(user.lname)")
-
-                            HStack {
-                                Spacer()
-                                if event.isPrivate {
-                                    Text("Private Event - available to friends and family")
-                                        .font(.subheadline)
-                                        .italic()
-                                        .multilineTextAlignment(.center)
-                                        .foregroundColor(Color.theme.darkGray)
-                                } else {
-                                    Text("Public Event - available to everyone")
-                                        .font(.subheadline)
-                                        .italic()
-                                        .multilineTextAlignment(.center)
-                                        .foregroundColor(Color.theme.darkGray)
-                                }
-                                Spacer()
-                            }
-                                .padding(.top)
-                        }
-                            .padding()
-                    }
-                    Spacer()
-                    
-                    // Close button
-                    HStack {
-                        Spacer()
-                        Button {
-                            self.isPopupShow = false
-                            self.blurAmount = 0
-                        } label: {
-                            Text("Close")
-                        }
-                            .padding()
-                            .buttonStyle(.borderedProminent)
-                        Spacer()
-                    }
-                }
-                .frame(width: UIScreen.main.bounds.width * 0.8,
-                       height: UIScreen.main.bounds.height * 0.6)
-                .background(
-                    RoundedRectangle(cornerRadius: 10)
-                    .fill(Color.theme.popupColor)
-                    .shadow(radius: 10))
+                EventDetailPopup
             }
         }
     }
@@ -302,7 +138,8 @@ struct DashboardView_Previews: PreviewProvider {
 }
 
 extension DashboardView {
-    private var DeleteAlertPopup: Alert {
+    // Alert popup when user wants to delete an event
+    private var DeleteEventAlertPopup: Alert {
         Alert (
             title: Text("Do you want to delete this event?"),
             message: Text("This action can't undone"),
@@ -316,19 +153,193 @@ extension DashboardView {
             secondaryButton: .cancel()
         )
     }
-
-    private var WithdrawAlertPopup: Alert {
+    // Alert popup when user wants to withdraw from an event
+    private var LeaveEventAlertPopup: Alert {
         Alert (
-            title: Text("Do you want to withdraw from this event?"),
+            title: Text("Do you want to leave this event?"),
             message: Text("You can rejoin the event in map"),
-            primaryButton: .destructive(Text("Withdraw")) {
+            primaryButton: .destructive(Text("Leave")) {
                 withAnimation {
                     if let event = selectedEvent?.event {
-                        dashboardViewModel.withdrawEvent(event.id ?? "0")
+                        dashboardViewModel.leaveEvent(event.id ?? "0")
                     }
                 }
             },
             secondaryButton: .cancel()
         )
+    }
+    // Show list of events that current user participates in
+    private var UserEventList : some View {
+        ScrollView {
+            VStack {
+                ForEach(dashboardViewModel.events, id: \.id) { data in
+                    // Individual event card (tap to show pop-up)
+                    VStack {
+                        // Venue name and join status
+                        HStack (alignment: .top) {
+                            if data.event.isPrivate == true {
+                                Image(systemName: "lock.fill")
+                                    .foregroundColor(.accentColor)
+                            }
+                            Text(data.event.title)
+                                .font(.headline)
+                                .fontWeight(.bold)
+                                .foregroundColor(.accentColor)
+                                .lineLimit(2)
+
+                            Spacer()
+
+                            // Delete / Leave button
+                            if let eventID = data.event.id {
+                                // If user is the event creator, can delete the event
+                                if (dashboardViewModel.isEventCreator[eventID] ?? false) {
+                                    Button {
+                                        selectedEvent = data
+                                        deleteAlert = true
+                                    } label: {
+                                        HStack {
+                                            Image(systemName: "trash.fill")
+                                            Text("Delete")
+                                                .font(.headline)
+                                                .fontWeight(.bold)
+                                        }
+                                            .padding(.horizontal, 10)
+                                            .padding(.vertical, 5)
+                                            .background(Color.accentColor)
+                                            .foregroundColor(.white)
+                                            .cornerRadius(5)
+                                    }
+                                        .alert(isPresented: $deleteAlert) { DeleteEventAlertPopup }
+                                // If user is not the event creator, can leave the event
+                                } else {
+                                    Button {
+                                        selectedEvent = data
+                                        leaveAlert = true
+                                    } label: {
+                                        HStack {
+                                            Image(systemName: "xmark.square.fill")
+                                            Text("Leave")
+                                                .font(.headline)
+                                                .fontWeight(.bold)
+                                        }
+                                            .padding(.horizontal, 10)
+                                            .padding(.vertical, 5)
+                                            .background(Color.accentColor)
+                                            .foregroundColor(.white)
+                                            .cornerRadius(5)
+                                    }
+                                        .alert(isPresented: $leaveAlert) { LeaveEventAlertPopup }
+                                }
+                            }
+                        }
+                            .padding(.horizontal)
+                            .padding(.top)
+
+                        // Event information
+                        VStack (alignment: .leading, spacing: 5) {
+                            Text(data.event.description)
+                                .lineLimit(1)
+
+                            HStack {
+                                Text("Creator:").fontWeight(.bold)
+                                Text("\(data.creator.fname) \(data.creator.lname)")
+                                Spacer()
+                            }
+
+                            HStack {
+                                Image(systemName: "clock.fill")
+                                Text(dashboardViewModel.timeConversion(data.event.startTime))
+                                Text("-")
+                                Text(dashboardViewModel.timeConversion(data.event.endTime))
+                            }
+                        }
+                            .font(.system(size: 15))
+                            .padding(.bottom, 15)
+                            .padding(.horizontal, 15)
+                    }
+                        .frame(maxWidth: .infinity)
+                        .background(RoundedRectangle(cornerRadius: 10)
+                            .stroke(Color.accentColor, lineWidth: 2))
+                        .padding(.bottom, 5)
+                        .onTapGesture {
+                        withAnimation {
+                            selectedEvent = data
+                            blurAmount = 5
+                            isPopupShow = true
+                        }
+                    }
+                }
+                Spacer()
+            }
+                .padding()
+        }
+    }
+    // Popup detail view when user taps on an event from the list
+    private var EventDetailPopup : some View {
+        VStack (alignment: .leading) {
+            HStack {
+                Spacer()
+                Text("Event Detail")
+                    .font(.title2)
+                    .fontWeight(.bold)
+                    .foregroundColor(Color.accentColor)
+                Spacer()
+            }
+                .padding()
+            // Event detail infomation
+            if let event = selectedEvent?.event, let venue = selectedEvent?.venue, let user = selectedEvent?.creator {
+                VStack (alignment: .leading, spacing: 10) {
+                    Text("**Title:** \(event.title)")
+                    Text("**Description:** \(event.description)")
+                    Text("**From:** \(dashboardViewModel.timeConversion(event.startTime))")
+                    Text("**To:** \(dashboardViewModel.timeConversion(event.endTime))")
+                    Text("**Venue:** \(venue.name)")
+                    Text("**Address:** \(venue.address)")
+                    Text("**Creator:** \(user.fname) \(user.lname)")
+                    Text("**No. participants:** \(event.participants.count)")
+
+                    HStack {
+                        Spacer()
+                        if event.isPrivate {
+                            Text("Private Event - available to friends and family")
+                                .font(.subheadline)
+                                .italic()
+                                .multilineTextAlignment(.center)
+                                .foregroundColor(Color.theme.darkGray)
+                        } else {
+                            Text("Public Event - available to everyone")
+                                .font(.subheadline)
+                                .italic()
+                                .multilineTextAlignment(.center)
+                                .foregroundColor(Color.theme.darkGray)
+                        }
+                        Spacer()
+                    }
+                        .padding(.top)
+                }
+                    .padding()
+            }
+            Spacer()
+            
+            // Close button
+            HStack {
+                Spacer()
+                Button {
+                    self.isPopupShow = false
+                    self.blurAmount = 0
+                } label: {
+                    Text("Close")
+                }
+                    .padding()
+                    .buttonStyle(.borderedProminent)
+                Spacer()
+            }
+        }
+        .frame(width: UIScreen.main.bounds.width * 0.8,
+               height: UIScreen.main.bounds.height * 0.6)
+        .background(
+            RoundedRectangle(cornerRadius: 10)
+            .fill(Color.theme.popupColor)
+            .shadow(radius: 10))
     }
 }

@@ -9,6 +9,7 @@ import Foundation
 import CoreLocation
 
 struct Venue: Codable, Identifiable, Equatable {
+    // Attributes for Venue struct
     let id: Int
     let name: String
     let address: String
@@ -34,7 +35,7 @@ struct Venue: Codable, Identifiable, Equatable {
         case open_time
         case close_time
     }
-    
+    // For comparing venue
     static func == (lhs: Venue, rhs: Venue) -> Bool {
         return lhs.id == rhs.id
     }
@@ -47,6 +48,7 @@ struct Venue: Codable, Identifiable, Equatable {
 }
 
 extension Venue {
+    // object for UI previews
     static let sampleData: [Venue] = [
         Venue(
             id: 1,

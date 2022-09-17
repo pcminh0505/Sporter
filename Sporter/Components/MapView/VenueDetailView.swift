@@ -280,8 +280,12 @@ extension VenueDetailView {
                         Text(data.event.description)
 
                         HStack {
-                            Text("Creator:").fontWeight(.bold)
-                            Text("\(data.creator.fname) \(data.creator.lname)")
+                            Text("**Creator:** \(data.creator.fname) \(data.creator.lname)")
+                            Spacer()
+                        }
+                        
+                        HStack {
+                            Text("**No. participants:** \(data.event.participants.count)")
                             Spacer()
                         }
 

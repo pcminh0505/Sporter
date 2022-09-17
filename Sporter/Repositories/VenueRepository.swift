@@ -18,25 +18,20 @@ class VenueRepository {
     init() {
         getAllVenues()
     }
-    
+    // Query Firestore for all venues
     func getAllVenues() {
         db.collection(collection)
           .addSnapshotListener { querySnapshot, error in
-            // 4
+            // Error
             if let error = error {
               print("Error getting venues: \(error.localizedDescription)")
               return
             }
 
-            // 5
+            // Get venues, map to venues array
             self.venues = querySnapshot?.documents.compactMap { document in
-              // 6
               try? document.data(as: Venue.self)
             } ?? []
           }
-    }
-    
-    func getVenue() {
-        print("GetVenue")
     }
 }

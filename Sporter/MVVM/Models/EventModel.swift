@@ -8,6 +8,7 @@ import Foundation
 import FirebaseFirestoreSwift
 
 struct Event: Codable, Identifiable {
+    // Attributes for Event struct
     @DocumentID var id: String?
     var title: String
     var description: String
