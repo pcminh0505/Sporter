@@ -144,7 +144,7 @@ extension VenueDetailView {
 
             Text(venue.address)
                 .font(.system(size: 15))
-                .frame(minHeight: 40)
+                .frame(height: 60, alignment: .topLeading)
         }
     }
 
@@ -216,7 +216,6 @@ extension VenueDetailView {
                 Image(systemName: "xmark")
             }
         }
-            .padding(.bottom)
     }
 
     private var eventListView: some View {
