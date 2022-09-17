@@ -285,16 +285,21 @@ extension VenueDetailView {
                         }
                         
                         HStack {
-                            Text("**No. participants:** \(data.event.participants.count)")
+                            VStack(alignment: .center) {
+                                Image(systemName: "clock.fill")
+                                Image(systemName: "person.2.fill")
+                            }
+                            VStack(alignment: .leading) {
+                                HStack {
+                                    Text(venueDetailViewModel.timeConversion(data.event.startTime))
+                                    Text("-")
+                                    Text(venueDetailViewModel.timeConversion(data.event.endTime))
+                                }
+                                Text("**No. of participants:** \(data.event.participants.count)")
+                            }
                             Spacer()
                         }
-
-                        HStack {
-                            Image(systemName: "clock.fill")
-                            Text(venueDetailViewModel.timeConversion(data.event.startTime))
-                            Text("-")
-                            Text(venueDetailViewModel.timeConversion(data.event.endTime))
-                        }
+                            .padding(.top, 5)
                     }
                         .font(.system(size: 15))
                         .padding(.bottom, 15)
