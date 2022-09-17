@@ -189,11 +189,12 @@ extension DashboardView {
                     // Individual event card (tap to show pop-up)
                     VStack {
                         // Venue name and join status
-                        HStack (alignment: .top) {
+                        HStack (alignment: .center) {
                             if data.event.isPrivate == true {
                                 Image(systemName: "lock.fill")
                                     .foregroundColor(.accentColor)
                             }
+                            
                             Text(data.event.title)
                                 .font(.headline)
                                 .fontWeight(.bold)

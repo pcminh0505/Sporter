@@ -228,15 +228,17 @@ extension VenueDetailView {
             ForEach(venueDetailViewModel.events, id: \.id) { data in
                 VStack {
                     // Venue name and join status
-                    HStack {
+                    HStack (alignment: .center) {
                         if data.event.isPrivate == true {
                             Image(systemName: "lock.fill")
                                 .foregroundColor(.accentColor)
                         }
+                        
                         Text(data.event.title)
                             .font(.headline)
                             .fontWeight(.bold)
                             .foregroundColor(.accentColor)
+                            .lineLimit(2)
 
                         Spacer()
 
@@ -278,6 +280,7 @@ extension VenueDetailView {
                     // Event information
                     VStack (alignment: .leading, spacing: 5) {
                         Text(data.event.description)
+                            .lineLimit(2)
 
                         HStack {
                             Text("**Creator:** \(data.creator.fname) \(data.creator.lname)")
