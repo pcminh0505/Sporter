@@ -97,7 +97,7 @@ struct DiscoveryView: View {
                     .shadow(radius: 5)
                     .padding(18)
             }
-                .padding(.bottom)
+            .padding(.top, 10)
                 .disabled(discoveryVM.displayingUsers.isEmpty)
                 .opacity((discoveryVM.displayingUsers.isEmpty) ? 0.6 : 1)
         }
