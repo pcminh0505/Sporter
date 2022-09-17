@@ -71,10 +71,10 @@ struct VenueDetailView: View {
                             }
                                 .padding(.vertical)
                                 .foregroundColor(.white)
+                                .frame(maxWidth: .infinity)
+                                .background(Color.accentColor)
+                                .cornerRadius(10)
                         }
-                            .frame(maxWidth: .infinity)
-                            .background(Color.accentColor)
-                            .cornerRadius(10)
 
                         Text("Events")
                             .font(.system(size: 20))
