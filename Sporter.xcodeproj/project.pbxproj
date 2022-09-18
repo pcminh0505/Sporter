@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0C288F5128D6D1B200FF75E1 /* waypoint.gpx in Resources */ = {isa = PBXBuildFile; fileRef = 0C288F5028D6D1B200FF75E1 /* waypoint.gpx */; };
 		0C5154DF28C9E9EE00478A89 /* FirebaseAnalytics in Frameworks */ = {isa = PBXBuildFile; productRef = 0C5154DE28C9E9EE00478A89 /* FirebaseAnalytics */; };
 		0C5154E128C9E9EE00478A89 /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = 0C5154E028C9E9EE00478A89 /* FirebaseAuth */; };
 		0C5154E328C9E9EE00478A89 /* FirebaseDatabase in Frameworks */ = {isa = PBXBuildFile; productRef = 0C5154E228C9E9EE00478A89 /* FirebaseDatabase */; };
@@ -77,6 +78,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		0C288F5028D6D1B200FF75E1 /* waypoint.gpx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = waypoint.gpx; sourceTree = "<group>"; };
 		0C8FF7F928C4E10D0094465D /* VenueModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VenueModel.swift; sourceTree = "<group>"; };
 		0C954E0728D073B200A90675 /* VenueDetailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VenueDetailViewModel.swift; sourceTree = "<group>"; };
 		0CAF6B4528C84A59003EFF26 /* CustomMapAnnotationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomMapAnnotationView.swift; sourceTree = "<group>"; };
@@ -212,6 +214,7 @@
 		241A6EAF28BDCD1300C830BE /* Sporter */ = {
 			isa = PBXGroup;
 			children = (
+				0C288F5028D6D1B200FF75E1 /* waypoint.gpx */,
 				24282C1928BE032C00CDFE61 /* GoogleService-Info.plist */,
 				241A6EB028BDCD1300C830BE /* SporterApp.swift */,
 				241A6EB428BDCD1600C830BE /* Assets.xcassets */,
@@ -482,6 +485,7 @@
 			files = (
 				241A6EB828BDCD1600C830BE /* Preview Assets.xcassets in Resources */,
 				241A6EB528BDCD1600C830BE /* Assets.xcassets in Resources */,
+				0C288F5128D6D1B200FF75E1 /* waypoint.gpx in Resources */,
 				24282C1A28BE032C00CDFE61 /* GoogleService-Info.plist in Resources */,
 				241CEB2A28C751300017CD72 /* sporter.json in Resources */,
 			);
