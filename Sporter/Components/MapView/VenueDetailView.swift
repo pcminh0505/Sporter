@@ -1,9 +1,13 @@
-//
-//  MapVenuePreviewView.swift
-//  Sporter
-//
-//  Created by Khang on 07/09/2022.
-//
+/*
+    RMIT University Vietnam
+    Course: COSC2659 iOS Development
+    Semester: 2022B
+    Assessment: Assignment 3
+    Author: Khang Nguyen
+    ID: s3817970
+    Created date: 07/09/2022
+    Last modified: 18/09/2022
+*/
 
 import Foundation
 import SwiftUI

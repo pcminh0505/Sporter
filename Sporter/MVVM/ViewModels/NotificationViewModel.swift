@@ -1,9 +1,13 @@
-//
-//  NotificationViewModel.swift
-//  TinderUI
-//
-//  Created by Long Tran on 04/09/2022.
-//
+/*
+    RMIT University Vietnam
+    Course: COSC2659 iOS Development
+    Semester: 2022B
+    Assessment: Assignment 3
+    Author: Long Tran
+    ID: s3755615
+    Created date: 04/09/2022
+    Last modified: 18/09/2022
+*/
 
 import Foundation
 import Combine
