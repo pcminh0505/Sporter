@@ -27,11 +27,11 @@ final class MapViewModel: NSObject, ObservableObject, CLLocationManagerDelegate 
     @Published var filteredVenue: [Venue]? = []
     @Published var searchText: String = ""
     var searchTextCancellables: AnyCancellable?
-    let locationManager = CLLocationManager()
+    var locationManager : CLLocationManager?
     
     override init() {
         super.init()
-        locationManager.delegate = self
+//        locationManager.delegate = self
         // Get list of venues
         venueRepository.$venues
             .assign(to: \.venues, on: self)
@@ -56,22 +56,57 @@ final class MapViewModel: NSObject, ObservableObject, CLLocationManagerDelegate 
                 }
         })
     }
-    // Location Manager follow device location
-    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
-        guard let lastestLocation = locations.first else { return }
-        DispatchQueue.main.async {
-            self.mapRegion = MKCoordinateRegion(center: lastestLocation.coordinate,
-                                                span: MKCoordinateSpan(latitudeDelta: 0.012, longitudeDelta: 0.012))
+    func checkLocationServiceEnabled() {
+        if CLLocationManager.locationServicesEnabled() {
+            locationManager = CLLocationManager()
+            locationManager!.desiredAccuracy = kCLLocationAccuracyBest
+            locationManager!.delegate = self
+        } else {
+            print("Location service disabled")
         }
     }
-    // If location service fails
-    func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
-        print(error.localizedDescription )
+    
+    private func checkLocationAuthorization() {
+        guard let locationManager = locationManager else { return }
+
+        switch locationManager.authorizationStatus {
+            case .notDetermined:
+                locationManager.requestWhenInUseAuthorization()
+            case .restricted:
+                print("Location restricted, due to parental control")
+            case .denied:
+                print("Location denied, set in setting")
+            case .authorizedAlways, .authorizedWhenInUse:
+                if let location = locationManager.location {
+                    mapRegion = MKCoordinateRegion(center: location.coordinate,
+                                                   span: MKCoordinateSpan(latitudeDelta: 0.012, longitudeDelta: 0.012))
+                }
+                
+            @unknown default:
+                break
+        }
     }
-    // Request for location permission when user first opens map view
-    func requestAllowOnceLocationPermission() {
-        locationManager.requestLocation()
+    
+    func locationManagerDidChangeAuthorization(_ manager: CLLocationManager) {
+         checkLocationAuthorization()
     }
+    
+//    // Location Manager follow device location
+//    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+//        guard let lastestLocation = locations.first else { return }
+//        DispatchQueue.main.async {
+//            self.mapRegion = MKCoordinateRegion(center: lastestLocation.coordinate,
+//                                                span: MKCoordinateSpan(latitudeDelta: 0.012, longitudeDelta: 0.012))
+//        }
+//    }
+//    // If location service fails
+//    func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
+//        print(error.localizedDescription )
+//    }
+//    // Request for location permission when user first opens map view
+//    func requestAllowOnceLocationPermission() {
+//        locationManager.requestLocation()
+//    }
     
     // show venue preview
     func showVenuePreview(venue: Venue) {

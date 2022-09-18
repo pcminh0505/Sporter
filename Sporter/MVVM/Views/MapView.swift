@@ -33,9 +33,9 @@ struct MapView: View {
                         }
                 })
                     .accentColor(Color(.systemPink))
-//                    .onAppear {
-//                        mapViewModel.checkLocationServiceEnabled()
-//                    }
+                    .onAppear {
+                        mapViewModel.checkLocationServiceEnabled()
+                    }
             }
             
             VStack (spacing: 0) {
@@ -65,13 +65,13 @@ struct MapView: View {
                         }
                     }
                     
-                    LocationButton(.currentLocation) {
-                        mapViewModel.requestAllowOnceLocationPermission()
-                    }
-                        .foregroundColor(.white)
-                        .cornerRadius(8)
-                        .labelStyle(.iconOnly)
-                        .symbolVariant(.fill)
+//                    LocationButton(.currentLocation) {
+//                        mapViewModel.requestAllowOnceLocationPermission()
+//                    }
+//                        .foregroundColor(.white)
+//                        .cornerRadius(8)
+//                        .labelStyle(.iconOnly)
+//                        .symbolVariant(.fill)
                 }
                 .padding(.trailing, 20)
                 .padding(.top, 40)
