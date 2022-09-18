@@ -9,6 +9,7 @@ import SwiftUI
 
 struct FriendListView: View {
     @EnvironmentObject var friendListVM: FriendListViewModel
+    @Binding var tabSelection: TabBarItem
 
     var body: some View {
         VStack {
@@ -41,20 +42,37 @@ struct FriendListView: View {
             }
                 .padding(.horizontal)
 
-            List {
-                ForEach(friendListVM.friendList) { user in
-                    FriendListRow(user: user)
-                        .listRowInsets(.init(top: 15, leading: 15, bottom: 15, trailing: 15))
+            if friendListVM.friendList.isEmpty {
+                VStack {
+                    Text("Your friend list is empty.")
+                        .italic()
+
+                    Button {
+                        tabSelection = .discover
+                    } label: {
+                        Text("Find other gym lovers")
+                            .italic()
+                    }
+
                 }
+                    .font(.caption)
+                    .padding()
+            } else {
+                List {
+                    ForEach(friendListVM.friendList) { user in
+                        FriendListRow(user: user)
+                            .listRowInsets(.init(top: 15, leading: 15, bottom: 15, trailing: 15))
+                    }
+                }
+                    .listStyle(PlainListStyle())
             }
-                .listStyle(PlainListStyle())
         }
     }
 }
 
 struct FriendListView_Previews: PreviewProvider {
     static var previews: some View {
-        FriendListView()
+        FriendListView(tabSelection: .constant(.friend))
             .environmentObject(FriendListViewModel())
     }
 }

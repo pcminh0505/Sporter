@@ -42,9 +42,9 @@ struct NotificationView: View {
             ZStack {
                 if let matchRequest = notiVM.currentUserMatch
                 {
-                    // let _ = print(matchRequest)
                     if matchRequest.isEmpty {
-                        Text("Come back later, we can find more matches for you")
+                        Text("No friend request received yet")
+                            .italic()
                             .font(.caption)
                             .foregroundColor(.gray)
                     }

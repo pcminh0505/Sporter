@@ -25,7 +25,7 @@ struct HomeView: View {
                 .environmentObject(discoveryVM)
                 .tabBarItem(tab: .discover, selection: $tabSelection)
 
-            FriendListView()
+            FriendListView(tabSelection: $tabSelection)
                 .environmentObject(friendListVM)
                 .tabBarItem(tab: .friend, selection: $tabSelection)
 
