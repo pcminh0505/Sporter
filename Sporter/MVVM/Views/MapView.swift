@@ -38,6 +38,9 @@ struct MapView: View {
                         mapViewModel.checkLocationServiceEnabled()
                     }
             }
+            if mapViewModel.alert {
+                ErrorView (alert: $mapViewModel.alert, error: $mapViewModel.error)
+            }
         
             VStack (spacing: 0) {
                 HStack (spacing: 10) {
@@ -63,6 +66,7 @@ struct MapView: View {
                                 }
                             } label: {
                                 Text("Cancel")
+                                    .font(.headline)
                                     .foregroundColor(Color.theme.textColor)
                             }
                         }
@@ -114,9 +118,6 @@ struct MapView: View {
                     }
                     
                 }
-            }
-            if mapViewModel.alert {
-                ErrorView (alert: $mapViewModel.alert, error: $mapViewModel.error)
             }
         }
         .ignoresSafeArea()

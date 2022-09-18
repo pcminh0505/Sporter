@@ -16,7 +16,7 @@ struct VenueDetailView: View {
 
     let venue: Venue
     @Binding var isPreviewShow: Bool
-    @State var startingOffsetY: CGFloat = UIScreen.main.bounds.height * 0.735
+    @State var startingOffsetY: CGFloat = UIScreen.main.bounds.height * 0.72
     @State var currentDragOffsetY: CGFloat = 0
     @State var endingOffsetY: CGFloat = 0
     @State private var isRotated = false

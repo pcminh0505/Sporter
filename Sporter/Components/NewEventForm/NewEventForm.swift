@@ -32,14 +32,14 @@ struct NewEventForm: View {
     var body: some View {
         ZStack {
             ScrollView {
-                VStack(alignment: .center) {
+                VStack(alignment: .center, spacing: 5) {
                     // Heading
                     Text("Create New Event")
                         .foregroundColor(Color.accentColor)
                         .font(.title)
                         .bold()
                         .padding(.top, 10)
-                        .padding(.bottom, 0)
+//                        .padding(.bottom, 0)
 
                     // Event form
                     VStack {
@@ -70,7 +70,7 @@ struct NewEventForm: View {
                             .toggleStyle(SwitchToggleStyle(tint: .accentColor))
                             .padding(.top, 10)
                     }
-                        .padding(.bottom)
+                        .padding(.bottom, 10)
 
                     // Venue info (pre-populated)
                     VStack(spacing: 10) {
@@ -108,7 +108,7 @@ struct NewEventForm: View {
                         }
                             .frame(maxWidth: .infinity)
                     }
-                        .padding(.vertical)
+                        .padding(.vertical, 5)
 
                     // Save and cancel buttons
                     HStack (spacing: 20) {
