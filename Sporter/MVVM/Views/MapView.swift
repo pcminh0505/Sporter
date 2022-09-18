@@ -18,6 +18,7 @@ struct MapView: View {
     var body: some View {
         ZStack (alignment: .topLeading) {
             ZStack (alignment: .bottom) {
+                // Map with custom annotations for gym venues
                 Map(coordinateRegion: $mapViewModel.mapRegion,
                     showsUserLocation: true,
                     annotationItems: mapViewModel.venues,
@@ -37,14 +38,16 @@ struct MapView: View {
                         mapViewModel.checkLocationServiceEnabled()
                     }
             }
-            
+        
             VStack (spacing: 0) {
                 HStack (spacing: 10) {
+                    // Navigate back button
                     Button {
                         navigationHelper.selection = nil
                     } label: {
                         BackNavigateButton()
                     }
+                    // Search bar
                     HStack {
                         TextField("Find venue...", text: $mapViewModel.searchText)
                             .foregroundColor(Color.theme.textColor)
@@ -64,19 +67,11 @@ struct MapView: View {
                             }
                         }
                     }
-                    
-//                    LocationButton(.currentLocation) {
-//                        mapViewModel.requestAllowOnceLocationPermission()
-//                    }
-//                        .foregroundColor(.white)
-//                        .cornerRadius(8)
-//                        .labelStyle(.iconOnly)
-//                        .symbolVariant(.fill)
                 }
                 .padding(.trailing, 20)
                 .padding(.top, 40)
                 .padding(.leading, 20)
-                
+                // Search results list
                 if let filterVenue = mapViewModel.filteredVenue, !filterVenue.isEmpty {
                     List {
                         ForEach(filterVenue) {venue in
@@ -100,7 +95,7 @@ struct MapView: View {
                            maxHeight: UIScreen.main.bounds.height * 0.5)
                     .listStyle(.plain)
                 }
-                
+                // Show venue detail on tap
                 if mapViewModel.isPreviewShow {
                     if let selectedVenue = mapViewModel.selectedVenue {
                         
@@ -119,6 +114,9 @@ struct MapView: View {
                     }
                     
                 }
+            }
+            if mapViewModel.alert {
+                ErrorView (alert: $mapViewModel.alert, error: $mapViewModel.error)
             }
         }
         .ignoresSafeArea()
