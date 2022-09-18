@@ -1,9 +1,13 @@
-//
-//  SporterApp.swift
-//  Sporter
-//
-//  Created by Minh Pham on 30/08/2022.
-//
+/*
+    RMIT University Vietnam
+    Course: COSC2659 iOS Development
+    Semester: 2022B
+    Assessment: Assignment 3
+    Author: Minh Pham
+    ID: s3818102
+    Created date: 30/08/2022
+    Last modified: 18/09/2022
+*/
 
 import SwiftUI
 import FirebaseCore

@@ -1,3 +1,14 @@
+/*
+    RMIT University Vietnam
+    Course: COSC2659 iOS Development
+    Semester: 2022B
+    Assessment: Assignment 3
+    Author: Minh Pham
+    ID: s3818102
+    Created date: 12/09/2022
+    Last modified: 18/09/2022
+*/
+
 import SwiftUI
 import FirebaseStorage
 import Firebase

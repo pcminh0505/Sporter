@@ -1,9 +1,13 @@
-//
-//  NotificationView.swift
-//  Sporter
-//
-//  Created by Long Tran on 10/09/2022.
-//
+/*
+    RMIT University Vietnam
+    Course: COSC2659 iOS Development
+    Semester: 2022B
+    Assessment: Assignment 3
+    Author: Long Tran
+    ID: s3755615
+    Created date: 10/09/2022
+    Last modified: 18/09/2022
+*/
 
 import Foundation
 import SwiftUI
@@ -42,9 +46,9 @@ struct NotificationView: View {
             ZStack {
                 if let matchRequest = notiVM.currentUserMatch
                 {
-                    // let _ = print(matchRequest)
                     if matchRequest.isEmpty {
-                        Text("Come back later, we can find more matches for you")
+                        Text("No friend request received yet")
+                            .italic()
                             .font(.caption)
                             .foregroundColor(.gray)
                     }

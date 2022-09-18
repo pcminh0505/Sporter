@@ -1,9 +1,13 @@
-//
-//  NewEventForm.swift
-//  Sporter
-//
-//  Created by Trang Nguyen on 12/09/2022.
-//
+/*
+    RMIT University Vietnam
+    Course: COSC2659 iOS Development
+    Semester: 2022B
+    Assessment: Assignment 3
+    Author: Trang Nguyen
+    ID: s3751450
+    Created date: 12/09/2022
+    Last modified: 18/09/2022
+*/
 
 import SwiftUI
 import Firebase
